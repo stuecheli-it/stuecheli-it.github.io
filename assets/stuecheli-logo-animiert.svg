@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 100 100">
+<title>Stücheli IT Consulting – Voice-Orb, animiert</title>
+<style>@keyframes b0 { 0.0% { transform: scaleY(1.000); } 8.3% { transform: scaleY(1.160); } 16.7% { transform: scaleY(1.277); } 25.0% { transform: scaleY(1.320); } 33.3% { transform: scaleY(1.277); } 41.7% { transform: scaleY(1.160); } 50.0% { transform: scaleY(1.000); } 58.3% { transform: scaleY(0.840); } 66.7% { transform: scaleY(0.723); } 75.0% { transform: scaleY(0.680); } 83.3% { transform: scaleY(0.723); } 91.7% { transform: scaleY(0.840); } 100.0% { transform: scaleY(1.000); } } #b0 { transform-origin: 30px 50px; transform-box: view-box; animation: b0 2.0s linear infinite; } @keyframes b1 { 0.0% { transform: scaleY(1.308); } 8.3% { transform: scaleY(1.310); } 16.7% { transform: scaleY(1.228); } 25.0% { transform: scaleY(1.086); } 33.3% { transform: scaleY(0.920); } 41.7% { transform: scaleY(0.776); } 50.0% { transform: scaleY(0.692); } 58.3% { transform: scaleY(0.690); } 66.7% { transform: scaleY(0.772); } 75.0% { transform: scaleY(0.914); } 83.3% { transform: scaleY(1.080); } 91.7% { transform: scaleY(1.224); } 100.0% { transform: scaleY(1.308); } } #b1 { transform-origin: 40px 50px; transform-box: view-box; animation: b1 2.0s linear infinite; } @keyframes b2 { 0.0% { transform: scaleY(1.165); } 8.3% { transform: scaleY(1.006); } 16.7% { transform: scaleY(0.845); } 25.0% { transform: scaleY(0.726); } 33.3% { transform: scaleY(0.680); } 41.7% { transform: scaleY(0.720); } 50.0% { transform: scaleY(0.835); } 58.3% { transform: scaleY(0.994); } 66.7% { transform: scaleY(1.155); } 75.0% { transform: scaleY(1.274); } 83.3% { transform: scaleY(1.320); } 91.7% { transform: scaleY(1.280); } 100.0% { transform: scaleY(1.165); } } #b2 { transform-origin: 50px 50px; transform-box: view-box; animation: b2 2.0s linear infinite; } @keyframes b3 { 0.0% { transform: scaleY(0.780); } 8.3% { transform: scaleY(0.693); } 16.7% { transform: scaleY(0.689); } 25.0% { transform: scaleY(0.768); } 33.3% { transform: scaleY(0.909); } 41.7% { transform: scaleY(1.074); } 50.0% { transform: scaleY(1.220); } 58.3% { transform: scaleY(1.307); } 66.7% { transform: scaleY(1.311); } 75.0% { transform: scaleY(1.232); } 83.3% { transform: scaleY(1.091); } 91.7% { transform: scaleY(0.926); } 100.0% { transform: scaleY(0.780); } } #b3 { transform-origin: 60px 50px; transform-box: view-box; animation: b3 2.0s linear infinite; } @keyframes b4 { 0.0% { transform: scaleY(0.717); } 8.3% { transform: scaleY(0.830); } 16.7% { transform: scaleY(0.988); } 25.0% { transform: scaleY(1.150); } 33.3% { transform: scaleY(1.271); } 41.7% { transform: scaleY(1.320); } 50.0% { transform: scaleY(1.283); } 58.3% { transform: scaleY(1.170); } 66.7% { transform: scaleY(1.012); } 75.0% { transform: scaleY(0.850); } 83.3% { transform: scaleY(0.729); } 91.7% { transform: scaleY(0.680); } 100.0% { transform: scaleY(0.717); } } #b4 { transform-origin: 70px 50px; transform-box: view-box; animation: b4 2.0s linear infinite; } @media (prefers-reduced-motion: reduce) { line { animation: none !important; } }</style>
+<defs>
+<radialGradient id="glowv" cx="0.5" cy="0.5" r="0.5">
+<stop offset="0.72" stop-color="#3fc8ff" stop-opacity="0.55"/>
+<stop offset="0.86" stop-color="#3fa0ff" stop-opacity="0.18"/>
+<stop offset="1" stop-color="#3fa0ff" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="bodyv" x1="0.1" y1="0.05" x2="0.9" y2="0.95">
+<stop offset="0" stop-color="#3ff0c9"/>
+<stop offset="0.48" stop-color="#3a8cff"/>
+<stop offset="1" stop-color="#6b45ff"/>
+</linearGradient>
+<clipPath id="clipv"><circle cx="50" cy="50" r="36.5"/></clipPath>
+</defs>
+
+<circle cx="50" cy="50" r="49" fill="url(#glowv)"/>
+<circle cx="50" cy="50" r="36.5" fill="url(#bodyv)"/>
+<g clip-path="url(#clipv)">
+<ellipse cx="46" cy="6" rx="64" ry="44" fill="#ffffff" fill-opacity="0.16" transform="rotate(-14 46 6)"/>
+<ellipse cx="52" cy="70" rx="48" ry="30" fill="#2a1c8c" fill-opacity="0.18"/>
+</g>
+<line id="b0" x1="30" y1="42.5" x2="30" y2="57.5" stroke="#ffffff" stroke-width="5.2" stroke-linecap="round"/><line id="b1" x1="40" y1="35.0" x2="40" y2="65.0" stroke="#ffffff" stroke-width="5.2" stroke-linecap="round"/><line id="b2" x1="50" y1="28.0" x2="50" y2="72.0" stroke="#ffffff" stroke-width="5.2" stroke-linecap="round"/><line id="b3" x1="60" y1="35.0" x2="60" y2="65.0" stroke="#ffffff" stroke-width="5.2" stroke-linecap="round"/><line id="b4" x1="70" y1="42.5" x2="70" y2="57.5" stroke="#ffffff" stroke-width="5.2" stroke-linecap="round"/>
+</svg>

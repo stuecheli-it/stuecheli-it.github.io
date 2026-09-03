@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>stadler IT AG | Webchat-Testseite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- ============================================================
+       FONIO-WEBCHAT (Assistent StadlerIT)
+       1. Im fonio-Dashboard: Webchat verwalten → Website-Widget
+       2. Diese Website unter "Erlaubte Websites" eintragen
+          (exakte Origin, z.B. https://DEIN-NAME.github.io)
+       3. Widget-ID aus dem Installations-Script hier eintragen
+       ============================================================ -->
+  <script>
+    const FONIO_WIDGET_ID = "76df8846-d60f-4312-bbf8-0b753c3e3d13"; // Widget "StadlerIT" aus dem fonio-Dashboard
+
+    if (FONIO_WIDGET_ID) {
+      const s = document.createElement("script");
+      s.type = "module";
+      s.src = "https://widget.fonio.ai/webchat-widget.js";
+      s.dataset.fonioWebchatWidgetId = FONIO_WIDGET_ID;
+      document.head.appendChild(s);
+    }
+  </script>
+
+  <style>
+    /* Nachbau der Startseite von stadler-it.ch für die Webchat-Testumgebung */
+    :root {
+      --rot: #d71920;
+      --dunkel: #1b242c;
+      --text: #1f1e32;
+      --grau: #5a6470;
+      --hell: #f5f6f8;
+      --linie: #e4e7ea;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Source Sans 3", "Source Sans Pro", "Segoe UI", sans-serif;
+      color: var(--text);
+      background: #fff;
+      line-height: 1.6;
+    }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    .test-banner {
+      background: #fff7e0;
+      border-bottom: 1px solid #f0d78c;
+      color: #7a5b00;
+      text-align: center;
+      padding: 8px 16px;
+      font-size: 0.85rem;
+    }
+
+    header.site { border-bottom: 1px solid var(--linie); background: #fff; position: sticky; top: 0; z-index: 10; }
+    header.site .wrap { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+    .logo img { height: 42px; display: block; }
+    nav.main a { color: var(--dunkel); text-decoration: none; margin-left: 22px; font-size: 0.95rem; font-weight: 600; }
+    nav.main a:hover { color: var(--rot); }
+    nav.main a.cta { background: var(--rot); color: #fff; padding: 10px 18px; }
+
+    .hero { background: var(--hell); padding: 72px 0; }
+    .hero .kicker { color: var(--rot); font-weight: 700; font-size: 0.9rem; letter-spacing: 0.02em; margin: 0 0 10px; }
+    .hero h1 { font-size: clamp(1.9rem, 4.5vw, 2.9rem); color: var(--dunkel); margin: 0 0 18px; line-height: 1.2; }
+    .hero p.lead { max-width: 640px; color: var(--grau); font-size: 1.1rem; margin: 0 0 28px; }
+    .btn { display: inline-block; background: var(--rot); color: #fff; padding: 13px 26px; text-decoration: none; font-weight: 700; }
+    .btn:hover { background: #b3141a; }
+    .btn.hell { background: var(--dunkel); margin-left: 10px; }
+    .trust { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; color: var(--dunkel); font-weight: 600; font-size: 0.92rem; }
+    .trust span::before { content: "✓"; color: var(--rot); margin-right: 7px; font-weight: 700; }
+
+    section.block { padding: 64px 0; }
+    section.block.grau { background: var(--hell); }
+    .ueber { color: var(--rot); font-weight: 700; font-size: 0.88rem; letter-spacing: 0.04em; text-transform: uppercase; margin: 0 0 6px; }
+    section.block h2 { color: var(--dunkel); font-size: 1.8rem; margin: 0 0 10px; }
+    section.block p.sub { color: var(--grau); max-width: 660px; margin: 0 0 36px; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+    .card { background: #fff; border: 1px solid var(--linie); padding: 26px; }
+    section.block.grau .card { border: none; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .card .tag { color: var(--rot); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.03em; text-transform: uppercase; }
+    .card h3 { margin: 6px 0 8px; color: var(--dunkel); font-size: 1.15rem; }
+    .card p { margin: 0 0 10px; color: var(--grau); font-size: 0.95rem; }
+    .card a { color: var(--rot); font-weight: 600; text-decoration: none; font-size: 0.92rem; }
+
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 18px; text-align: center; }
+    .stat .zahl { font-size: 2.4rem; font-weight: 700; color: var(--rot); }
+    .stat .label { color: var(--grau); font-size: 0.92rem; }
+
+    .zitate { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+    .zitat { background: #fff; border-left: 4px solid var(--rot); padding: 22px 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+    .zitat p { margin: 0 0 12px; color: var(--text); font-size: 0.95rem; }
+    .zitat .wer { color: var(--dunkel); font-weight: 700; font-size: 0.9rem; }
+    .zitat .firma { color: var(--grau); font-size: 0.85rem; }
+
+    .cta-band { background: var(--dunkel); color: #fff; padding: 56px 0; }
+    .cta-band h2 { color: #fff; margin: 0 0 10px; font-size: 1.7rem; }
+    .cta-band p { color: #b9c2cb; max-width: 620px; margin: 0 0 24px; }
+    .cta-band .tel { color: #fff; font-weight: 700; text-decoration: none; }
+
+    footer.site { background: #12181e; color: #b9c2cb; padding: 40px 0; font-size: 0.9rem; }
+    footer.site .wrap { display: flex; flex-wrap: wrap; gap: 28px; justify-content: space-between; }
+    footer.site .firma { color: #fff; font-weight: 700; }
+    footer.site a { color: #b9c2cb; }
+
+    /* Widget-Testwerkzeuge */
+    .widget-status {
+      position: fixed; bottom: 16px; left: 16px; z-index: 999;
+      background: #fff; border: 1px solid var(--linie); border-radius: 999px;
+      padding: 8px 16px; font-size: 0.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .widget-status .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #dc2626; margin-right: 7px; }
+    .widget-status.ok .dot { background: #16a34a; }
+    .sdk-panel {
+      position: fixed; bottom: 56px; left: 16px; z-index: 999;
+      background: #fff; border: 1px solid var(--linie); border-radius: 10px;
+      padding: 10px; font-size: 0.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    }
+    .sdk-panel summary { cursor: pointer; font-weight: 600; color: var(--dunkel); }
+    .sdk-panel button {
+      display: block; width: 100%; margin-top: 6px; padding: 6px 10px;
+      border: 1px solid var(--linie); background: #fff; border-radius: 6px; cursor: pointer; font-size: 0.8rem;
+    }
+    .sdk-panel button:hover { border-color: var(--rot); color: var(--rot); }
+  </style>
+</head>
+<body>
+
+<div class="test-banner">
+  🧪 Testumgebung von Stücheli IT Consulting: Nachbau Ihrer Startseite mit dem neuen Webchat.
+  Klicken Sie unten rechts auf die Chat-Blase.
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#">
+      <img src="https://stadler-it.ch/wp-content/uploads/2026/05/stadler-IT_Web.png" alt="stadler IT AG, Logo">
+    </a>
+    <nav class="main">
+      <a href="#leistungen">IT-Lösungen</a>
+      <a href="#region">Region</a>
+      <a href="#referenzen">Referenzen</a>
+      <a class="cta" href="#kontakt">Beratung anfragen</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker">Sicher · Persönlich · Zukunftsorientiert</p>
+    <h1>IT-Lösungen seit über 35 Jahren.</h1>
+    <p class="lead">
+      Wir betreuen KMU in den Kantonen St. Gallen, Thurgau, Appenzell Ausserrhoden
+      und Innerrhoden. Mit Schweizer Cloud aus dem eigenen Rechenzentrum, zuverlässigem
+      Support und Ansprechpartnern, die man beim Namen kennt.
+    </p>
+    <a class="btn" href="#kontakt">Beratung anfragen</a>
+    <a class="btn hell" href="#leistungen">Unsere Lösungen</a>
+    <div class="trust">
+      <span>Feste Ansprechpartner</span>
+      <span>Schweizer Rechenzentrum</span>
+      <span>Schnell vor Ort</span>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="leistungen">
+  <div class="wrap">
+    <p class="ueber">Unsere Leistungen</p>
+    <h2>Ihre IT. Ganzheitlich gedacht. Persönlich betreut.</h2>
+    <p class="sub">
+      Jeden Tag entwickeln wir praktische Lösungen, die den Alltag erleichtern.
+      Unsere Kunden reichen vom öffentlichen Sektor bis zum privaten Grossunternehmen.
+    </p>
+    <div class="cards">
+      <div class="card">
+        <div class="tag">Rundum betreut</div>
+        <h3>IT-Betreuung &amp; Support</h3>
+        <p>Kontinuierliche Wartung, proaktives Monitoring und effizienter Support für eine stabile IT-Infrastruktur.</p>
+        <a href="#">Mehr erfahren →</a>
+      </div>
+      <div class="card">
+        <div class="tag">Ihre IT aus der Schweizer Cloud</div>
+        <h3>Cloud-IT</h3>
+        <p>Moderne Arbeitsplätze direkt aus unserem Rechenzentrum in der Ostschweiz: stabil, schnell, mit Schweizer Datenschutz.</p>
+        <a href="#">Mehr erfahren →</a>
+      </div>
+      <div class="card">
+        <div class="tag">Schutz für Ihr KMU</div>
+        <h3>IT-Sicherheit</h3>
+        <p>Managed Firewall, Endpoint-Schutz und Security-Checks mit unserem Partner Securepoint.</p>
+        <a href="#">Mehr erfahren →</a>
+      </div>
+      <div class="card">
+        <div class="tag">Planbare Kosten</div>
+        <h3>IT-Flatrate</h3>
+        <p>Ihre komplette IT zum fixen Monatspreis, inklusive Support, Updates und Sicherheit.</p>
+        <a href="#">Mehr erfahren →</a>
+      </div>
+      <div class="card">
+        <div class="tag">Drucken ohne Sorgen</div>
+        <h3>Drucklösungen</h3>
+        <p>Brother-Drucklösungen mit MPS-Sorglospaket: Geräte, Toner und Service automatisch geregelt.</p>
+        <a href="#">Mehr erfahren →</a>
+      </div>
+      <div class="card">
+        <div class="tag">Web &amp; Marketing</div>
+        <h3>Agentur</h3>
+        <p>Webseiten, Shops, Foto, Video und SEO: Ihre Marke aus einer Hand, von der eigenen Web-Agentur.</p>
+        <a href="#">Mehr erfahren →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block grau" id="region">
+  <div class="wrap">
+    <p class="ueber">Regional verankert</p>
+    <h2>Ihr IT-Partner für KMU in der Ostschweiz</h2>
+    <p class="sub">
+      Ob Stadt St. Gallen, Fürstenland, Rheintal, Thurgau oder Appenzellerland:
+      Wir sind in kurzer Zeit vor Ort. Unsere Cloud läuft im Rechenzentrum Ostschweiz
+      in Gais: redundant, sicher und nach Schweizer Datenschutzrecht.
+    </p>
+    <div class="stats">
+      <div class="stat"><div class="zahl">35+</div><div class="label">Jahre Erfahrung</div></div>
+      <div class="stat"><div class="zahl">500+</div><div class="label">Kunden vertrauen uns</div></div>
+      <div class="stat"><div class="zahl">4</div><div class="label">Kantone im Einsatzgebiet</div></div>
+      <div class="stat"><div class="zahl">100%</div><div class="label">Schweizer Datenhaltung</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="referenzen">
+  <div class="wrap">
+    <p class="ueber">Kundenberichte</p>
+    <h2>Was unsere Kunden sagen</h2>
+    <p class="sub">Echte Stimmen aus der Region, vom Familienbetrieb bis zum Grossunternehmen.</p>
+    <div class="zitate">
+      <div class="zitat">
+        <p>«Unsere Zusammenarbeit zeichnet sich durch hohe Flexibilität, spontane Reaktionsfähigkeit und stets zuvorkommenden Service aus.»</p>
+        <div class="wer">Emmanuel Habicher</div>
+        <div class="firma">Inhaber RopExperts AG</div>
+      </div>
+      <div class="zitat">
+        <p>«Schön, in Sachen EDV den zuverlässigsten Partner in der Region an seiner Seite zu wissen.»</p>
+        <div class="wer">Oliver Fischer</div>
+        <div class="firma">Geschäftsleiter Bofrag AG</div>
+      </div>
+      <div class="zitat">
+        <p>«Seit über 20 Jahren fühlen wir uns bei stadler IT bestens aufgehoben. Sie hören zu und finden immer die passende Lösung.»</p>
+        <div class="wer">Mirco Suter</div>
+        <div class="firma">Geschäftsleitung Auto Zentrum West AG</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band" id="kontakt">
+  <div class="wrap">
+    <p class="ueber" style="color:#ff8a8f">Jetzt starten</p>
+    <h2>Flexibel arbeiten. Sicher in der Schweizer Cloud.</h2>
+    <p>
+      Arbeiten Sie jederzeit und überall sicher weiter, mit Cloud-Arbeitsplätzen aus der
+      Ostschweiz, höchster Verfügbarkeit und klaren Datenschutzstandards.
+    </p>
+    <a class="btn" href="#">Kontaktieren Sie uns</a>
+    <p style="margin-top:18px">oder direkt anrufen: <a class="tel" href="tel:+41712784646">071 278 46 46</a></p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <div class="firma">stadler IT AG</div>
+      <div>Zürcherstrasse 176, 9014 St. Gallen</div>
+      <div>071 278 46 46 · <a href="mailto:info@stadler-it.ch">info@stadler-it.ch</a></div>
+    </div>
+    <div>
+      <div>IT-Lösungen seit über 35 Jahren.</div>
+      <div>Sicher. Persönlich. Zukunftsorientiert.</div>
+      <div style="margin-top:8px;font-size:0.8rem">Testseite · bereitgestellt von Stücheli IT Consulting</div>
+    </div>
+  </div>
+</footer>
+
+<!-- Widget-Testwerkzeuge -->
+<details class="sdk-panel">
+  <summary>Widget-Test</summary>
+  <button onclick="sdk('open')">Chat öffnen</button>
+  <button onclick="sdk('close')">Chat schliessen</button>
+  <button onclick="sdk('toggle')">Umschalten</button>
+  <button onclick="sdk('hide')">Ausblenden</button>
+  <button onclick="sdk('show')">Einblenden</button>
+  <button onclick="sdk('startNewConversation')">Neue Unterhaltung</button>
+</details>
+<div class="widget-status" id="widgetStatus"><span class="dot"></span><span id="widgetStatusText">Widget: nicht geladen</span></div>
+
+<script>
+  function sdk(fn) {
+    if (window.fonio && window.fonio.webchat && typeof window.fonio.webchat[fn] === "function") {
+      window.fonio.webchat[fn]();
+    } else {
+      alert("Das fonio-Widget ist noch nicht geladen.\n\nMögliche Gründe:\n• Widget-ID oben im Quelltext noch nicht eingetragen\n• Diese Website fehlt im fonio-Dashboard unter 'Erlaubte Websites'\n• Widget im Dashboard auf 'Inaktiv'");
+    }
+  }
+
+  const statusBox = document.getElementById("widgetStatus");
+  const statusText = document.getElementById("widgetStatusText");
+  if (!FONIO_WIDGET_ID) {
+    statusText.textContent = "Widget: keine Widget-ID eingetragen";
+  } else {
+    let tries = 0;
+    const timer = setInterval(() => {
+      tries++;
+      if (window.fonio && window.fonio.webchat) {
+        statusBox.classList.add("ok");
+        statusText.textContent = "Widget: geladen ✓";
+        clearInterval(timer);
+      } else if (tries > 20) {
+        statusText.textContent = "Widget: nicht geladen. Origin in fonio erlaubt?";
+        clearInterval(timer);
+      }
+    }, 500);
+  }
+</script>
+
+</body>
+</html>

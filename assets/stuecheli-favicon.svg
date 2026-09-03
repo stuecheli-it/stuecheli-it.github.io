@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100">
+<title>Stücheli – Favicon</title>
+<defs>
+<radialGradient id="glowf" cx="0.5" cy="0.5" r="0.5">
+<stop offset="0.72" stop-color="#3fc8ff" stop-opacity="0.55"/>
+<stop offset="0.86" stop-color="#3fa0ff" stop-opacity="0.18"/>
+<stop offset="1" stop-color="#3fa0ff" stop-opacity="0"/>
+</radialGradient>
+<linearGradient id="bodyf" x1="0.1" y1="0.05" x2="0.9" y2="0.95">
+<stop offset="0" stop-color="#3ff0c9"/>
+<stop offset="0.48" stop-color="#3a8cff"/>
+<stop offset="1" stop-color="#6b45ff"/>
+</linearGradient>
+<clipPath id="clipf"><circle cx="50" cy="50" r="36.5"/></clipPath>
+</defs>
+<circle cx="50" cy="50" r="48" fill="url(#bodyf)"/>
+<clipPath id="clipf2"><circle cx="50" cy="50" r="48"/></clipPath>
+<g clip-path="url(#clipf2)"><ellipse cx="46" cy="0" rx="80" ry="52" fill="#ffffff" fill-opacity="0.16" transform="rotate(-14 46 0)"/></g>
+<line x1="30" y1="42.0" x2="30" y2="58.0" stroke="#ffffff" stroke-width="6.5" stroke-linecap="round"/><line x1="40" y1="34.0" x2="40" y2="66.0" stroke="#ffffff" stroke-width="6.5" stroke-linecap="round"/><line x1="50" y1="27.0" x2="50" y2="73.0" stroke="#ffffff" stroke-width="6.5" stroke-linecap="round"/><line x1="60" y1="34.0" x2="60" y2="66.0" stroke="#ffffff" stroke-width="6.5" stroke-linecap="round"/><line x1="70" y1="42.0" x2="70" y2="58.0" stroke="#ffffff" stroke-width="6.5" stroke-linecap="round"/>
+</svg>

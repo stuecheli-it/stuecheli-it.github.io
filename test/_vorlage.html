@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!-- ================================================================
+     VORLAGE FÜR NEUE KUNDEN-TESTSEITEN
+     1. Diese Datei kopieren und umbenennen, z.B. muster-ag.html
+        (Kleinbuchstaben, keine Umlaute/Leerzeichen)
+     2. Überall KUNDENNAME durch den Firmennamen ersetzen
+     3. FONIO_WIDGET_ID unten eintragen (aus dem fonio-Dashboard)
+     4. Die Seite in test/index.html in der Liste eintragen
+     5. Ideal: Farben, Logo und Inhalte an die echte Website des
+        Kunden anlehnen (Beispiel: stadlerit.html), der Test wirkt
+        dann wie die spätere Live-Umgebung
+     ================================================================ -->
+<html lang="de-CH">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>KUNDENNAME | Webchat-Testseite</title>
+
+  <script>
+    const FONIO_WIDGET_ID = ""; // Widget-ID aus dem fonio-Dashboard eintragen
+
+    if (FONIO_WIDGET_ID) {
+      const s = document.createElement("script");
+      s.type = "module";
+      s.src = "https://widget.fonio.ai/webchat-widget.js";
+      s.dataset.fonioWebchatWidgetId = FONIO_WIDGET_ID;
+      document.head.appendChild(s);
+    }
+  </script>
+
+  <style>
+    /* Neutrales Grundlayout: Farben an den Kunden anpassen */
+    :root {
+      --akzent: #0e7490;      /* Hauptfarbe des Kunden */
+      --dunkel: #1a2332;
+      --grau: #4a5568;
+      --hell: #f5f6f8;
+      --linie: #e4e7ea;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", system-ui, sans-serif; color: var(--dunkel); background: #fff; line-height: 1.6; }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+    .test-banner { background: #fff7e0; border-bottom: 1px solid #f0d78c; color: #7a5b00; text-align: center; padding: 8px 16px; font-size: 0.85rem; }
+    header.site { border-bottom: 1px solid var(--linie); background: #fff; }
+    header.site .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { font-weight: 700; font-size: 1.2rem; color: var(--dunkel); text-decoration: none; }
+    nav.main a { color: var(--grau); text-decoration: none; margin-left: 22px; font-weight: 600; font-size: 0.95rem; }
+    .hero { background: var(--hell); padding: 64px 0; }
+    .hero h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin: 0 0 16px; }
+    .hero p.lead { max-width: 620px; color: var(--grau); font-size: 1.1rem; margin: 0; }
+    section.block { padding: 56px 0; }
+    section.block h2 { font-size: 1.6rem; margin: 0 0 24px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+    .card { border: 1px solid var(--linie); padding: 24px; }
+    .card h3 { margin: 0 0 8px; }
+    .card p { margin: 0; color: var(--grau); font-size: 0.95rem; }
+    footer.site { border-top: 1px solid var(--linie); padding: 26px 0; text-align: center; color: var(--grau); font-size: 0.85rem; }
+
+    .widget-status { position: fixed; bottom: 16px; left: 16px; z-index: 999; background: #fff; border: 1px solid var(--linie); border-radius: 999px; padding: 8px 16px; font-size: 0.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+    .widget-status .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #dc2626; margin-right: 7px; }
+    .widget-status.ok .dot { background: #16a34a; }
+    .sdk-panel { position: fixed; bottom: 56px; left: 16px; z-index: 999; background: #fff; border: 1px solid var(--linie); border-radius: 10px; padding: 10px; font-size: 0.8rem; box-shadow: 0 2px 8px rgba(0,0,0,0.12); }
+    .sdk-panel summary { cursor: pointer; font-weight: 600; }
+    .sdk-panel button { display: block; width: 100%; margin-top: 6px; padding: 6px 10px; border: 1px solid var(--linie); background: #fff; border-radius: 6px; cursor: pointer; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+
+<div class="test-banner">
+  🧪 Testumgebung von Stücheli IT Consulting: so wird der Chat später auf Ihrer Website aussehen.
+  Klicken Sie unten rechts auf die Chat-Blase.
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="logo" href="#">KUNDENNAME</a>
+    <nav class="main">
+      <a href="#leistungen">Leistungen</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Willkommen bei KUNDENNAME</h1>
+    <p class="lead">
+      Dies ist eine Testseite für Ihren neuen Webchat.
+      Stellen Sie dem Assistenten unten rechts Fragen, wie es Ihre Kundschaft tun würde.
+    </p>
+  </div>
+</section>
+
+<section class="block" id="leistungen">
+  <div class="wrap">
+    <h2>Leistungen</h2>
+    <div class="cards">
+      <div class="card"><h3>Leistung 1</h3><p>Kurzbeschreibung der ersten Leistung.</p></div>
+      <div class="card"><h3>Leistung 2</h3><p>Kurzbeschreibung der zweiten Leistung.</p></div>
+      <div class="card"><h3>Leistung 3</h3><p>Kurzbeschreibung der dritten Leistung.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="kontakt">
+  <div class="wrap">
+    <h2>Kontakt</h2>
+    <p>Fragen Sie direkt unseren Chat-Assistenten unten rechts.</p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">Testseite · bereitgestellt von Stücheli IT Consulting</div>
+</footer>
+
+<details class="sdk-panel">
+  <summary>Widget-Test</summary>
+  <button onclick="sdk('open')">Chat öffnen</button>
+  <button onclick="sdk('close')">Chat schliessen</button>
+  <button onclick="sdk('toggle')">Umschalten</button>
+  <button onclick="sdk('hide')">Ausblenden</button>
+  <button onclick="sdk('show')">Einblenden</button>
+  <button onclick="sdk('startNewConversation')">Neue Unterhaltung</button>
+</details>
+<div class="widget-status" id="widgetStatus"><span class="dot"></span><span id="widgetStatusText">Widget: nicht geladen</span></div>
+
+<script>
+  function sdk(fn) {
+    if (window.fonio && window.fonio.webchat && typeof window.fonio.webchat[fn] === "function") {
+      window.fonio.webchat[fn]();
+    } else {
+      alert("Das fonio-Widget ist noch nicht geladen.\n\nMögliche Gründe:\n• Widget-ID oben im Quelltext noch nicht eingetragen\n• Diese Website fehlt im fonio-Dashboard unter 'Erlaubte Websites'\n• Widget im Dashboard auf 'Inaktiv'");
+    }
+  }
+
+  const statusBox = document.getElementById("widgetStatus");
+  const statusText = document.getElementById("widgetStatusText");
+  if (!FONIO_WIDGET_ID) {
+    statusText.textContent = "Widget: keine Widget-ID eingetragen";
+  } else {
+    let tries = 0;
+    const timer = setInterval(() => {
+      tries++;
+      if (window.fonio && window.fonio.webchat) {
+        statusBox.classList.add("ok");
+        statusText.textContent = "Widget: geladen ✓";
+        clearInterval(timer);
+      } else if (tries > 20) {
+        statusText.textContent = "Widget: nicht geladen. Origin in fonio erlaubt?";
+        clearInterval(timer);
+      }
+    }, 500);
+  }
+</script>
+
+</body>
+</html>
