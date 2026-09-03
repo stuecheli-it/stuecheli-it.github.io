@@ -137,7 +137,7 @@
       </div>
     </div>
     <div class="preise" id="preisKarten"></div>
-    <p class="steuer">Abopreise netto, zzgl. Umsatzsteuer, Abrechnung durch fonio.ai. Klicken Sie auf ein Paket für alle Details und Leistungsvergleiche bei fonio.ai.</p>
+    <p class="steuer">Abopreise netto, zzgl. Umsatzsteuer, Abrechnung direkt durch fonio.ai. Klicken Sie auf ein Paket für alle Details.</p>
     <p class="pilot">
       <b>Nach dem Livegang:</b> Anpassungen und Erweiterungen an Ihrem Assistenten übernehmen
       wir laufend, nach Aufwand und transparent offeriert. Den technischen Support für das
@@ -187,6 +187,19 @@
   </div>
 </footer>
 
+<!-- Popup mit Plan-Details -->
+<div class="modal-hintergrund" id="planModal" hidden>
+  <div class="modal-kasten">
+    <div class="modal-innen">
+      <button class="modal-zu" id="modalZu" aria-label="Schliessen">×</button>
+      <h3 id="modalTitel"></h3>
+      <div class="betrag" id="modalPreis"></div>
+      <p class="setup" id="modalSetup"></p>
+      <div id="modalInhalt"></div>
+    </div>
+  </div>
+</div>
+
 <script>
   // Preisdaten von fonio.ai/de/preise (Stand 03.09.2026). Jahrespreis = Preis pro Monat bei jährlicher Abrechnung.
   const PREISDATEN = {
@@ -197,18 +210,37 @@
           name: "Solo", fuer: "Für 1 bis 20 Anrufe pro Tag",
           monat: 119, jahr: 95, ab: false,
           setup: "einmalige Einrichtung durch uns: CHF 1'290",
-          punkte: ["1'000 Gesprächsminuten inklusive", "1 Rufnummer (jede weitere € 7/Mt.)", "Unbegrenzte Assistenten, 1 Benutzer", "Terminplaner, 120+ Stimmen, 60+ Sprachen"]
+          punkte: ["1'000 Gesprächsminuten inklusive", "1 Rufnummer (jede weitere € 7/Mt.)", "Unbegrenzte Assistenten, 1 Benutzer", "Terminplaner, 120+ Stimmen, 60+ Sprachen"],
+          details: [
+            { titel: "Nutzung", punkte: ["1'000 Gesprächsminuten inklusive", "1 Anruf gleichzeitig", "1 Rufnummer, jede weitere € 7/Mt.", "1 Benutzer, 1 Kontoverbindung", "Unbegrenzte Assistenten"] },
+            { titel: "Stimme & Sprache", punkte: ["120+ Stimmen", "60+ Sprachen", "Sprechgeschwindigkeit, Empfindlichkeit und Kreativität anpassbar", "Hintergrundgeräusche zuschaltbar"] },
+            { titel: "Fähigkeiten", punkte: ["Terminplaner", "Unternehmensinfos direkt von Ihrer Website", "Selbstlernende Wissensdatenbank", "Anrufweiterleitung", "Internetsuche und Fachbegriffe", "DTMF-Codes senden"] },
+            { titel: "Plattform & Support", punkte: ["Anrufaufzeichnung, auf Wunsch mit automatischem Löschen", "Prompt-Vorlagen und Einfachmodus", "Gratis Audio-Test", "E-Mail-Support, Onboarding Academy, Community-Zugang"] },
+            { titel: "Zusatzkosten", punkte: ["Überminuten € 15 je 100 Minuten", "Zusatzkontakte € 20/Mt. je 1'000"] }
+          ]
         },
         {
           name: "Team", fuer: "Für 20 bis 100 Anrufe pro Tag", beliebt: true,
           monat: 359, jahr: 287, ab: false,
           setup: "einmalige Einrichtung durch uns: CHF 1'890",
-          punkte: ["3'600 Gesprächsminuten inklusive", "Bis 3 gleichzeitige Anrufe, 3 Rufnummern (jede weitere € 5/Mt.)", "Eigener SIP-Trunk, Outbound-Anrufe", "Alles aus Solo"]
+          punkte: ["3'600 Gesprächsminuten inklusive", "Bis 3 gleichzeitige Anrufe, 3 Rufnummern (jede weitere € 5/Mt.)", "Eigener SIP-Trunk, Outbound-Anrufe", "Alles aus Solo"],
+          details: [
+            { titel: "Nutzung", punkte: ["3'600 Gesprächsminuten inklusive", "Bis 3 Anrufe gleichzeitig", "3 Rufnummern, jede weitere € 5/Mt.", "Unbegrenzte Benutzer, 3 Kontoverbindungen", "Unbegrenzte Assistenten"] },
+            { titel: "Zusätzlich zu Solo", punkte: ["Eigener SIP-Trunk", "Outbound-Anrufe und Kampagnen (zu Verbindungskosten)", "Priorisierter Support"] },
+            { titel: "Fähigkeiten", punkte: ["Alle Fähigkeiten aus Solo: Terminplaner, Wissensdatenbank, Anrufweiterleitung, Internetsuche, 120+ Stimmen, 60+ Sprachen"] },
+            { titel: "Zusatzkosten", punkte: ["Überminuten € 12 je 100 Minuten", "Zusatzkontakte € 20/Mt. je 1'000"] }
+          ]
         },
         {
           name: "Scale", fuer: "Ab 100 Anrufen pro Tag",
           monat: 599, jahr: 539, ab: true,
           setup: "Einrichtung durch uns: ab CHF 2'900",
+          details: [
+            { titel: "Nutzung", punkte: ["6'000 Gesprächsminuten (€ 0.10 je Minute bis individuell)", "Gleichzeitige Anrufe individuell", "Rufnummern individuell, bis € 2/Mt. je Nummer", "Unbegrenzte Benutzer und Assistenten"] },
+            { titel: "Zusätzlich zu Team", punkte: ["Eigene Stimme (Custom Voice)", "Keine Datenspeicherung (Zero Data Retention)", "Individueller SLA und individuelle Vertragsvereinbarungen", "Account Manager", "Single Sign-on (SSO)"] },
+            { titel: "Laufzeit", punkte: ["Jahresabo −10 %", "Zwei Jahre Laufzeit −15 %"] },
+            { titel: "Zusatzkosten", punkte: ["Individuell nach Vereinbarung"] }
+          ],
           punkte: ["6'000 Gesprächsminuten (€ 0.10 bis individuell)", "Gleichzeitige Anrufe und Nummern individuell", "Eigene Stimme, keine Datenspeicherung", "Jahresabo −10 %, zwei Jahre −15 %", "Alles aus Team"]
         }
       ]
@@ -220,19 +252,31 @@
           name: "Solo", fuer: "Bis 100 Konversationen pro Monat",
           monat: 69, jahr: 58, ab: false,
           setup: "Einrichtung durch uns: auf Anfrage",
-          punkte: ["100 Konversationen pro Monat", "1 WhatsApp-Nummer (jede weitere € 19/Mt.)", "Chat-Übergabe an Menschen", "Automatischer Terminplaner"]
+          punkte: ["100 Konversationen pro Monat", "1 WhatsApp-Nummer (jede weitere € 19/Mt.)", "Chat-Übergabe an Menschen", "Automatischer Terminplaner"],
+          details: [
+            { titel: "Nutzung", punkte: ["100 Konversationen pro Monat", "1 WhatsApp-Nummer, jede weitere € 19/Mt.", "Unbegrenzte Chatbots", "1 Benutzer"] },
+            { titel: "Funktionen", punkte: ["Chat-Übergabe an Menschen", "Automatischer Terminplaner", "Antworten aus Ihrer Wissensdatenbank"] }
+          ]
         },
         {
           name: "Team", fuer: "Bis 500 Konversationen pro Monat", beliebt: true,
           monat: 249, jahr: 208, ab: false,
           setup: "Einrichtung durch uns: auf Anfrage",
-          punkte: ["500 Konversationen pro Monat", "3 WhatsApp-Nummern", "Unbegrenzte Benutzer", "Alles aus Solo"]
+          punkte: ["500 Konversationen pro Monat", "3 WhatsApp-Nummern", "Unbegrenzte Benutzer", "Alles aus Solo"],
+          details: [
+            { titel: "Nutzung", punkte: ["500 Konversationen pro Monat", "3 WhatsApp-Nummern, jede weitere € 19/Mt.", "Unbegrenzte Chatbots und Benutzer"] },
+            { titel: "Zusätzlich zu Solo", punkte: ["Unterstützung bei der Einrichtung durch fonio", "Alle Funktionen aus Solo: Chat-Übergabe, Terminplaner, Wissensdatenbank"] }
+          ]
         },
         {
           name: "Scale", fuer: "Ab 1'000 Konversationen pro Monat",
           monat: 499, jahr: 424, ab: true,
           setup: "Einrichtung durch uns: auf Anfrage",
-          punkte: ["1'000+ Konversationen pro Monat", "Individuelle WhatsApp-Nummern", "Keine Datenspeicherung, individueller SLA", "Alles aus Team"]
+          punkte: ["1'000+ Konversationen pro Monat", "Individuelle WhatsApp-Nummern", "Keine Datenspeicherung, individueller SLA", "Alles aus Team"],
+          details: [
+            { titel: "Nutzung", punkte: ["1'000 Konversationen pro Monat, individuell erweiterbar", "Individuelle WhatsApp-Nummern", "Unbegrenzte Chatbots und Benutzer"] },
+            { titel: "Zusätzlich zu Team", punkte: ["Keine Datenspeicherung (Zero Data Retention)", "Individueller SLA", "Alle Funktionen aus Team"] }
+          ]
         }
       ]
     }
@@ -241,9 +285,31 @@
   let produkt = "phone";
   let billing = "monthly";
 
-  function fonioUrl() {
-    return "https://www.fonio.ai/de/preise/?product=" + produkt + "&billing=" + (billing === "yearly" ? "yearly" : "monthly");
+  function openDetails(p) {
+    const jaehrlich = billing === "yearly";
+    const preis = jaehrlich ? p.jahr : p.monat;
+    document.getElementById("modalTitel").textContent =
+      p.name + " · " + (produkt === "phone" ? "KI-Telefonassistent" : "WhatsApp Chatbot");
+    document.getElementById("modalPreis").innerHTML =
+      (p.ab ? 'ab ' : '') + '€ ' + preis + ' <span>/ Monat' + (jaehrlich ? ', jährlich abgerechnet' : '') + '</span>';
+    document.getElementById("modalSetup").textContent = p.setup;
+    document.getElementById("modalInhalt").innerHTML = p.details.map(d =>
+      '<h4>' + d.titel + '</h4><ul>' + d.punkte.map(x => '<li>' + x + '</li>').join('') + '</ul>'
+    ).join('');
+    document.getElementById("planModal").hidden = false;
+    document.body.style.overflow = "hidden";
   }
+
+  function closeDetails() {
+    document.getElementById("planModal").hidden = true;
+    document.body.style.overflow = "";
+  }
+
+  document.getElementById("modalZu").addEventListener("click", closeDetails);
+  document.getElementById("planModal").addEventListener("click", e => {
+    if (e.target === document.getElementById("planModal")) closeDetails();
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") closeDetails(); });
 
   function renderPreise() {
     const ziel = document.getElementById("preisKarten");
@@ -253,11 +319,9 @@
       const jaehrlich = billing === "yearly";
       const preis = jaehrlich ? p.jahr : p.monat;
       const spare = p.monat - p.jahr;
-      const karte = document.createElement("a");
+      const karte = document.createElement("div");
       karte.className = "preis" + (p.beliebt ? " mitte" : "");
-      karte.href = fonioUrl();
-      karte.target = "_blank";
-      karte.rel = "noopener";
+      karte.addEventListener("click", () => openDetails(p));
       karte.innerHTML =
         '<h3>' + p.name + (p.beliebt ? ' <span class="spare">BELIEBT</span>' : '') + '</h3>' +
         '<p class="fuer">' + p.fuer + '</p>' +
@@ -267,7 +331,7 @@
         '</div>' +
         '<p class="setup">' + p.setup + '</p>' +
         '<ul>' + p.punkte.map(x => '<li>' + x + '</li>').join('') + '</ul>' +
-        '<span class="fonio-link">Details bei fonio.ai ansehen →</span>';
+        '<span class="fonio-link">Alle Details ansehen →</span>';
       ziel.appendChild(karte);
     });
   }
