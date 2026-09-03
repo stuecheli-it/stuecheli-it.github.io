@@ -248,6 +248,7 @@ section.block p.sub { color: var(--grau); max-width: 640px; margin: 0 0 40px; }
 .preise .preis:hover { border-color: var(--cyan); transform: translateY(-2px); }
 
 /* Popup mit Plan-Details */
+.modal-hintergrund[hidden] { display: none; }
 .modal-hintergrund {
   position: fixed;
   inset: 0;
