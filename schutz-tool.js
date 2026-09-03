@@ -1,4 +1,32 @@
-<!DOCTYPE html>
+// Verschlüsselt die interne Testseiten-Übersicht mit einem Passwort.
+//
+// Aufruf:   node schutz-tool.js "MEIN-PASSWORT"
+//
+// Liest  test/_uebersicht-inhalt.html  (Klartext, wird NICHT veröffentlicht)
+// und schreibt  test/index.html  (Passwortseite mit AES-256-verschlüsseltem Inhalt).
+// Nach jeder Änderung an der Übersicht oder des Passworts neu ausführen,
+// danach wie üblich per git add/commit/push veröffentlichen.
+
+const crypto = require("crypto");
+const fs = require("fs");
+const path = require("path");
+
+const passwort = process.argv[2];
+if (!passwort) {
+  console.error('Passwort fehlt. Aufruf: node schutz-tool.js "MEIN-PASSWORT"');
+  process.exit(1);
+}
+
+const inhalt = fs.readFileSync(path.join(__dirname, "test", "_uebersicht-inhalt.html"), "utf8");
+
+const ITERATIONEN = 300000;
+const salt = crypto.randomBytes(16);
+const iv = crypto.randomBytes(12);
+const schluessel = crypto.pbkdf2Sync(passwort, salt, ITERATIONEN, 32, "sha256");
+const cipher = crypto.createCipheriv("aes-256-gcm", schluessel, iv);
+const verschluesselt = Buffer.concat([cipher.update(inhalt, "utf8"), cipher.final(), cipher.getAuthTag()]);
+
+const seite = `<!DOCTYPE html>
 <html lang="de-CH">
 <head>
   <meta charset="UTF-8">
@@ -61,10 +89,10 @@
 
 <script>
   const DATEN = {
-    salt: "dbQsuyC/LJmqrwO+dNyLkA==",
-    iv: "jva9TnyGV2UpwmNo",
-    ct: "OZCg56XuN/M+dGTUPsLZawdmE9D62PUKPEYlt02a46zkq/Jb5eztnLU+odI5XbABMjmsBaOnBbYEAsOTkO61NGc9A+vRD0zPuNxKF+VPDg0TVKsx1gh8erBud68xP3c43nbv0enNKzu0rLWi9YrUozh++fhpMfruMD22YSwwyggOjgi2H3ZYZzC9ZcQuR36uzIJlAq4/GB/1mF7cH9W+IwZYI/GYGqjHsMMdj+y99+bVbJq3uFwE5WSM2EcoqhGI6kS5pqNt9jGlgDUlTQJMPTTBZx/i96KExGNqG/khZpvghiKvGiijfEbod/mhR27ENnvo+r2ycN80OaozSTP1cKDAM2UN/ME1Iq2GyktiHLc+QTHsVfeWwbPgeYNJlR5bGd2Nk4/15jhb0xCGnNs5w42O0pFiS9a/Y2E4rNaI8tStJvZgRgJmVMUdMHaYWs6Yq/I+ImKJsPdVs3tC8BTo1OAsuA2mnXwjlq9SXo1/ON0oX/P/f0YlAWTTQStswpttMhp96CxMLGtn9qacRhS6V5y6OkGlNGzzJANOGk2EEYuBNihGQ0v0dFOwFEylIJpnsHVDZOQWiFtCkxcsdfwcSN8ie2c/wD1M5KjSzhsKdstaKmVxV5B6v2V5vpENvYkDzD5+u4bXWO+C2Qe+ETPnRs3JpcAklzBgqTX+mDMLy41EjtC/YdZK0FVaTH8W9LrCem6NyMF02HR1zaT3fWv9WpoXa598ZkM/Smq1JMrzL45x/HA8RGQL0o/aOO9Yywg0iLMj",
-    iter: 300000
+    salt: "${salt.toString("base64")}",
+    iv: "${iv.toString("base64")}",
+    ct: "${verschluesselt.toString("base64")}",
+    iter: ${ITERATIONEN}
   };
   const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
 
@@ -103,3 +131,7 @@
 
 </body>
 </html>
+`;
+
+fs.writeFileSync(path.join(__dirname, "test", "index.html"), seite, "utf8");
+console.log("test/index.html neu erzeugt und verschlüsselt (" + verschluesselt.length + " Bytes Inhalt).");
