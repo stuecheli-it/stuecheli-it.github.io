@@ -13,7 +13,7 @@
 </linearGradient>
 <clipPath id="cliph"><circle cx="50" cy="50" r="36.5"/></clipPath>
 </defs>
-<rect width="2000" height="640" fill="#0b1728"/>
+<!-- Hintergrundfläche entfernt: Logo liegt transparent auf dem Seitenhintergrund -->
 <g transform="translate(364.9 60.0) scale(5.2000)"><circle cx="50" cy="50" r="49" fill="url(#glowh)"/>
 <circle cx="50" cy="50" r="36.5" fill="url(#bodyh)"/>
 <g clip-path="url(#cliph)">
