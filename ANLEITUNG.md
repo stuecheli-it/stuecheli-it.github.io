@@ -1,11 +1,11 @@
 # Homepage & Webchat-Testumgebung: Anleitung
 
-Stand: 03.09.2026. Diese Website liegt im Ordner `homepage\` und besteht aus:
+Stand: 06.09.2026 (Website 2.0). Diese Website liegt im Ordner `homepage\` und besteht aus:
 
 | Datei | Zweck |
 |---|---|
-| `index.html` | Deine Homepage (Stücheli IT Consulting, Design nach Flyer: Nachtblau, Verlauf Türkis→Blau→Violett) |
-| `style.css` | Design für Homepage und Testübersicht |
+| `index.html` | Deine Homepage (Website 2.0: hell mit Nachtblau im Hero und Kontakt, Verlauf Türkis→Blau→Violett, animiertes Schaubild, Branchen-Umschalter, Preise mit Popup, fonio-Webchat mit Widget-ID im Kopfbereich) |
+| `style.css` | Design der Homepage (hell). Die interne Testübersicht nutzt das alte dunkle Design in `test/intern.css` |
 | `assets/` | Logo (horizontal dunkel), Favicon, fonio-Logo, kopiert aus `Logo\Final` und `Flyer\Quelle` |
 | `test/index.html` | Interne Übersicht aller Kunden-Testseiten (nicht von der Homepage verlinkt, `noindex`) |
 | `test/stadlerit.html` | Testseite stadler IT AG: Nachbau ihrer echten Startseite (www.stadler-it.ch) mit fonio-Webchat. Das stadler-Logo wird direkt von stadler-it.ch geladen |

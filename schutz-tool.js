@@ -38,7 +38,7 @@ const seite = `<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css">
+  <link rel="stylesheet" href="intern.css">
   <style>
     .schloss { max-width: 420px; margin: 80px auto; text-align: center; }
     .schloss input {
