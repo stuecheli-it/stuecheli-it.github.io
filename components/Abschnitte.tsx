@@ -89,7 +89,6 @@ const ZIELGRUPPEN = [
   "Coiffeure",
   "Fahrschulen",
   "Immobilienverwaltungen",
-  "Praxen",
   "alle KMU, bei denen das Telefon klingelt, während gearbeitet wird",
 ];
 
