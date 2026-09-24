@@ -17,7 +17,7 @@ if (!passwort) {
   process.exit(1);
 }
 
-const inhalt = fs.readFileSync(path.join(__dirname, "test", "_uebersicht-inhalt.html"), "utf8");
+const inhalt = fs.readFileSync(path.join(__dirname, "intern", "_uebersicht-inhalt.html"), "utf8");
 
 const ITERATIONEN = 300000;
 const salt = crypto.randomBytes(16);
@@ -133,5 +133,5 @@ const seite = `<!DOCTYPE html>
 </html>
 `;
 
-fs.writeFileSync(path.join(__dirname, "test", "index.html"), seite, "utf8");
+fs.writeFileSync(path.join(__dirname, "public", "test", "index.html"), seite, "utf8");
 console.log("test/index.html neu erzeugt und verschlüsselt (" + verschluesselt.length + " Bytes Inhalt).");

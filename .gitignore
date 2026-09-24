@@ -1,2 +1,9 @@
 # Klartext-Quelle der internen Übersicht: bleibt nur lokal, wird via schutz-tool.js verschlüsselt
-test/_uebersicht-inhalt.html
+intern/
+
+# Next.js
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
