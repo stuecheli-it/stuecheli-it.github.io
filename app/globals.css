@@ -108,61 +108,13 @@ button { font-family: inherit; }
 .hero .cta { display: flex; align-items: center; gap: 14px; margin-top: 36px; flex-wrap: wrap; }
 .hero .klein { font-size: 14px; color: #8a9bb3; margin-top: 16px; }
 
-/* Schaubild: Anruf → Assistent → Sie */
-.buehne { position: relative; margin-bottom: 18px; }
-.buehne svg.szene { width: 100%; height: auto; display: block; overflow: visible; }
-.buehne .knoten { fill: rgba(255, 255, 255, 0.06); stroke: rgba(255, 255, 255, 0.18); stroke-width: 1.2; }
-.buehne .leitung { fill: none; stroke: rgba(255, 255, 255, 0.22); stroke-width: 1.6; stroke-dasharray: 5 7; animation: fliessen 1.6s linear infinite; }
-@keyframes fliessen { to { stroke-dashoffset: -24; } }
-.buehne .ring { fill: none; stroke: var(--tuerkis); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; animation: klingeln 2.4s ease-out infinite; opacity: 0; }
-.buehne .ring.r2 { animation-delay: 0.8s; }
-@keyframes klingeln { 0% { transform: scale(0.85); opacity: 0.9; } 100% { transform: scale(1.7); opacity: 0; } }
-.buehne .beschriftung { fill: #9fb0c6; font-family: var(--font-geist), sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
-.buehne .abzeichen { fill: #ffffff; font-family: var(--font-geist), sans-serif; font-size: 11.5px; font-weight: 600; }
-.buehne .orb-gross .balken line { transform-box: view-box; }
-.buehne .orb-gross .balken line:nth-child(1) { transform-origin: 232px 96px; animation: o0 2s linear infinite; }
-.buehne .orb-gross .balken line:nth-child(2) { transform-origin: 246px 96px; animation: o1 2s linear infinite; }
-.buehne .orb-gross .balken line:nth-child(3) { transform-origin: 260px 96px; animation: o2 2s linear infinite; }
-.buehne .orb-gross .balken line:nth-child(4) { transform-origin: 274px 96px; animation: o3 2s linear infinite; }
-.buehne .orb-gross .balken line:nth-child(5) { transform-origin: 288px 96px; animation: o4 2s linear infinite; }
-.buehne .orb-glow { animation: atmen 3s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
-@keyframes atmen { 0%, 100% { opacity: 0.55; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.08); } }
-
-/* Gesprächs-Demo */
-.demo-karte {
-  background: #ffffff; color: var(--graphit); border-radius: 24px; padding: 22px 22px 18px;
-  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
-}
-.demo-kopf { display: flex; align-items: center; gap: 14px; padding-bottom: 16px; border-bottom: 1px solid var(--linie); }
-.demo-kopf .titel { font-weight: 600; font-size: 15px; line-height: 1.3; }
-.demo-kopf .status { font-size: 13px; color: var(--text3); display: flex; align-items: center; gap: 6px; }
-.demo-kopf .status i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: blink 1.6s ease-in-out infinite; }
-.demo-kopf .zeit { margin-left: auto; font-variant-numeric: tabular-nums; font-size: 13px; color: var(--text3); }
-.verlauf { display: flex; flex-direction: column; gap: 10px; padding: 18px 0 8px; min-height: 292px; }
+/* Sprechblasen (Branchen-Beispielgespräche) */
 .blase { max-width: 82%; padding: 11px 15px; border-radius: 18px; font-size: 14.5px; line-height: 1.45; }
 .blase.ki { align-self: flex-start; background: var(--papier); border-bottom-left-radius: 6px; }
 .blase.anrufer { align-self: flex-end; background: var(--nacht); color: #ffffff; border-bottom-right-radius: 6px; }
-.verlauf .blase, .demo-karte .mail { opacity: 0; }
-.b1 { animation: b1 16s ease-out infinite; }
-.b2 { animation: b2 16s ease-out infinite; }
-.b3 { animation: b3 16s ease-out infinite; }
-.b4 { animation: b4 16s ease-out infinite; }
-.b5 { animation: b5 16s ease-out infinite; }
-.demo-karte .mail { animation: b6 16s ease-out infinite; }
-@keyframes b1 { 0%, 4% { opacity: 0; transform: translateY(10px); } 8%, 92% { opacity: 1; transform: none; } 97%, 100% { opacity: 0; } }
-@keyframes b2 { 0%, 16% { opacity: 0; transform: translateY(10px); } 20%, 92% { opacity: 1; transform: none; } 97%, 100% { opacity: 0; } }
-@keyframes b3 { 0%, 30% { opacity: 0; transform: translateY(10px); } 34%, 92% { opacity: 1; transform: none; } 97%, 100% { opacity: 0; } }
-@keyframes b4 { 0%, 46% { opacity: 0; transform: translateY(10px); } 50%, 92% { opacity: 1; transform: none; } 97%, 100% { opacity: 0; } }
-@keyframes b5 { 0%, 60% { opacity: 0; transform: translateY(10px); } 64%, 92% { opacity: 1; transform: none; } 97%, 100% { opacity: 0; } }
-@keyframes b6 { 0%, 74% { opacity: 0; transform: translateY(14px); } 79%, 92% { opacity: 1; transform: none; } 97%, 100% { opacity: 0; } }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-.mail { display: flex; align-items: center; gap: 12px; border: 1px solid var(--linie); border-radius: 14px; padding: 12px 14px; background: #ffffff; margin-top: 6px; }
-.mail .ico { width: 36px; height: 36px; border-radius: 10px; background: var(--verlauf); display: grid; place-items: center; flex: 0 0 auto; }
-.mail .ico svg { width: 18px; height: 18px; }
-.mail b { display: block; font-size: 13.5px; font-weight: 600; }
-.mail span { font-size: 12.5px; color: var(--text2); }
 
-/* Orb (klein, im Demo-Kopf) */
+/* Orb (klein, im Kopf der Auftragskarte) */
 .orb { width: 44px; height: 44px; flex: 0 0 auto; }
 .orb .balken line { transform-box: view-box; }
 .orb .balken line:nth-child(1) { transform-origin: 30px 50px; animation: o0 2s linear infinite; }
@@ -328,11 +280,9 @@ button { font-family: inherit; }
 /* ---------- Ohne Bewegung ---------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .verlauf .blase, .demo-karte .mail { opacity: 1 !important; animation: none !important; transform: none !important; }
-  .orb .balken line, .buehne .orb-gross .balken line, .buehne .ring, .buehne .leitung, .buehne .orb-glow, .demo-kopf .status i { animation: none !important; }
-  .buehne .ring { opacity: 0.4; }
+  .orb .balken line, .auftrag-kopf .status i, .platzhalter, .tipp-cursor { animation: none !important; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .branche, .preis, .modal-kasten { animation: none; }
+  .branche, .preis, .modal-kasten, .welle-zeile, .auftrag-feld.gefuellt dd { animation: none; }
 }
 
 /* ---------- Tablet ---------- */
@@ -358,8 +308,9 @@ button { font-family: inherit; }
   .hero h1 { font-size: 40px; }
   .hero .lead { font-size: 17px; }
   .hero .cta .btn { width: 100%; }
-  .demo-karte { padding: 18px 16px 14px; }
-  .verlauf { min-height: 0; }
+  .welle-flaeche { height: 112px; }
+  .auftrag-karte { padding: 16px 16px 14px; }
+  .auftrag-feld { grid-template-columns: 92px 1fr 20px; gap: 8px; }
   .blase { max-width: 90%; }
   .nutzen .wrap { grid-template-columns: 1fr; gap: 22px; padding-top: 36px; padding-bottom: 36px; }
   .nutz { padding: 0; }
@@ -382,3 +333,65 @@ button { font-family: inherit; }
   .modal-kasten { padding: 26px 22px; }
   .fuss .wrap { flex-direction: column; align-items: flex-start; }
 }
+
+/* =====================================================================
+   Hero-Visual «Stimme wird Auftrag»
+   Schallwelle aus Partikeln (WebGL-Overlay), Untertitel und Auftragskarte.
+   Partikel fliegen aus der Welle in die Felder der Karte und füllen sie aus.
+   ===================================================================== */
+.auftrag-buehne { position: relative; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.auftrag-canvas { position: absolute; left: -40px; top: -40px; width: calc(100% + 80px); height: calc(100% + 80px); pointer-events: none; z-index: 2; }
+.auftrag-canvas[hidden] { display: none; }
+.welle-flaeche { position: relative; height: 150px; }
+.welle-svg { display: block; width: 100%; height: 100%; }
+.welle-untertitel { min-height: 72px; display: flex; justify-content: center; text-align: center; }
+.welle-zeile { margin: 0; max-width: 460px; font-size: 16px; line-height: 1.5; color: #e6eef8; text-wrap: balance; animation: einblenden 0.45s ease both; }
+.welle-wer { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-style: normal; margin-bottom: 4px; }
+.welle-assistent .welle-wer { color: var(--tuerkis); }
+.welle-anrufer { color: #c9d4e3; font-style: italic; }
+.welle-anrufer .welle-wer { color: #9fb0c6; }
+.welle-fertig .welle-wer { color: var(--cyan); }
+
+.auftrag-karte {
+  position: relative; background: #ffffff; color: var(--graphit); border-radius: 22px; padding: 20px 22px 16px;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  transition: box-shadow 0.6s ease;
+}
+.auftrag-karte.fertig { box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.55), 0 0 0 2px rgba(63, 240, 201, 0.9), 0 0 48px -6px rgba(63, 200, 255, 0.55); }
+.auftrag-kopf { display: flex; align-items: center; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid var(--linie); }
+.auftrag-kopf .titel { font-weight: 600; font-size: 15px; line-height: 1.3; }
+.auftrag-kopf .status { font-size: 13px; color: var(--text3); display: flex; align-items: center; gap: 6px; }
+.auftrag-kopf .status i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: blink 1.6s ease-in-out infinite; }
+.auftrag-kopf .status svg { width: 14px; height: 14px; stroke: var(--gruen); }
+.auftrag-karte.fertig .auftrag-kopf .status { color: var(--gruen); font-weight: 600; }
+.auftrag-kopf .knopf {
+  margin-left: auto; width: 36px; height: 36px; flex: 0 0 auto; border-radius: 50%; border: 1px solid var(--linie);
+  background: #ffffff; color: var(--text2); display: grid; place-items: center; cursor: pointer;
+}
+.auftrag-kopf .knopf:hover { color: var(--graphit); border-color: #c5cdd8; }
+.auftrag-kopf .knopf:focus-visible { outline: 2px solid var(--blau); outline-offset: 2px; }
+.auftrag-kopf .knopf svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+.auftrag-felder { margin: 4px 0 0; display: flex; flex-direction: column; }
+.auftrag-feld { display: grid; grid-template-columns: 108px 1fr 20px; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px dashed var(--linie); }
+.auftrag-feld:last-child { border-bottom: 0; }
+.auftrag-feld dt { font-size: 11.5px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text3); }
+.auftrag-feld dd { margin: 0 0 0 -6px; padding: 2px 6px; border-radius: 6px; min-height: 26px; display: flex; align-items: center; font-size: 15px; font-weight: 500; }
+.auftrag-feld.gefuellt dd { animation: aufleuchten 1s ease; }
+.auftrag-feld.wichtig.gefuellt dd { color: var(--violett); font-weight: 600; }
+@keyframes aufleuchten { 0% { background: rgba(63, 240, 201, 0.32); } 100% { background: transparent; } }
+.platzhalter {
+  display: block; width: 68%; height: 10px; border-radius: 6px;
+  background: linear-gradient(90deg, #eef2f7 0%, #f8fafc 50%, #eef2f7 100%); background-size: 200% 100%;
+  animation: schimmer 1.6s linear infinite;
+}
+@keyframes schimmer { to { background-position: -200% 0; } }
+.feld-haken {
+  width: 20px; height: 20px; border-radius: 50%; background: var(--verlauf); display: grid; place-items: center;
+  opacity: 0; transform: scale(0.5); transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.feld-haken svg { width: 12px; height: 12px; }
+.auftrag-feld.gefuellt .feld-haken { opacity: 1; transform: none; }
+.tipp-cursor { display: inline-block; width: 2px; height: 1em; margin-left: 2px; background: var(--blau); vertical-align: -2px; animation: blink 0.8s steps(1) infinite; }
+.auftrag-fuss { margin-top: 8px; font-size: 12.5px; color: var(--text3); }
+.auftrag-karte.fertig .auftrag-fuss { color: var(--gruen); font-weight: 600; }
