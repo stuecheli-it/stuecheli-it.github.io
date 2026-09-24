@@ -282,7 +282,7 @@ button { font-family: inherit; }
   html { scroll-behavior: auto; }
   .orb .balken line, .auftrag-kopf .status i, .platzhalter, .tipp-cursor { animation: none !important; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .branche, .preis, .modal-kasten, .welle-zeile, .auftrag-feld.gefuellt dd { animation: none; }
+  .branche, .preis, .modal-kasten, .welle-zeile, .auftrag-feld.gefuellt dd, .auftrag-karte { animation: none; }
 }
 
 /* ---------- Tablet ---------- */
@@ -310,7 +310,9 @@ button { font-family: inherit; }
   .hero .cta .btn { width: 100%; }
   .welle-flaeche { height: 112px; }
   .auftrag-karte { padding: 16px 16px 14px; }
-  .auftrag-feld { grid-template-columns: 92px 1fr 20px; gap: 8px; }
+  .auftrag-feld { grid-template-columns: 100px 1fr 20px; gap: 8px; }
+  .beispiel-chip { padding: 0 10px; height: 34px; }
+  .beispiel-chip:not(.aktiv) span { display: none; }
   .blase { max-width: 90%; }
   .nutzen .wrap { grid-template-columns: 1fr; gap: 22px; padding-top: 36px; padding-bottom: 36px; }
   .nutz { padding: 0; }
@@ -340,11 +342,23 @@ button { font-family: inherit; }
    Partikel fliegen aus der Welle in die Felder der Karte und füllen sie aus.
    ===================================================================== */
 .auftrag-buehne { position: relative; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+
+/* Branchen-Knöpfe: die Beispiele laufen nacheinander, ein Klick springt direkt dorthin */
+.beispiel-chips { position: relative; z-index: 3; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
+.beispiel-chip {
+  height: 32px; padding: 0 9px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.05); color: #9fb0c6; font-size: 12px; font-weight: 500; cursor: pointer;
+  display: inline-flex; align-items: center; gap: 6px; transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+.beispiel-chip:hover { color: #ffffff; border-color: rgba(255, 255, 255, 0.32); }
+.beispiel-chip:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.beispiel-chip.aktiv { background: #ffffff; border-color: #ffffff; color: var(--nacht); font-weight: 600; }
+.beispiel-chip svg { width: 15px; height: 15px; flex: 0 0 auto; display: none; }
 .auftrag-canvas { position: absolute; left: -40px; top: -40px; width: calc(100% + 80px); height: calc(100% + 80px); pointer-events: none; z-index: 2; }
 .auftrag-canvas[hidden] { display: none; }
-.welle-flaeche { position: relative; height: 150px; }
+.welle-flaeche { position: relative; height: 128px; }
 .welle-svg { display: block; width: 100%; height: 100%; }
-.welle-untertitel { min-height: 72px; display: flex; justify-content: center; text-align: center; }
+.welle-untertitel { min-height: 68px; display: flex; justify-content: center; text-align: center; }
 .welle-zeile { margin: 0; max-width: 460px; font-size: 16px; line-height: 1.5; color: #e6eef8; text-wrap: balance; animation: einblenden 0.45s ease both; }
 .welle-wer { display: block; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-style: normal; margin-bottom: 4px; }
 .welle-assistent .welle-wer { color: var(--tuerkis); }
@@ -354,6 +368,7 @@ button { font-family: inherit; }
 
 .auftrag-karte {
   position: relative; background: #ffffff; color: var(--graphit); border-radius: 22px; padding: 20px 22px 16px;
+  animation: einblenden 0.45s ease;
   box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.08);
   transition: box-shadow 0.6s ease;
 }
@@ -373,7 +388,7 @@ button { font-family: inherit; }
 .auftrag-kopf .knopf svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 .auftrag-felder { margin: 4px 0 0; display: flex; flex-direction: column; }
-.auftrag-feld { display: grid; grid-template-columns: 108px 1fr 20px; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px dashed var(--linie); }
+.auftrag-feld { display: grid; grid-template-columns: 118px 1fr 20px; align-items: center; gap: 10px; padding: 9px 0; border-bottom: 1px dashed var(--linie); }
 .auftrag-feld:last-child { border-bottom: 0; }
 .auftrag-feld dt { font-size: 11.5px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text3); }
 .auftrag-feld dd { margin: 0 0 0 -6px; padding: 2px 6px; border-radius: 6px; min-height: 26px; display: flex; align-items: center; font-size: 15px; font-weight: 500; }
@@ -395,3 +410,11 @@ button { font-family: inherit; }
 .tipp-cursor { display: inline-block; width: 2px; height: 1em; margin-left: 2px; background: var(--blau); vertical-align: -2px; animation: blink 0.8s steps(1) infinite; }
 .auftrag-fuss { margin-top: 8px; font-size: 12.5px; color: var(--text3); }
 .auftrag-karte.fertig .auftrag-fuss { color: var(--gruen); font-weight: 600; }
+
+/* Branchen-Knöpfe: Desktop eine Zeile (darf leicht über die Spalte ragen), Handy mit Icons */
+@media (min-width: 1025px) {
+  .beispiel-chips { flex-wrap: nowrap; margin: 0 -32px; }
+}
+@media (max-width: 720px) {
+  .beispiel-chip svg { display: block; }
+}

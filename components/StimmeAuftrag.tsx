@@ -1,9 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ABLAUF, ABSCHLUSS_MS, FELDER, type FeldId } from "@/lib/auftrag/ablauf";
+import { ABSCHLUSS_MS, SZENARIEN, type BrancheId } from "@/lib/auftrag/ablauf";
 import type { Welle, WelleSprecher } from "@/lib/auftrag/Welle";
-import { Haken } from "./Icons";
+import { Auto, Besteck, Haken, Haus, Hut, Schere, Werkzeug } from "./Icons";
+
+const ICONS: Record<BrancheId, React.ReactNode> = {
+  garage: <Auto />,
+  handwerk: <Werkzeug />,
+  coiffeur: <Schere />,
+  fahrschule: <Hut />,
+  gastro: <Besteck />,
+  immo: <Haus />,
+};
 
 /** Tippt einen Text Zeichen für Zeichen, sobald er aktiv wird. */
 function Tipp({ text, sofort }: { text: string; sofort: boolean }) {
@@ -13,9 +22,10 @@ function Tipp({ text, sofort }: { text: string; sofort: boolean }) {
       setN(text.length);
       return;
     }
-    let i = 0;
+    // Fortschritt aus der vergangenen Zeit: bleibt korrekt, auch wenn der Browser Timer drosselt
+    const start = performance.now();
     const t = window.setInterval(() => {
-      i += 1;
+      const i = Math.min(text.length, Math.floor((performance.now() - start) / 26) + 1);
       setN(i);
       if (i >= text.length) window.clearInterval(t);
     }, 26);
@@ -60,22 +70,36 @@ function RuhigeWelle() {
 /**
  * Hero-Visual «Stimme wird Auftrag»: Eine Schallwelle aus Partikeln zeigt das Gespräch,
  * wichtige Angaben fliegen als Partikel in eine Auftragskarte und füllen sie aus.
+ * Die Beispiele der sechs Branchen laufen nacheinander ab; ein Klick auf eine Branche springt dorthin.
  */
 export default function StimmeAuftrag() {
   const buehneRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const welleRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<Welle | null>(null);
-  const sprecherRef = useRef<WelleSprecher>(ABLAUF[0].wer);
-  const feldRefs = useRef<Partial<Record<FeldId, HTMLElement | null>>>({});
+  const sprecherRef = useRef<WelleSprecher>(SZENARIEN[0].ablauf[0].wer);
+  const feldRefs = useRef<Record<string, HTMLElement | null>>({});
+  /** Laufende Flüge: dürfen über das Satzende hinaus ankommen, enden erst beim Branchenwechsel */
+  const fuellTimer = useRef<number[]>([]);
 
   const [ohneWebGL, setOhneWebGL] = useState(false);
   const [bewegt, setBewegt] = useState(true);
+  const [nr, setNr] = useState(0);
   const [schritt, setSchritt] = useState(0);
-  const [gefuellt, setGefuellt] = useState<FeldId[]>([]);
+  const [gefuellt, setGefuellt] = useState<string[]>([]);
   const [spielt, setSpielt] = useState(true);
 
+  const szenario = SZENARIEN[nr];
+  const ABLAUF = szenario.ablauf;
   const fertig = schritt >= ABLAUF.length;
+
+  /** Zu einem Beispiel springen und von vorn beginnen */
+  const zeigen = (i: number) => {
+    setNr(i);
+    setSchritt(0);
+    setGefuellt([]);
+    setSpielt(true);
+  };
 
   // ---------- Grafik laden (Three.js erst nach dem ersten Bild) ----------
   useEffect(() => {
@@ -130,6 +154,15 @@ export default function StimmeAuftrag() {
     };
   }, []);
 
+  // Beim Wechsel der Branche laufende Flüge verwerfen
+  useEffect(() => {
+    const laufend = fuellTimer.current;
+    return () => {
+      laufend.forEach((t) => window.clearTimeout(t));
+      laufend.length = 0;
+    };
+  }, [nr]);
+
   // ---------- Gesprächsablauf ----------
   useEffect(() => {
     const timer: number[] = [];
@@ -139,10 +172,12 @@ export default function StimmeAuftrag() {
     if (!spielt) return;
 
     if (fertig) {
+      // Nächstes Beispiel
       timer.push(
         window.setTimeout(() => {
           setGefuellt([]);
           setSchritt(0);
+          setNr((n) => (n + 1) % SZENARIEN.length);
         }, ABSCHLUSS_MS),
       );
     } else {
@@ -152,14 +187,16 @@ export default function StimmeAuftrag() {
           window.setTimeout(() => {
             const el = feldRefs.current[f.id];
             const ms = el && engineRef.current ? engineRef.current.flug(el) : 0;
-            timer.push(window.setTimeout(() => setGefuellt((g) => (g.includes(f.id) ? g : [...g, f.id])), ms));
+            fuellTimer.current.push(
+              window.setTimeout(() => setGefuellt((g) => (g.includes(f.id) ? g : [...g, f.id])), ms),
+            );
           }, s.dauer * f.bei),
         );
       });
       timer.push(window.setTimeout(() => setSchritt((x) => x + 1), s.dauer));
     }
     return () => timer.forEach((t) => window.clearTimeout(t));
-  }, [schritt, spielt, fertig]);
+  }, [nr, schritt, spielt, fertig, ABLAUF]);
 
   const aktuelle = fertig ? null : ABLAUF[schritt];
 
@@ -169,25 +206,40 @@ export default function StimmeAuftrag() {
       className="auftrag-buehne"
       aria-label="Beispiel: Der KI-Assistent nimmt einen Anruf entgegen und füllt dabei einen Auftrag aus"
     >
+      <div className="beispiel-chips" role="group" aria-label="Beispiele nach Branche">
+        {SZENARIEN.map((b, i) => (
+          <button
+            key={b.id}
+            type="button"
+            className={"beispiel-chip" + (i === nr ? " aktiv" : "")}
+            aria-pressed={i === nr}
+            onClick={() => zeigen(i)}
+          >
+            {ICONS[b.id]}
+            <span>{b.tab}</span>
+          </button>
+        ))}
+      </div>
+
       <div ref={welleRef} className="welle-flaeche" aria-hidden="true">
         {ohneWebGL && <RuhigeWelle />}
       </div>
 
       <div className="welle-untertitel">
         {aktuelle ? (
-          <p key={schritt} className={"welle-zeile welle-" + aktuelle.wer.toLowerCase()}>
-            <span className="welle-wer">{aktuelle.wer === "Anrufer" ? "Anruferin" : "Assistent"}</span>
+          <p key={szenario.id + schritt} className={"welle-zeile welle-" + aktuelle.wer.toLowerCase()}>
+            <span className="welle-wer">{aktuelle.wer === "Anrufer" ? szenario.anrufer : "Assistent"}</span>
             {aktuelle.text}
           </p>
         ) : (
           <p key="fertig" className="welle-zeile welle-fertig">
             <span className="welle-wer">Gespräch beendet</span>
-            Der Auftrag liegt vollständig bei Ihnen.
+            Alles Wichtige liegt vollständig bei Ihnen.
           </p>
         )}
       </div>
 
-      <div className={"auftrag-karte" + (fertig ? " fertig" : "")}>
+      <div key={szenario.id} className={"auftrag-karte" + (fertig ? " fertig" : "")}>
         <div className="auftrag-kopf">
           <svg className="orb" viewBox="0 0 100 100" aria-hidden="true">
             <defs>
@@ -212,7 +264,7 @@ export default function StimmeAuftrag() {
             </g>
           </svg>
           <div>
-            <div className="titel">Neuer Auftrag · Muster Sanitär AG</div>
+            <div className="titel">{szenario.titel}</div>
             <div className="status">
               {fertig ? (
                 <>
@@ -242,13 +294,10 @@ export default function StimmeAuftrag() {
         </div>
 
         <dl className="auftrag-felder">
-          {FELDER.map((f) => {
+          {szenario.felder.map((f) => {
             const voll = gefuellt.includes(f.id);
             return (
-              <div
-                key={f.id}
-                className={"auftrag-feld" + (voll ? " gefuellt" : "") + (f.id === "einschaetzung" ? " wichtig" : "")}
-              >
+              <div key={f.id} className={"auftrag-feld" + (voll ? " gefuellt" : "") + (f.wichtig ? " wichtig" : "")}>
                 <dt>{f.label}</dt>
                 <dd
                   ref={(el) => {
@@ -266,7 +315,7 @@ export default function StimmeAuftrag() {
         </dl>
 
         <div className="auftrag-fuss">
-          {fertig ? "Zusammenfassung per Mail an Sie gesendet, 10:43" : "Der Assistent füllt den Auftrag während des Gesprächs aus"}
+          {fertig ? "Zusammenfassung per Mail an Sie gesendet, 10:43" : "Der Assistent füllt alles während des Gesprächs aus"}
         </div>
       </div>
 
