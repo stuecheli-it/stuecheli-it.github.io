@@ -171,7 +171,7 @@ export function Fuss() {
         </div>
         <div className="lockup">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="eigen" src="/assets/stuecheli-logo-horizontal-dunkel.svg" alt="Stücheli IT Consulting" />
+          <img className="eigen" src="/assets/stuecheli-logo-horizontal-dunkel-knapp.svg" alt="Stücheli IT Consulting" />
           <div className="trenner" />
           <div className="fonio">
             {/* eslint-disable-next-line @next/next/no-img-element */}
