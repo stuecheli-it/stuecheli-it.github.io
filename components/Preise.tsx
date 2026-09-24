@@ -98,9 +98,8 @@ export default function Preise() {
           <div className="kicker">Preise</div>
           <h2>Transparent und ohne Umwege.</h2>
           <p className="sub">
-            Ihr fonio-Abo aktivieren wir gemeinsam mit Ihnen, über unseren Partnerlink. So ist Ihr Assistent vom ersten
-            Tag an richtig eingerichtet. Das Jahresabo ist günstiger. Einrichtung, Schulung und Betreuung verrechnen wir
-            separat.
+            Ihr fonio-Abo aktivieren wir gemeinsam mit Ihnen. So ist Ihr Assistent vom ersten Tag an richtig eingerichtet.
+            Einrichtung, Schulung und Betreuung verrechnen wir separat.
           </p>
         </div>
 
