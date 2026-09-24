@@ -34,6 +34,7 @@ export const PRODUKTE: Produkt[] = [
     plaene: [
       {
         name: "Solo",
+        beliebt: true,
         fuer: "Für 1 bis 20 Anrufe pro Tag",
         monat: 119,
         jahr: 1188,
@@ -55,7 +56,6 @@ export const PRODUKTE: Produkt[] = [
       {
         name: "Team",
         fuer: "Für 20 bis 100 Anrufe pro Tag",
-        beliebt: true,
         monat: 359,
         jahr: 3588,
         setup: "Einmalige Einrichtung durch uns: CHF 1'890",
@@ -80,6 +80,7 @@ export const PRODUKTE: Produkt[] = [
     plaene: [
       {
         name: "Solo",
+        beliebt: true,
         fuer: "Bis 100 Konversationen pro Monat",
         monat: 69,
         jahr: 696,
@@ -94,7 +95,6 @@ export const PRODUKTE: Produkt[] = [
       {
         name: "Team",
         fuer: "Bis 500 Konversationen pro Monat",
-        beliebt: true,
         monat: 249,
         jahr: 2496,
         setup: "Einrichtung durch uns: auf Anfrage",
@@ -113,6 +113,7 @@ export const PRODUKTE: Produkt[] = [
     plaene: [
       {
         name: "Solo",
+        beliebt: true,
         fuer: "Chat-Assistent für Ihre Website",
         monat: 49,
         jahr: 499,
@@ -126,7 +127,6 @@ export const PRODUKTE: Produkt[] = [
       {
         name: "Team",
         fuer: "Chat-Assistent für Ihre Website, für Teams",
-        beliebt: true,
         monat: 139,
         jahr: 1399,
         setup: "Einrichtung durch uns: auf Anfrage",
