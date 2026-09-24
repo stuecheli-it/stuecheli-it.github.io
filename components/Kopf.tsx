@@ -4,9 +4,14 @@ export default function Kopf() {
   return (
     <header className="kopf">
       <div className="wrap">
-        <a className="logo" href="#" aria-label="Stücheli IT Consulting, zum Seitenanfang">
+        {/* Logo als Bildmarke plus echte Schrift (nach Logo-Richtlinien: Geist Bold / Geist Regular in Versalien) */}
+        <a className="logo marke" href="#" aria-label="Stücheli IT Consulting, zum Seitenanfang">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/assets/stuecheli-logo-horizontal-hell-knapp.svg" alt="Stücheli IT Consulting" />
+          <img className="marke-orb" src="/assets/stuecheli-favicon.svg" alt="" />
+          <span className="marke-text" aria-hidden="true">
+            <span className="marke-name">Stücheli</span>
+            <span className="marke-zusatz">IT Consulting</span>
+          </span>
         </a>
         <nav className="nav" aria-label="Hauptnavigation">
           <a href="#branchen">Branchen</a>

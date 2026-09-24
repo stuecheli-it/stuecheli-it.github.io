@@ -51,6 +51,13 @@ button { font-family: inherit; }
 .kopf .wrap { display: flex; align-items: center; justify-content: space-between; height: 80px; }
 .kopf .logo { display: block; }
 .kopf .logo img { height: 46px; width: auto; display: block; }
+/* Logo mit echter Schrift: Orb (Favicon-Variante, unter 64 px vorgeschrieben) + Schriftzug */
+.kopf .marke { display: flex; align-items: center; gap: 11px; flex: 0 0 auto; color: var(--graphit); }
+.kopf .marke:hover { color: var(--graphit); }
+.kopf .marke .marke-orb { height: 42px; width: 42px; }
+.marke-text { display: flex; flex-direction: column; line-height: 1; white-space: nowrap; }
+.marke-name { font-size: 23px; font-weight: 700; letter-spacing: -0.035em; color: #1d1d1f; }
+.marke-zusatz { margin-top: 4px; font-size: 10.5px; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: #86868b; }
 .nav { display: flex; align-items: center; gap: 32px; }
 .nav a { color: var(--text2); font-size: 15px; font-weight: 500; }
 .nav a:hover { color: var(--graphit); }
@@ -303,6 +310,10 @@ button { font-family: inherit; }
   .wrap { padding: 0 20px; }
   .kopf .wrap { height: 64px; }
   .kopf .logo img { height: 36px; }
+  .kopf .marke { gap: 9px; }
+  .kopf .marke .marke-orb { height: 34px; width: 34px; }
+  .marke-name { font-size: 19px; }
+  .marke-zusatz { font-size: 9.5px; margin-top: 3px; }
   .nav a:not(.btn) { display: none; }
   .nav .btn { height: 38px; padding: 0 14px; font-size: 13px; }
   .hero .wrap { grid-template-columns: 1fr; gap: 40px; padding-top: 56px; padding-bottom: 72px; }
@@ -418,4 +429,14 @@ button { font-family: inherit; }
 }
 @media (max-width: 720px) {
   .beispiel-chip svg { display: block; }
+}
+
+/* Kopfzeile auf Tablet-Breite: Menü kompakter, darunter nur noch der Anruf-Knopf (sonst stösst es ans Logo) */
+@media (max-width: 1024px) {
+  .kopf .wrap { gap: 20px; }
+  .nav { gap: 22px; }
+  .nav a:not(.btn) { font-size: 14px; }
+}
+@media (max-width: 860px) {
+  .nav a:not(.btn) { display: none; }
 }
