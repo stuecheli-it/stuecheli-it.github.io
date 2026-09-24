@@ -1,7 +1,7 @@
-/* Stücheli IT Consulting: Website 2.1 (Next.js, Stand 24.09.2026)
+/* Stücheli IT Consulting: Website 2.0 (Stand 06.09.2026)
    Hell mit dunklen Akzenten. Nachtblau #0b1728 nur im Hero und im Kontaktbereich,
    Orb-Verlauf #3ff0c9 → #3a8cff → #6b45ff als Akzent, Schrift Geist.
-   Die interne Testübersicht (public/test/) nutzt weiterhin das dunkle Design in public/test/intern.css. */
+   Die interne Testübersicht (test/) nutzt weiterhin das dunkle Design in test/intern.css. */
 
 :root {
   --nacht: #0b1728;
@@ -26,7 +26,7 @@
 html { scroll-behavior: smooth; }
 body {
   margin: 0;
-  font-family: var(--font-geist), "Geist", "SF Pro Text", "Helvetica Neue", "Segoe UI", sans-serif;
+  font-family: "Geist", "SF Pro Text", "Helvetica Neue", "Segoe UI", sans-serif;
   color: var(--graphit);
   background: var(--papier);
   line-height: 1.6;
@@ -53,7 +53,6 @@ button { font-family: inherit; }
 .nav { display: flex; align-items: center; gap: 32px; }
 .nav a { color: var(--text2); font-size: 15px; font-weight: 500; }
 .nav a:hover { color: var(--graphit); }
-.nav a.btn, .nav a.btn:hover { color: #ffffff; }
 
 /* ---------- Knöpfe ---------- */
 .btn {
@@ -117,8 +116,8 @@ button { font-family: inherit; }
 .buehne .ring { fill: none; stroke: var(--tuerkis); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; animation: klingeln 2.4s ease-out infinite; opacity: 0; }
 .buehne .ring.r2 { animation-delay: 0.8s; }
 @keyframes klingeln { 0% { transform: scale(0.85); opacity: 0.9; } 100% { transform: scale(1.7); opacity: 0; } }
-.buehne .beschriftung { fill: #9fb0c6; font-family: var(--font-geist), sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
-.buehne .abzeichen { fill: #ffffff; font-family: var(--font-geist), sans-serif; font-size: 11.5px; font-weight: 600; }
+.buehne .beschriftung { fill: #9fb0c6; font-family: inherit; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+.buehne .abzeichen { fill: #ffffff; font-family: inherit; font-size: 11.5px; font-weight: 600; }
 .buehne .orb-gross .balken line { transform-box: view-box; }
 .buehne .orb-gross .balken line:nth-child(1) { transform-origin: 232px 96px; animation: o0 2s linear infinite; }
 .buehne .orb-gross .balken line:nth-child(2) { transform-origin: 246px 96px; animation: o1 2s linear infinite; }
@@ -255,7 +254,7 @@ button { font-family: inherit; }
 }
 .gruppe button.aktiv { background: #ffffff; color: var(--graphit); font-weight: 600; box-shadow: 0 1px 2px rgba(11, 23, 40, 0.08), 0 0 0 1px var(--linie); }
 .gruppe .rabatt { font-size: 12px; font-weight: 600; color: var(--gruen); background: rgba(63, 240, 201, 0.18); border-radius: 999px; padding: 2px 8px; }
-.preise { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 28px; align-items: stretch; max-width: 880px; }
+.preise { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 28px; align-items: stretch; }
 .preis { background: #ffffff; border: 1px solid var(--linie); border-radius: 20px; padding: 30px 28px; display: flex; flex-direction: column; gap: 6px; position: relative; animation: einblenden 0.35s ease; }
 .preis.mitte { border: 1.5px solid transparent; background: linear-gradient(#ffffff, #ffffff) padding-box, var(--verlauf) border-box; box-shadow: 0 24px 48px -24px rgba(58, 140, 255, 0.45); }
 .preis .beliebt { position: absolute; top: -13px; left: 28px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #06121f; background: var(--verlauf); border-radius: 999px; padding: 4px 12px; }
@@ -265,10 +264,10 @@ button { font-family: inherit; }
 .preis .betrag small { font-size: 15px; font-weight: 400; color: var(--text2); letter-spacing: 0; }
 .preis .spare { font-size: 13px; font-weight: 600; color: var(--gruen); margin-top: 8px; }
 .preis .setup { font-size: 14px; color: var(--text2); margin-top: 4px; padding-bottom: 18px; border-bottom: 1px solid var(--linie); }
-.preis ul { list-style: none; margin: 16px 0 24px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.preis ul { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .preis li { display: flex; gap: 10px; font-size: 14.5px; color: var(--text2); line-height: 1.45; }
 .preis li svg { width: 18px; height: 18px; flex: 0 0 auto; stroke: var(--blau); margin-top: 2px; }
-.preis .btn { margin-top: auto; width: 100%; }
+.preis .btn { margin-top: 24px; width: 100%; }
 .steuer { font-size: 13px; color: var(--text3); margin-top: 18px; }
 .hinweise { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 36px; }
 .hinweis { background: #ffffff; border: 1px solid var(--linie); border-radius: var(--radius); padding: 24px 26px; display: flex; gap: 16px; }
@@ -310,8 +309,7 @@ button { font-family: inherit; }
 .weg .ico24 svg { stroke: var(--tuerkis); }
 .weg b { display: block; font-size: 16px; font-weight: 600; }
 .weg span { font-size: 13.5px; color: #9fb0c6; }
-.weg .pfeil { margin-left: auto; width: 20px; height: 20px; color: #9fb0c6; flex: 0 0 auto; display: flex; }
-.weg .pfeil svg { width: 100%; height: 100%; }
+.weg .pfeil { margin-left: auto; width: 20px; height: 20px; stroke: #9fb0c6; flex: 0 0 auto; }
 
 /* ---------- Fusszeile ---------- */
 .fuss { background: #07101c; color: #9fb0c6; border-top: 1px solid rgba(255, 255, 255, 0.08); }
