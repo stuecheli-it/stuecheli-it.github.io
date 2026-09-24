@@ -98,8 +98,9 @@ export default function Preise() {
           <div className="kicker">Preise</div>
           <h2>Transparent und ohne Umwege.</h2>
           <p className="sub">
-            Das Abo schliessen Sie direkt beim Anbieter fonio.ai ab, das Jahresabo ist günstiger. Einrichtung, Schulung
-            und Betreuung übernehmen wir, separat verrechnet.
+            Ihr fonio-Abo aktivieren wir gemeinsam mit Ihnen, über unseren Partnerlink. So ist Ihr Assistent vom ersten
+            Tag an richtig eingerichtet. Das Jahresabo ist günstiger. Einrichtung, Schulung und Betreuung verrechnen wir
+            separat.
           </p>
         </div>
 
