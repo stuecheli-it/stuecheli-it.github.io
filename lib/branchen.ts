@@ -48,7 +48,7 @@ export const BRANCHEN: Branche[] = [
     gespraech: [
       { wer: "anrufer", text: "Bei uns tropft es aus der Decke. Können Sie heute noch jemanden schicken?" },
       { wer: "ki", text: "Das klingt dringend, ich gebe das sofort weiter. Wo befindet sich die Liegenschaft?" },
-      { wer: "anrufer", text: "Bahnhofstrasse 12 in Liestal." },
+      { wer: "anrufer", text: "Teufener Strasse 40 in St. Gallen." },
       { wer: "ki", text: "Notiert. Das Team ruft Sie in den nächsten Minuten zurück." },
     ],
     vorteile: [

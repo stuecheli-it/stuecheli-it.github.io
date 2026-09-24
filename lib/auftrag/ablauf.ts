@@ -84,7 +84,7 @@ export const SZENARIEN: Szenario[] = [
     felder: [
       { id: "anrufer", label: "Anruferin", wert: "Petra Keller" },
       { id: "anliegen", label: "Anliegen", wert: "Boiler liefert kein Warmwasser" },
-      { id: "adresse", label: "Adresse", wert: "Hauptstrasse 5, Sissach" },
+      { id: "adresse", label: "Adresse", wert: "Rosenbergstrasse 12, St. Gallen" },
       { id: "erreichbar", label: "Erreichbar", wert: "Heute ab 14 Uhr" },
       { id: "einschaetzung", label: "Einschätzung", wert: "Dringend · Rückruf heute Nachmittag", wichtig: true },
     ],
@@ -107,7 +107,7 @@ export const SZENARIEN: Szenario[] = [
       },
       {
         wer: "Anrufer",
-        text: "Hauptstrasse 5 in Sissach, ab 14 Uhr.",
+        text: "Rosenbergstrasse 12 in St. Gallen, ab 14 Uhr.",
         dauer: 3400,
         felder: [
           { id: "adresse", bei: 0.3 },
