@@ -41,11 +41,10 @@ button { font-family: inherit; }
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 40px; }
 
 /* ---------- Kopfzeile ---------- */
+/* Bleibt oben stehen und scrollt mit der Seite weg (nicht mitlaufend) */
 .kopf {
-  position: sticky; top: 0; z-index: 20;
-  background: rgba(255, 255, 255, 0.86);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  position: relative; z-index: 20;
+  background: #ffffff;
   border-bottom: 1px solid var(--linie);
 }
 .kopf .wrap { display: flex; align-items: center; justify-content: space-between; height: 80px; }
