@@ -5,20 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex" />
   <title>Anfrage-Chat · Stücheli IT Consulting</title>
-  <!-- Wird im Fenster «Unverbindlich anfragen» der Preise als Rahmen geladen (components/AnfrageChat.tsx). -->
+  <!--
+    Wird im Fenster «Unverbindlich anfragen» der Preise als Rahmen geladen (components/AnfrageChat.tsx).
+    fonio bietet für dieses Widget nur den schwebenden Modus an (inline meldet «nicht verfügbar»).
+    Im schmalen Rahmen füllt das schwebende Chatfenster den ganzen Platz aus, darum öffnen wir es sofort.
+    Schliesst jemand den Chat über das fonio-Kreuz, schliesst sich auch das Fenster auf der Website.
+  -->
   <style>
     html, body { margin: 0; height: 100%; background: #ffffff; }
-    #anfrage-chat { height: 100%; }
   </style>
 </head>
 <body>
-  <div id="anfrage-chat"></div>
   <script
     type="module"
     src="https://widget.fonio.ai/webchat-widget.js"
     data-fonio-webchat-widget-id="52aac962-8a9d-4f4f-9640-688f3b595eac"
-    data-fonio-webchat-widget-mode="inline"
-    data-fonio-webchat-widget-container="anfrage-chat"
+    data-fonio-webchat-widget-mode="floating"
   ></script>
+  <script>
+    (function () {
+      var versuche = 0;
+      var warOffen = false;
+      function melden(typ) {
+        if (window.parent !== window) window.parent.postMessage({ anfrageChat: typ }, window.location.origin);
+      }
+      function starten() {
+        var wc = window.fonio && window.fonio.webchat;
+        if (!wc || !wc.open) {
+          if (++versuche < 100) setTimeout(starten, 100);
+          return;
+        }
+        if (wc.on) {
+          wc.on("opened", function () {
+            warOffen = true;
+            melden("offen");
+          });
+          wc.on("closed", function () {
+            if (warOffen) melden("zu");
+          });
+        }
+        wc.open();
+      }
+      starten();
+    })();
+  </script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ANFRAGE_CHAT_SEITE } from "@/lib/fonio";
 import { Chat, Kreuz, Pfeil } from "./Icons";
 import { useFenster } from "./useFenster";
@@ -15,6 +15,23 @@ export default function AnfrageChat({ thema, schliessen }: { thema: string; schl
   const zuRef = useRef<HTMLButtonElement>(null);
   const [geladen, setGeladen] = useState(false);
   useFenster(fensterRef, zuRef, schliessen);
+
+  // Die Chat-Seite im Rahmen meldet, wann der Chat offen ist und wann er über das fonio-Kreuz geschlossen wurde
+  useEffect(() => {
+    const nachricht = (e: MessageEvent) => {
+      if (e.origin !== window.location.origin) return;
+      const typ = (e.data as { anfrageChat?: string } | null)?.anfrageChat;
+      if (typ === "offen") setGeladen(true);
+      if (typ === "zu") schliessen();
+    };
+    window.addEventListener("message", nachricht);
+    // Falls die Meldung ausbleibt, den Rahmen trotzdem zeigen
+    const notfall = window.setTimeout(() => setGeladen(true), 8000);
+    return () => {
+      window.removeEventListener("message", nachricht);
+      window.clearTimeout(notfall);
+    };
+  }, [schliessen]);
 
   return (
     <div className="plan-hintergrund" onClick={(e) => e.target === e.currentTarget && schliessen()}>
@@ -46,7 +63,6 @@ export default function AnfrageChat({ thema, schliessen }: { thema: string; schl
           <iframe
             src={ANFRAGE_CHAT_SEITE}
             title="Anfrage-Chat von Stücheli IT Consulting"
-            onLoad={() => setGeladen(true)}
           />
         </div>
 
