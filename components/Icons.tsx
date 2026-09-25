@@ -58,6 +58,30 @@ export function Haken({ strich = 2, farbe = "currentColor" }: IconProps) {
   return <svg {...basis(strich, farbe)}><path d="M5 12l4 4 10-10" /></svg>;
 }
 
+// Plan-Details im Preis-Popup
+export function Balken({ strich = 1.8, farbe = "currentColor" }: IconProps) {
+  return <svg {...basis(strich, farbe)}><path d="M4 20h16" /><path d="M7 16v-5" /><path d="M12 16V6" /><path d="M17 16v-8" /></svg>;
+}
+export function Schall({ strich = 1.8, farbe = "currentColor" }: IconProps) {
+  return <svg {...basis(strich, farbe)}><path d="M4 10v4" /><path d="M8 7v10" /><path d="M12 4v16" /><path d="M16 8v8" /><path d="M20 11v2" /></svg>;
+}
+export function Funken({ strich = 1.8, farbe = "currentColor" }: IconProps) {
+  return (
+    <svg {...basis(strich, farbe)}>
+      <path d="M10 3l1.6 4.4L16 9l-4.4 1.6L10 15l-1.6-4.4L4 9l4.4-1.6z" /><path d="M18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8z" />
+    </svg>
+  );
+}
+export function Plus({ strich = 1.8, farbe = "currentColor" }: IconProps) {
+  return <svg {...basis(strich, farbe)}><circle cx="12" cy="12" r="9" /><path d="M12 8v8M8 12h8" /></svg>;
+}
+export function Info({ strich = 1.8, farbe = "currentColor" }: IconProps) {
+  return <svg {...basis(strich, farbe)}><circle cx="12" cy="12" r="9" /><path d="M12 11v5" /><path d="M12 8h.01" /></svg>;
+}
+export function Kreuz({ strich = 2, farbe = "currentColor" }: IconProps) {
+  return <svg {...basis(strich, farbe)}><path d="M6 6l12 12M18 6L6 18" /></svg>;
+}
+
 // Branchen-Tabs
 export function Auto() {
   return (

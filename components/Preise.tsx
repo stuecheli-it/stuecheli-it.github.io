@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { type ReactElement, useEffect, useRef, useState } from "react";
 import {
   PREISSTAND,
   PRODUKTE,
@@ -8,11 +8,29 @@ import {
   ersparnisProJahr,
   proMonatImJahresabo,
   rabattLabel,
+  rabattProzent,
   type Plan,
   type Produkt,
   type ProduktId,
 } from "@/lib/preise";
-import { Haken, Kreislauf, Stern } from "./Icons";
+import {
+  Auszeichnung,
+  Balken,
+  Chat,
+  ChatPunkte,
+  ChatStrich,
+  Funken,
+  Haken,
+  Info,
+  Kreislauf,
+  Kreuz,
+  Pfeil,
+  Plus,
+  Schall,
+  Stern,
+  Telefon,
+  Werkzeug,
+} from "./Icons";
 
 type Abrechnung = "monat" | "jahr";
 
@@ -32,53 +50,156 @@ function JahresInfo({ plan }: { plan: Plan }) {
   );
 }
 
+const PRODUKT_ICON: Record<ProduktId, () => ReactElement> = {
+  telefon: () => <Telefon />,
+  whatsapp: () => <ChatPunkte />,
+  webchat: () => <Chat />,
+};
+
+/** Hinweis-Gruppen erscheinen zurückhaltend als Infozeile statt als Kachel. */
+const LEISE = ["Zusatzkosten", "Paketumfang"];
+
+function GruppenIcon({ titel }: { titel: string }) {
+  if (titel === "Nutzung") return <Balken />;
+  if (titel.startsWith("Stimme")) return <Schall />;
+  if (titel === "Fähigkeiten" || titel === "Funktionen") return <Funken />;
+  if (titel.startsWith("Plattform")) return <ChatStrich />;
+  if (titel.startsWith("Zusätzlich")) return <Plus />;
+  if (titel === "Unsere Leistung") return <Auszeichnung />;
+  return <Haken />;
+}
+
 function DetailFenster({
   produkt,
   plan,
   abrechnung,
+  setAbrechnung,
   schliessen,
 }: {
   produkt: Produkt;
   plan: Plan;
   abrechnung: Abrechnung;
+  setAbrechnung: (a: Abrechnung) => void;
   schliessen: () => void;
 }) {
+  const fensterRef = useRef<HTMLDivElement>(null);
   const zuRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
+    const vorher = document.activeElement as HTMLElement | null;
     zuRef.current?.focus();
-    const esc = (e: KeyboardEvent) => e.key === "Escape" && schliessen();
-    document.addEventListener("keydown", esc);
+    const taste = (e: KeyboardEvent) => {
+      if (e.key === "Escape") return schliessen();
+      if (e.key !== "Tab" || !fensterRef.current) return;
+      // Fokus bleibt im Fenster
+      const ziele = fensterRef.current.querySelectorAll<HTMLElement>("button, a[href]");
+      const erstes = ziele[0];
+      const letztes = ziele[ziele.length - 1];
+      if (e.shiftKey && document.activeElement === erstes) {
+        e.preventDefault();
+        letztes.focus();
+      } else if (!e.shiftKey && document.activeElement === letztes) {
+        e.preventDefault();
+        erstes.focus();
+      }
+    };
+    document.addEventListener("keydown", taste);
+    const breite = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = "hidden";
+    document.body.style.paddingRight = breite ? breite + "px" : "";
+    // Auf dem Handy würde der fonio-Chatknopf den Anfrage-Knopf verdecken
+    const chat = window.matchMedia("(max-width: 720px)").matches
+      ? document.querySelector<HTMLElement>("fonio-webchat-widget-root:not([hidden])")
+      : null;
+    chat?.setAttribute("hidden", "");
     return () => {
-      document.removeEventListener("keydown", esc);
+      document.removeEventListener("keydown", taste);
+      chat?.removeAttribute("hidden");
       document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+      vorher?.focus({ preventScroll: true });
     };
   }, [schliessen]);
 
+  const kacheln = plan.details.filter((d) => !LEISE.includes(d.titel));
+  const hinweise = plan.details.filter((d) => LEISE.includes(d.titel));
+
   return (
-    <div className="modal-hintergrund" onClick={(e) => e.target === e.currentTarget && schliessen()}>
-      <div className="modal-kasten" role="dialog" aria-modal="true" aria-labelledby="modalTitel">
-        <button ref={zuRef} className="modal-zu" type="button" aria-label="Schliessen" onClick={schliessen}>
-          ×
+    <div className="plan-hintergrund" onClick={(e) => e.target === e.currentTarget && schliessen()}>
+      <div ref={fensterRef} className="plan-fenster" role="dialog" aria-modal="true" aria-labelledby="planTitel">
+        <button ref={zuRef} className="plan-zu" type="button" aria-label="Schliessen" onClick={schliessen}>
+          <Kreuz />
         </button>
-        <h3 id="modalTitel">{produkt.label} {plan.name}</h3>
-        <div className="betrag"><Betrag plan={plan} abrechnung={abrechnung} /></div>
-        {abrechnung === "jahr" && <JahresInfo plan={plan} />}
-        <p className="setup">{plan.setup}</p>
-        {plan.details.map((d) => (
-          <div key={d.titel}>
-            <h4>{d.titel}</h4>
-            <ul>
-              {d.punkte.map((p) => (
-                <li key={p}>{p}</li>
+
+        <div className="plan-scroll">
+          <header className="plan-kopf">
+            <div className="plan-glow" aria-hidden />
+            <div className="plan-marken">
+              <span className="plan-produkt">{PRODUKT_ICON[produkt.id]()}{produkt.label}</span>
+              {plan.beliebt && <span className="plan-beliebt">Beliebt</span>}
+            </div>
+            <h3 id="planTitel">{plan.name}</h3>
+            <p className="plan-fuer">{plan.fuer}</p>
+
+            <div className="plan-preiszeile">
+              <div className="plan-betrag" aria-live="polite">
+                <Betrag plan={plan} abrechnung={abrechnung} />
+              </div>
+              <div className="gruppe plan-abrechnung" role="group" aria-label="Abrechnung">
+                <button
+                  type="button"
+                  aria-pressed={abrechnung === "monat"}
+                  className={abrechnung === "monat" ? "aktiv" : ""}
+                  onClick={() => setAbrechnung("monat")}
+                >
+                  Monatlich
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={abrechnung === "jahr"}
+                  className={abrechnung === "jahr" ? "aktiv" : ""}
+                  onClick={() => setAbrechnung("jahr")}
+                >
+                  Jährlich <span className="rabatt">−{rabattProzent(plan)} %</span>
+                </button>
+              </div>
+            </div>
+            {abrechnung === "jahr" && (
+              <p className="plan-spare">
+                Entspricht {proMonatImJahresabo(plan)} pro Monat · Sie sparen {chf(ersparnisProJahr(plan))} pro Jahr
+              </p>
+            )}
+            <p className="plan-setup"><Werkzeug />{plan.setup}</p>
+          </header>
+
+          <div className="plan-inhalt">
+            <div className={"plan-kacheln" + (kacheln.length < 2 ? " einzeln" : "")}>
+              {kacheln.map((d, i) => (
+                <section key={d.titel} className="plan-kachel" style={{ animationDelay: 80 + i * 60 + "ms" }}>
+                  <h4><span className="plan-kachel-ico"><GruppenIcon titel={d.titel} /></span>{d.titel}</h4>
+                  <ul>
+                    {d.punkte.map((p) => (
+                      <li key={p}><Haken />{p}</li>
+                    ))}
+                  </ul>
+                </section>
               ))}
-            </ul>
+            </div>
+            {hinweise.map((d) => (
+              <p key={d.titel} className="plan-hinweis">
+                <Info />
+                <span><b>{d.titel}:</b> {d.punkte.join(" ")}</span>
+              </p>
+            ))}
           </div>
-        ))}
-        <a className="btn btn-primaer fonio-link" href="#kontakt" onClick={schliessen}>
-          Unverbindlich anfragen
-        </a>
+        </div>
+
+        <footer className="plan-fuss">
+          <p><span>fonio-Listenpreise in CHF, exkl. MWST</span> <span>Stand {PREISSTAND}</span></p>
+          <a className="btn btn-primaer" href="#kontakt" onClick={schliessen}>
+            Unverbindlich anfragen <Pfeil strich={2} />
+          </a>
+        </footer>
       </div>
     </div>
   );
@@ -193,7 +314,15 @@ export default function Preise() {
         </div>
       </div>
 
-      {offen && <DetailFenster produkt={produkt} plan={offen} abrechnung={abrechnung} schliessen={schliessen} />}
+      {offen && (
+        <DetailFenster
+          produkt={produkt}
+          plan={offen}
+          abrechnung={abrechnung}
+          setAbrechnung={setAbrechnung}
+          schliessen={schliessen}
+        />
+      )}
     </section>
   );
 }

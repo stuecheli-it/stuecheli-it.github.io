@@ -237,24 +237,133 @@ button { font-family: inherit; }
 .hinweis p { font-size: 14.5px; color: var(--text2); line-height: 1.55; }
 .hinweis.pilot { border: 1.5px solid transparent; background: linear-gradient(#ffffff, #ffffff) padding-box, var(--verlauf) border-box; }
 
-/* Popup mit Plan-Details */
-.modal-hintergrund[hidden] { display: none; }
-.modal-hintergrund {
-  position: fixed; inset: 0; z-index: 100;
-  background: rgba(4, 10, 20, 0.55); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
-  display: flex; align-items: center; justify-content: center; padding: 20px;
+/* ---------- Popup mit Plan-Details ----------
+   Dunkler Kopf im Hero-Stil, Leistungen als Kacheln, Anfrage-Knopf immer sichtbar.
+   Auf dem Handy fährt das Fenster als Blatt von unten herein. */
+.plan-hintergrund {
+  position: fixed; inset: 0; z-index: 100; padding: 24px;
+  background: rgba(4, 10, 20, 0.6); backdrop-filter: blur(10px) saturate(1.2);
+  display: flex; align-items: center; justify-content: center;
+  animation: plan-dimmen 0.25s ease;
 }
-.modal-kasten { background: #ffffff; border-radius: 20px; max-width: 620px; width: 100%; max-height: 85vh; overflow-y: auto; padding: 32px 34px; position: relative; box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.4); animation: einblenden 0.25s ease; }
-.modal-kasten h3 { font-size: 24px; font-weight: 600; padding-right: 36px; }
-.modal-kasten .betrag { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; margin-top: 12px; }
-.modal-kasten .betrag span { font-size: 15px; font-weight: 400; color: var(--text2); letter-spacing: 0; }
-.modal-kasten .setup { color: var(--text2); font-size: 14.5px; margin-top: 4px; }
-.modal-kasten h4 { color: var(--blau); font-size: 12.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin: 24px 0 8px; }
-.modal-kasten ul { margin: 0; padding-left: 18px; color: var(--text2); font-size: 15px; }
-.modal-kasten ul li { margin-bottom: 5px; }
-.modal-kasten .fonio-link { display: inline-flex; margin-top: 26px; }
-.modal-zu { position: absolute; top: 14px; right: 16px; width: 40px; height: 40px; border-radius: 50%; background: var(--papier); border: 0; color: var(--text2); font-size: 22px; line-height: 1; cursor: pointer; }
-.modal-zu:hover { color: var(--graphit); background: var(--linie); }
+.plan-fenster {
+  position: relative; width: 100%; max-width: 780px; max-height: min(88vh, 860px);
+  display: flex; flex-direction: column; overflow: hidden;
+  background: var(--papier); border-radius: 26px;
+  box-shadow: 0 50px 100px -30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  animation: plan-auftauchen 0.42s cubic-bezier(0.2, 0.9, 0.25, 1);
+}
+.plan-scroll { flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #c5cdd8 transparent; }
+.plan-zu {
+  position: absolute; top: 16px; right: 16px; z-index: 3; width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center; cursor: pointer; color: #ffffff;
+  background: rgba(11, 23, 40, 0.55); border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px); transition: background 0.15s, transform 0.2s;
+}
+.plan-zu:hover { background: rgba(11, 23, 40, 0.85); transform: rotate(90deg); }
+.plan-zu:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.plan-zu svg { width: 18px; height: 18px; }
+
+/* Kopf */
+.plan-kopf { position: relative; overflow: hidden; background: var(--nacht); color: #ffffff; padding: 30px 34px 28px; }
+.plan-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(55% 90% at 100% 0%, rgba(107, 69, 255, 0.45) 0%, rgba(107, 69, 255, 0) 70%),
+    radial-gradient(45% 80% at 0% 100%, rgba(63, 240, 201, 0.2) 0%, rgba(63, 240, 201, 0) 70%);
+}
+.plan-kopf::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--verlauf); }
+.plan-kopf > * { position: relative; }
+.plan-kopf > .plan-glow { position: absolute; }
+.plan-marken { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding-right: 48px; }
+.plan-produkt {
+  display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px 0 10px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.14); font-size: 13px; font-weight: 500; color: #dce6f3;
+}
+.plan-produkt svg { width: 15px; height: 15px; stroke: var(--tuerkis); }
+.plan-beliebt { font-size: 11.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #06121f; background: var(--verlauf); border-radius: 999px; padding: 5px 11px; }
+.plan-kopf h3 { font-size: 40px; font-weight: 700; letter-spacing: -0.035em; margin-top: 18px; line-height: 1; }
+.plan-fuer { font-size: 15px; color: #9fb0c6; margin-top: 8px; }
+.plan-preiszeile { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; margin-top: 24px; }
+.plan-betrag { font-size: 44px; font-weight: 700; letter-spacing: -0.035em; line-height: 1; display: flex; align-items: baseline; gap: 8px; }
+.plan-betrag small { font-size: 16px; font-weight: 400; color: #9fb0c6; letter-spacing: 0; }
+.plan-abrechnung { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.12); }
+.plan-abrechnung button { height: 36px; padding: 0 16px; font-size: 14px; color: #9fb0c6; }
+.plan-abrechnung button:hover { color: #ffffff; }
+.plan-abrechnung button.aktiv { background: #ffffff; color: var(--nacht); box-shadow: none; }
+.plan-abrechnung button.aktiv:hover { color: var(--nacht); }
+.plan-abrechnung button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.plan-abrechnung .rabatt { color: #0b6f59; background: rgba(63, 240, 201, 0.35); }
+.plan-abrechnung button:not(.aktiv) .rabatt { color: var(--tuerkis); background: rgba(63, 240, 201, 0.14); }
+.plan-spare { font-size: 13.5px; font-weight: 600; color: var(--tuerkis); margin-top: 12px; animation: einblenden 0.3s ease; }
+.plan-setup {
+  display: inline-flex; align-items: center; gap: 9px; margin-top: 18px; padding: 8px 14px 8px 12px; border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); font-size: 14px; color: #c9d4e3;
+}
+.plan-setup svg { width: 17px; height: 17px; flex: 0 0 auto; stroke: var(--cyan); }
+
+/* Inhalt */
+.plan-inhalt { padding: 24px 28px 26px; display: flex; flex-direction: column; gap: 14px; }
+.plan-kacheln { columns: 2; column-gap: 14px; }
+.plan-kacheln.einzeln { columns: 1; }
+.plan-kachel {
+  break-inside: avoid; margin-bottom: 14px; background: #ffffff; border: 1px solid var(--linie); border-radius: 18px; padding: 18px 20px 16px;
+  animation: einblenden 0.4s ease both; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.plan-kachel:hover { border-color: #cfdbea; box-shadow: var(--schatten); }
+.plan-kacheln .plan-kachel:last-child { margin-bottom: 0; }
+.plan-kachel h4 { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+.plan-kachel-ico {
+  width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; flex: 0 0 auto;
+  background: linear-gradient(135deg, rgba(63, 240, 201, 0.18), rgba(58, 140, 255, 0.16) 55%, rgba(107, 69, 255, 0.16));
+}
+.plan-kachel-ico svg { width: 18px; height: 18px; stroke: var(--blau); }
+.plan-kachel ul { list-style: none; margin: 14px 0 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.plan-kachel li { display: flex; gap: 10px; font-size: 14.5px; line-height: 1.45; color: var(--text2); }
+.plan-kachel li svg { width: 16px; height: 16px; flex: 0 0 auto; margin-top: 2.5px; stroke: var(--gruen); }
+.plan-hinweis {
+  display: flex; gap: 10px; align-items: flex-start; padding: 12px 16px; border-radius: 14px;
+  background: rgba(58, 140, 255, 0.06); border: 1px dashed rgba(58, 140, 255, 0.28); font-size: 13.5px; line-height: 1.5; color: var(--text2);
+}
+.plan-hinweis svg { width: 18px; height: 18px; flex: 0 0 auto; margin-top: 1px; stroke: var(--blau); }
+.plan-hinweis b { font-weight: 600; color: var(--graphit); }
+
+/* Fuss mit Anfrage-Knopf */
+.plan-fuss {
+  flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 16px 20px 16px 28px; background: #ffffff; border-top: 1px solid var(--linie);
+}
+.plan-fuss p { font-size: 12.5px; line-height: 1.45; color: var(--text3); }
+.plan-fuss p span { display: block; }
+.plan-fuss .btn { flex: 0 0 auto; }
+.plan-fuss .btn svg { transition: transform 0.2s; }
+.plan-fuss .btn:hover svg { transform: translateX(3px); }
+
+@keyframes plan-dimmen { from { opacity: 0; } to { opacity: 1; } }
+@keyframes plan-auftauchen { from { opacity: 0; transform: translateY(24px) scale(0.97); } to { opacity: 1; transform: none; } }
+@keyframes plan-blatt { from { transform: translateY(100%); } to { transform: none; } }
+
+/* Handy: Blatt von unten */
+@media (max-width: 720px) {
+  .plan-hintergrund { padding: 0; align-items: flex-end; }
+  .plan-fenster { max-width: none; max-height: 92dvh; border-radius: 24px 24px 0 0; animation: plan-blatt 0.38s cubic-bezier(0.2, 0.9, 0.25, 1); }
+  .plan-kopf { padding: 30px 20px 22px; }
+  .plan-kopf::before { content: ""; position: absolute; top: 9px; left: 50%; width: 40px; height: 4px; margin-left: -20px; border-radius: 4px; background: rgba(255, 255, 255, 0.28); }
+  .plan-zu { top: 20px; right: 14px; width: 36px; height: 36px; }
+  .plan-kopf h3 { font-size: 32px; margin-top: 16px; }
+  .plan-betrag { font-size: 36px; }
+  .plan-preiszeile { margin-top: 18px; }
+  .plan-abrechnung { width: 100%; }
+  .plan-abrechnung button { flex: 1; justify-content: center; }
+  .plan-inhalt { padding: 16px 14px 18px; gap: 12px; }
+  .plan-kacheln { columns: 1; }
+  .plan-kachel { margin-bottom: 12px; padding: 16px 16px 14px; }
+  .plan-fuss { flex-direction: column-reverse; align-items: stretch; gap: 8px; padding: 12px 14px calc(12px + env(safe-area-inset-bottom)); }
+  .plan-fuss p { text-align: center; }
+  .plan-fuss p span { display: inline; }
+  .plan-fuss p span + span::before { content: "· "; }
+  .plan-fuss .btn { width: 100%; justify-content: center; }
+}
 
 /* ---------- Kontakt ---------- */
 .kontakt { background: var(--nacht); color: #ffffff; position: relative; overflow: hidden; }
@@ -290,7 +399,7 @@ button { font-family: inherit; }
   html { scroll-behavior: auto; }
   .orb .balken line, .auftrag-kopf .status i, .platzhalter, .tipp-cursor { animation: none !important; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .branche, .preis, .modal-kasten, .welle-zeile, .auftrag-feld.gefuellt dd, .auftrag-karte { animation: none; }
+  .branche, .preis, .plan-hintergrund, .plan-fenster, .plan-kachel, .plan-spare, .welle-zeile, .auftrag-feld.gefuellt dd, .auftrag-karte { animation: none; }
 }
 
 /* ---------- Tablet ---------- */
@@ -344,7 +453,6 @@ button { font-family: inherit; }
   .gruppe button { flex: 1; justify-content: center; padding: 0 12px; }
   .preis .betrag { font-size: 34px; }
   .kontakt .wrap { grid-template-columns: 1fr; gap: 36px; padding-top: 72px; padding-bottom: 72px; }
-  .modal-kasten { padding: 26px 22px; }
   .fuss .wrap { flex-direction: column; align-items: flex-start; }
 }
 
