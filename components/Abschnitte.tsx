@@ -170,8 +170,15 @@ export function Fuss() {
           <div className="zusatz">KI-Telefonassistenten für KMU in der Deutschschweiz · © 2026</div>
         </div>
         <div className="lockup">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="eigen" src="/assets/stuecheli-logo-horizontal-dunkel-knapp.svg" alt="Stücheli IT Consulting" />
+          {/* Gleiches Logo wie in der Kopfzeile: Bildmarke plus echte Schrift, hier in der Variante für dunklen Grund */}
+          <span className="marke" role="img" aria-label="Stücheli IT Consulting">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img className="marke-orb" src="/assets/stuecheli-favicon.svg" alt="" />
+            <span className="marke-text" aria-hidden="true">
+              <span className="marke-name">Stücheli</span>
+              <span className="marke-zusatz">IT Consulting</span>
+            </span>
+          </span>
           <div className="trenner" />
           <div className="fonio">
             {/* eslint-disable-next-line @next/next/no-img-element */}

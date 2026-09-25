@@ -387,7 +387,10 @@ button { font-family: inherit; }
 .fuss .name { color: #ffffff; font-weight: 600; font-size: 15px; }
 .fuss .zusatz { font-size: 13.5px; }
 .lockup { display: flex; align-items: center; gap: 18px; }
-.lockup img.eigen { height: 38px; width: auto; }
+.fuss .marke { display: flex; align-items: center; gap: 11px; flex: 0 0 auto; }
+.fuss .marke .marke-orb { height: 42px; width: 42px; }
+.fuss .marke-name { color: #ffffff; }
+.fuss .marke-zusatz { color: #9fb0c6; }
 .lockup .trenner { width: 1px; height: 32px; background: rgba(255, 255, 255, 0.35); }
 .lockup .fonio { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .lockup .fonio img { height: 16px; }
@@ -546,4 +549,35 @@ button { font-family: inherit; }
 }
 @media (max-width: 860px) {
   .nav a:not(.btn) { display: none; }
+}
+
+/* ---------- Anfrage-Chat (Fenster hinter «Unverbindlich anfragen») ----------
+   Nutzt die Grundform des Plan-Popups, darin der fonio-Anfrage-Chat als Rahmen. */
+.chat-fenster { max-width: 480px; height: min(760px, 88vh); }
+.chat-kopf { flex: 0 0 auto; padding: 24px 28px 22px; }
+.chat-kopf h3 { font-size: 28px; margin-top: 14px; }
+.chat-kopf .plan-fuer { font-size: 14.5px; line-height: 1.5; max-width: 380px; }
+.chat-rahmen { position: relative; flex: 1 1 auto; min-height: 0; background: #ffffff; }
+.chat-rahmen iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; opacity: 0; transition: opacity 0.3s ease; }
+.chat-rahmen.geladen iframe { opacity: 1; }
+.chat-laden { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; font-size: 14px; color: var(--text3); }
+.chat-punkte { display: flex; gap: 6px; }
+.chat-punkte i { width: 8px; height: 8px; border-radius: 50%; background: var(--blau); animation: blink 1.2s ease-in-out infinite; }
+.chat-punkte i:nth-child(2) { animation-delay: 0.2s; background: var(--violett); }
+.chat-punkte i:nth-child(3) { animation-delay: 0.4s; background: var(--tuerkis); }
+.chat-fuss { padding: 12px 20px 12px 28px; }
+.chat-fuss a { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; white-space: nowrap; }
+.chat-fuss a svg { width: 15px; height: 15px; transition: transform 0.2s; }
+.chat-fuss a:hover svg { transform: translateX(3px); }
+
+@media (max-width: 720px) {
+  .chat-fenster { height: 92dvh; max-height: 92dvh; }
+  .chat-kopf { padding: 28px 20px 18px; }
+  .chat-kopf h3 { font-size: 24px; }
+  .chat-fuss { flex-direction: row; align-items: center; justify-content: center; gap: 10px; flex-wrap: wrap; }
+  .fuss .marke { gap: 9px; }
+  .fuss .marke .marke-orb { height: 34px; width: 34px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chat-punkte i { animation: none; }
 }

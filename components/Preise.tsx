@@ -1,6 +1,6 @@
 "use client";
 
-import { type ReactElement, useEffect, useRef, useState } from "react";
+import { type ReactElement, useRef, useState } from "react";
 import {
   PREISSTAND,
   PRODUKTE,
@@ -31,6 +31,8 @@ import {
   Telefon,
   Werkzeug,
 } from "./Icons";
+import AnfrageChat from "./AnfrageChat";
+import { useFenster } from "./useFenster";
 
 type Abrechnung = "monat" | "jahr";
 
@@ -75,51 +77,19 @@ function DetailFenster({
   abrechnung,
   setAbrechnung,
   schliessen,
+  anfragen,
 }: {
   produkt: Produkt;
   plan: Plan;
   abrechnung: Abrechnung;
   setAbrechnung: (a: Abrechnung) => void;
   schliessen: () => void;
+  anfragen: () => void;
 }) {
   const fensterRef = useRef<HTMLDivElement>(null);
   const zuRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => {
-    const vorher = document.activeElement as HTMLElement | null;
-    zuRef.current?.focus();
-    const taste = (e: KeyboardEvent) => {
-      if (e.key === "Escape") return schliessen();
-      if (e.key !== "Tab" || !fensterRef.current) return;
-      // Fokus bleibt im Fenster
-      const ziele = fensterRef.current.querySelectorAll<HTMLElement>("button, a[href]");
-      const erstes = ziele[0];
-      const letztes = ziele[ziele.length - 1];
-      if (e.shiftKey && document.activeElement === erstes) {
-        e.preventDefault();
-        letztes.focus();
-      } else if (!e.shiftKey && document.activeElement === letztes) {
-        e.preventDefault();
-        erstes.focus();
-      }
-    };
-    document.addEventListener("keydown", taste);
-    const breite = window.innerWidth - document.documentElement.clientWidth;
-    document.body.style.overflow = "hidden";
-    document.body.style.paddingRight = breite ? breite + "px" : "";
-    // Auf dem Handy würde der fonio-Chatknopf den Anfrage-Knopf verdecken
-    const chat = window.matchMedia("(max-width: 720px)").matches
-      ? document.querySelector<HTMLElement>("fonio-webchat-widget-root:not([hidden])")
-      : null;
-    chat?.setAttribute("hidden", "");
-    return () => {
-      document.removeEventListener("keydown", taste);
-      chat?.removeAttribute("hidden");
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-      vorher?.focus({ preventScroll: true });
-    };
-  }, [schliessen]);
+  useFenster(fensterRef, zuRef, schliessen);
 
   const kacheln = plan.details.filter((d) => !LEISE.includes(d.titel));
   const hinweise = plan.details.filter((d) => LEISE.includes(d.titel));
@@ -196,9 +166,9 @@ function DetailFenster({
 
         <footer className="plan-fuss">
           <p><span>fonio-Listenpreise in CHF, exkl. MWST</span> <span>Stand {PREISSTAND}</span></p>
-          <a className="btn btn-primaer" href="#kontakt" onClick={schliessen}>
+          <button className="btn btn-primaer" type="button" onClick={anfragen}>
             Unverbindlich anfragen <Pfeil strich={2} />
-          </a>
+          </button>
         </footer>
       </div>
     </div>
@@ -209,8 +179,10 @@ export default function Preise() {
   const [produktId, setProduktId] = useState<ProduktId>("telefon");
   const [abrechnung, setAbrechnung] = useState<Abrechnung>("monat");
   const [offen, setOffen] = useState<Plan | null>(null);
+  const [anfrage, setAnfrage] = useState<string | null>(null);
   const produkt = PRODUKTE.find((p) => p.id === produktId) ?? PRODUKTE[0];
   const schliessen = useRef(() => setOffen(null)).current;
+  const anfrageSchliessen = useRef(() => setAnfrage(null)).current;
 
   return (
     <section className="abschnitt weiss" id="preise">
@@ -321,8 +293,13 @@ export default function Preise() {
           abrechnung={abrechnung}
           setAbrechnung={setAbrechnung}
           schliessen={schliessen}
+          anfragen={() => {
+            setOffen(null);
+            setAnfrage(produkt.label + " " + offen.name);
+          }}
         />
       )}
+      {anfrage && <AnfrageChat thema={anfrage} schliessen={anfrageSchliessen} />}
     </section>
   );
 }
