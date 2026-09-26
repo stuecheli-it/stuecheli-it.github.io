@@ -607,10 +607,19 @@ button { font-family: inherit; }
 /* Hero */
 .bs-hero h1 { font-size: 50px; }
 .bs-hero h1 .glanz { white-space: nowrap; }
-.bs-krumen { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 22px; font-size: 13.5px; color: #8a9bb3; }
-.bs-krumen a { color: #9fb0c6; }
-.bs-krumen a:hover { color: #ffffff; }
-.bs-krumen [aria-current] { color: #dce6f3; font-weight: 500; }
+/* Leiste oben im Hero: Startseite plus alle Branchen (gleiche Chips wie im Hero der Startseite) */
+.bs-leiste { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: -28px; }
+.bs-leiste .beispiel-chip { text-decoration: none; }
+.bs-leiste-start {
+  height: 32px; padding: 0 13px 0 10px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.3);
+  display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; color: #ffffff;
+  transition: background 0.2s, border-color 0.2s;
+}
+.bs-leiste-start:hover { color: #ffffff; background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.5); }
+.bs-leiste-start:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.bs-leiste-start svg { width: 15px; height: 15px; transform: scaleX(-1); transition: transform 0.2s; }
+.bs-leiste-start:hover svg { transform: scaleX(-1) translateX(3px); }
+.bs-leiste-trenner { width: 1px; height: 20px; background: rgba(255, 255, 255, 0.2); margin: 0 6px; }
 
 /* Situationen */
 .bs-situation { position: relative; }
@@ -688,6 +697,7 @@ button { font-family: inherit; }
 
 @media (max-width: 1024px) {
   .bs-hero h1 { font-size: 46px; }
+  .bs-leiste { margin-bottom: -16px; }
   .bs-anrufe { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .bs-start, .bs-fragen-wrap { grid-template-columns: 1fr; gap: 40px; }
   .bs-preis { justify-self: start; }
@@ -695,7 +705,10 @@ button { font-family: inherit; }
 @media (max-width: 720px) {
   .bs-hero h1 { font-size: 34px; }
   .bs-hero h1 .glanz { white-space: normal; }
-  .bs-krumen { margin-bottom: 16px; }
+  .bs-leiste { margin-bottom: -12px; gap: 4px; }
+  .bs-leiste { row-gap: 10px; }
+  .bs-leiste-trenner { flex-basis: 100%; height: 0; margin: 0; background: none; }
+  .bs-leiste-start { height: 34px; }
   .bs-anrufe { grid-template-columns: 1fr; margin-top: 32px; }
   .bs-frage summary { padding: 16px 18px; font-size: 15px; }
   .bs-frage p { padding: 0 18px 18px; }

@@ -97,14 +97,26 @@ export default async function Branchenseite({ params }: Props) {
           <div className="hero-glow" />
           <div className="hero-raster" />
           <div className="wrap">
+            {/* Übersicht wie im Hero der Startseite: zurück zur Startseite oder direkt zu einer anderen Branche */}
+            <nav className="bs-leiste" aria-label="Branchen">
+              <a className="bs-leiste-start" href="/">
+                <Pfeil strich={2} />
+                Startseite
+              </a>
+              <span className="bs-leiste-trenner" aria-hidden="true" />
+              {BRANCHENSEITEN.map((x) => (
+                <a
+                  key={x.slug}
+                  href={`/branchen/${x.slug}/`}
+                  className={"beispiel-chip" + (x.id === s.id ? " aktiv" : "")}
+                  aria-current={x.id === s.id ? "page" : undefined}
+                >
+                  <BrancheIcon id={x.id} />
+                  <span>{x.kurz}</span>
+                </a>
+              ))}
+            </nav>
             <div>
-              <nav className="bs-krumen" aria-label="Brotkrumen">
-                <a href="/">Startseite</a>
-                <span aria-hidden="true">/</span>
-                <a href="/#branchen">Branchen</a>
-                <span aria-hidden="true">/</span>
-                <span aria-current="page">{s.kurz}</span>
-              </nav>
               <div className="augenbraue">
                 <span className="punkt" />
                 KI-Telefonassistent für {s.mehrzahl}
