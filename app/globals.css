@@ -581,3 +581,118 @@ button { font-family: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .chat-punkte i { animation: none; }
 }
+
+/* =====================================================================
+   Branchenseiten /branchen/<slug>/ (V2.1)
+   Gleiche Bausteine wie die Startseite, ergänzt um Situationen, typische Anrufe,
+   Einstieg mit Preis, häufige Fragen und Links zu weiteren Branchen.
+   ===================================================================== */
+
+/* Startseite: Link von den Branchen-Tabs zur Branchenseite */
+.branche-mehr { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 15px; font-weight: 600; color: #2a6fd6; }
+.branche-mehr svg { width: 16px; height: 16px; transition: transform 0.2s; }
+.branche-mehr:hover svg { transform: translateX(3px); }
+
+/* Fusszeile: Branchen-Links */
+.fuss-branchen { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px; }
+.fuss-branchen a { font-size: 13.5px; color: #9fb0c6; }
+.fuss-branchen a:hover { color: #ffffff; }
+
+/* Hero */
+.bs-hero h1 { font-size: 50px; }
+.bs-hero h1 .glanz { white-space: nowrap; }
+.bs-krumen { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-bottom: 22px; font-size: 13.5px; color: #8a9bb3; }
+.bs-krumen a { color: #9fb0c6; }
+.bs-krumen a:hover { color: #ffffff; }
+.bs-krumen [aria-current] { color: #dce6f3; font-weight: 500; }
+
+/* Situationen */
+.bs-situation { position: relative; }
+.bs-nr {
+  font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+  background: var(--verlauf); -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.bs-situation h3 { margin-top: 4px; }
+
+/* Typische Anrufe */
+.bs-anrufe { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 44px; }
+.bs-anruf {
+  background: var(--papier); border: 1px solid var(--linie); border-radius: 18px; padding: 22px 22px 20px;
+  display: flex; flex-direction: column; gap: 10px; transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
+}
+.bs-anruf:hover { transform: translateY(-3px); box-shadow: var(--schatten); border-color: #cfdbea; }
+.bs-anruf b { font-size: 16px; font-weight: 600; }
+.bs-zitat {
+  align-self: flex-start; max-width: 100%; padding: 9px 13px; border-radius: 14px; border-bottom-right-radius: 4px;
+  background: var(--nacht); color: #ffffff; font-size: 14px; line-height: 1.45;
+}
+.bs-loesung { display: flex; gap: 8px; font-size: 14px; line-height: 1.5; color: var(--text2); margin-top: auto; }
+.bs-loesung svg { width: 16px; height: 16px; flex: 0 0 auto; margin-top: 2.5px; stroke: var(--gruen); }
+
+/* Einstieg und Preis */
+.bs-start { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 64px; align-items: center; }
+.bs-schritte { list-style: none; margin: 36px 0 0; padding: 0; display: flex; flex-direction: column; gap: 24px; }
+.bs-schritte li { display: flex; gap: 18px; align-items: flex-start; }
+.bs-schritte .nr {
+  width: 44px; height: 44px; flex: 0 0 auto; border-radius: 50%; background: #ffffff; border: 1px solid var(--linie);
+  display: grid; place-items: center; font-weight: 700; color: var(--blau); box-shadow: var(--schatten);
+}
+.bs-schritte b { display: block; font-size: 18px; font-weight: 600; margin-top: 9px; }
+.bs-schritte p { font-size: 15px; color: var(--text2); margin-top: 4px; line-height: 1.6; }
+.bs-preis { max-width: 440px; justify-self: end; width: 100%; }
+.bs-preis .btn { margin-top: 0; }
+.bs-alle-preise { display: block; text-align: center; margin-top: 14px; font-size: 14.5px; font-weight: 600; }
+.bs-steuer { text-align: center; font-size: 12.5px; color: var(--text3); margin-top: 8px; }
+
+/* Häufige Fragen */
+.bs-fragen-wrap { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 64px; align-items: start; }
+.bs-fragen { display: flex; flex-direction: column; gap: 10px; }
+.bs-frage { background: #ffffff; border: 1px solid var(--linie); border-radius: 16px; transition: box-shadow 0.2s, border-color 0.2s; }
+.bs-frage[open] { box-shadow: var(--schatten); border-color: #cfdbea; }
+.bs-frage summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 18px 22px; font-size: 16px; font-weight: 600;
+}
+.bs-frage summary::-webkit-details-marker { display: none; }
+.bs-frage summary:focus-visible { outline: 2px solid var(--blau); outline-offset: 2px; border-radius: 16px; }
+.bs-plus { position: relative; width: 28px; height: 28px; flex: 0 0 auto; border-radius: 50%; background: var(--papier); }
+.bs-plus::before, .bs-plus::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; margin: -1px 0 0 -6px; border-radius: 2px; background: var(--blau); transition: transform 0.25s ease; }
+.bs-plus::after { transform: rotate(90deg); }
+.bs-frage[open] .bs-plus::after { transform: rotate(0deg); }
+.bs-frage p { padding: 0 22px 20px; font-size: 15px; line-height: 1.6; color: var(--text2); }
+
+/* Weitere Branchen */
+.bs-andere { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; margin-top: 40px; }
+.bs-andere-karte {
+  display: flex; align-items: center; gap: 16px; padding: 14px 20px 14px 14px; border-radius: 18px;
+  background: var(--papier); border: 1px solid var(--linie); color: var(--graphit);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
+}
+.bs-andere-karte:hover { color: var(--graphit); transform: translateY(-3px); box-shadow: var(--schatten); border-color: #cfdbea; }
+.bs-mini { width: 56px; height: 56px; flex: 0 0 auto; }
+.bs-mini svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.bs-mini .motiv { fill: none; stroke: #ffffff; stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; }
+.bs-andere-text { display: flex; flex-direction: column; gap: 2px; }
+.bs-andere-text b { font-size: 16px; font-weight: 600; }
+.bs-andere-text span { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; color: var(--text3); }
+.bs-andere-text svg { width: 15px; height: 15px; }
+.bs-andere-karte .pfeil { margin-left: auto; width: 20px; height: 20px; color: var(--text3); display: flex; transition: transform 0.2s, color 0.2s; }
+.bs-andere-karte:hover .pfeil { color: var(--blau); transform: translateX(3px); }
+.bs-andere-karte .pfeil svg { width: 100%; height: 100%; }
+
+@media (max-width: 1024px) {
+  .bs-hero h1 { font-size: 46px; }
+  .bs-anrufe { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bs-start, .bs-fragen-wrap { grid-template-columns: 1fr; gap: 40px; }
+  .bs-preis { justify-self: start; }
+}
+@media (max-width: 720px) {
+  .bs-hero h1 { font-size: 34px; }
+  .bs-hero h1 .glanz { white-space: normal; }
+  .bs-krumen { margin-bottom: 16px; }
+  .bs-anrufe { grid-template-columns: 1fr; margin-top: 32px; }
+  .bs-frage summary { padding: 16px 18px; font-size: 15px; }
+  .bs-frage p { padding: 0 18px 18px; }
+  .bs-andere { grid-template-columns: 1fr; }
+  .bs-preis { max-width: none; }
+}

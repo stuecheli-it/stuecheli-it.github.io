@@ -1,4 +1,5 @@
 // Statische Abschnitte der Startseite (ohne eigene Logik im Browser).
+import { BRANCHENSEITEN } from "@/lib/branchenseiten";
 import ChatKnopf from "./ChatKnopf";
 import { Auszeichnung, ChatPunkte, ChatStrich, Klemmbrett, Mail, Pfeil, Telefon, Uhr } from "./Icons";
 
@@ -76,7 +77,7 @@ export function Leistungen() {
 
 // ---------- Vorgehen ----------
 
-const SCHRITTE = [
+export const SCHRITTE = [
   { titel: "Zuhören", text: "Sie erzählen, wie bei Ihnen telefoniert wird und was Anrufende wollen." },
   { titel: "Einrichten", text: "Wir richten ihn ein, testen mit Ihnen und passen an, bis er klingt wie Ihr Betrieb." },
   { titel: "Dranbleiben", text: "Ändert sich bei Ihnen etwas, ändern wir den Assistenten mit." },
@@ -168,6 +169,11 @@ export function Fuss() {
         <div>
           <div className="name">Stücheli IT Consulting</div>
           <div className="zusatz">KI-Telefonassistenten für KMU in der Deutschschweiz · © 2026</div>
+          <nav className="fuss-branchen" aria-label="Branchen">
+            {BRANCHENSEITEN.map((b) => (
+              <a key={b.slug} href={`/branchen/${b.slug}/`}>{b.kurz}</a>
+            ))}
+          </nav>
         </div>
         <div className="lockup">
           {/* Gleiches Logo wie in der Kopfzeile: Bildmarke plus echte Schrift, hier in der Variante für dunklen Grund */}

@@ -21,7 +21,7 @@ denn nur ein Push auf `main` veröffentlicht (Workflow «Website veröffentliche
 - [ ] Rückruf durch die KI (ausgehende Anrufe, Team-Plan, Einwilligung für die Telefonnummer)
 - [ ] Musterbericht nach dem Anruf (E-Mail/WhatsApp-Vorschau)
 - [ ] Sprachen-Umschalter in der Demo (FR, IT, EN)
-- [ ] Eigene Seiten pro Branche (Garage, Coiffeur, Fahrschule …)
+- [x] Eigene Seiten pro Branche unter /branchen/<slug>/ (26.09.2026: 6 Seiten, Sitemap, robots.txt)
 - [ ] Pilotplatz-Zähler (nur mit echter Zahl)
 - [ ] Beratungstermin direkt buchen
 

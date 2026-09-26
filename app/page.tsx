@@ -5,6 +5,7 @@ import Preise from "@/components/Preise";
 import { Fuss, Kontakt, Leistungen, Nutzen, Vorgehen } from "@/components/Abschnitte";
 import FonioWidget from "@/components/FonioWidget";
 import Reveal from "@/components/Reveal";
+import AnkerSprung from "@/components/AnkerSprung";
 
 export default function Startseite() {
   return (
@@ -22,6 +23,7 @@ export default function Startseite() {
       <Fuss />
       <FonioWidget />
       <Reveal />
+      <AnkerSprung />
     </>
   );
 }

@@ -71,13 +71,15 @@ function RuhigeWelle() {
  * Hero-Visual «Stimme wird Auftrag»: Eine Schallwelle aus Partikeln zeigt das Gespräch,
  * wichtige Angaben fliegen als Partikel in eine Auftragskarte und füllen sie aus.
  * Die Beispiele der sechs Branchen laufen nacheinander ab; ein Klick auf eine Branche springt dorthin.
+ * Mit `branche` läuft nur dieses eine Beispiel in Schleife (Branchenseiten), ohne Branchen-Knöpfe.
  */
-export default function StimmeAuftrag() {
+export default function StimmeAuftrag({ branche }: { branche?: BrancheId } = {}) {
+  const liste = branche ? SZENARIEN.filter((s) => s.id === branche) : SZENARIEN;
   const buehneRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const welleRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<Welle | null>(null);
-  const sprecherRef = useRef<WelleSprecher>(SZENARIEN[0].ablauf[0].wer);
+  const sprecherRef = useRef<WelleSprecher>(liste[0].ablauf[0].wer);
   const feldRefs = useRef<Record<string, HTMLElement | null>>({});
   /** Laufende Flüge: dürfen über das Satzende hinaus ankommen, enden erst beim Branchenwechsel */
   const fuellTimer = useRef<number[]>([]);
@@ -88,14 +90,17 @@ export default function StimmeAuftrag() {
   const [schritt, setSchritt] = useState(0);
   const [gefuellt, setGefuellt] = useState<string[]>([]);
   const [spielt, setSpielt] = useState(true);
+  /** Zählt Durchläufe, damit die Karte auch bei nur einem Beispiel neu startet */
+  const [runde, setRunde] = useState(0);
 
-  const szenario = SZENARIEN[nr];
+  const szenario = liste[nr];
   const ABLAUF = szenario.ablauf;
   const fertig = schritt >= ABLAUF.length;
 
   /** Zu einem Beispiel springen und von vorn beginnen */
   const zeigen = (i: number) => {
     setNr(i);
+    setRunde((r) => r + 1);
     setSchritt(0);
     setGefuellt([]);
     setSpielt(true);
@@ -161,7 +166,7 @@ export default function StimmeAuftrag() {
       laufend.forEach((t) => window.clearTimeout(t));
       laufend.length = 0;
     };
-  }, [nr]);
+  }, [nr, runde]);
 
   // ---------- Gesprächsablauf ----------
   useEffect(() => {
@@ -177,7 +182,8 @@ export default function StimmeAuftrag() {
         window.setTimeout(() => {
           setGefuellt([]);
           setSchritt(0);
-          setNr((n) => (n + 1) % SZENARIEN.length);
+          setNr((n) => (n + 1) % liste.length);
+          setRunde((r) => r + 1);
         }, ABSCHLUSS_MS),
       );
     } else {
@@ -196,7 +202,7 @@ export default function StimmeAuftrag() {
       timer.push(window.setTimeout(() => setSchritt((x) => x + 1), s.dauer));
     }
     return () => timer.forEach((t) => window.clearTimeout(t));
-  }, [nr, schritt, spielt, fertig, ABLAUF]);
+  }, [nr, schritt, spielt, fertig, ABLAUF, liste.length]);
 
   const aktuelle = fertig ? null : ABLAUF[schritt];
 
@@ -206,20 +212,22 @@ export default function StimmeAuftrag() {
       className="auftrag-buehne"
       aria-label="Beispiel: Der KI-Assistent nimmt einen Anruf entgegen und füllt dabei einen Auftrag aus"
     >
-      <div className="beispiel-chips" role="group" aria-label="Beispiele nach Branche">
-        {SZENARIEN.map((b, i) => (
-          <button
-            key={b.id}
-            type="button"
-            className={"beispiel-chip" + (i === nr ? " aktiv" : "")}
-            aria-pressed={i === nr}
-            onClick={() => zeigen(i)}
-          >
-            {ICONS[b.id]}
-            <span>{b.tab}</span>
-          </button>
-        ))}
-      </div>
+      {liste.length > 1 && (
+        <div className="beispiel-chips" role="group" aria-label="Beispiele nach Branche">
+          {liste.map((b, i) => (
+            <button
+              key={b.id}
+              type="button"
+              className={"beispiel-chip" + (i === nr ? " aktiv" : "")}
+              aria-pressed={i === nr}
+              onClick={() => zeigen(i)}
+            >
+              {ICONS[b.id]}
+              <span>{b.tab}</span>
+            </button>
+          ))}
+        </div>
+      )}
 
       <div ref={welleRef} className="welle-flaeche" aria-hidden="true">
         {ohneWebGL && <RuhigeWelle />}
@@ -239,7 +247,7 @@ export default function StimmeAuftrag() {
         )}
       </div>
 
-      <div key={szenario.id} className={"auftrag-karte" + (fertig ? " fertig" : "")}>
+      <div key={szenario.id + runde} className={"auftrag-karte" + (fertig ? " fertig" : "")}>
         <div className="auftrag-kopf">
           <svg className="orb" viewBox="0 0 100 100" aria-hidden="true">
             <defs>
