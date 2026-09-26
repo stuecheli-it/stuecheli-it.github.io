@@ -1,5 +1,5 @@
 // Statische Abschnitte der Startseite (ohne eigene Logik im Browser).
-import { BRANCHENSEITEN } from "@/lib/branchenseiten";
+import { BRANCHENSEITEN, pfadFuer } from "@/lib/branchenseiten";
 import ChatKnopf from "./ChatKnopf";
 import { Auszeichnung, ChatPunkte, ChatStrich, Klemmbrett, Mail, Pfeil, Telefon, Uhr } from "./Icons";
 
@@ -83,14 +83,15 @@ export const SCHRITTE = [
   { titel: "Dranbleiben", text: "Ändert sich bei Ihnen etwas, ändern wir den Assistenten mit." },
 ];
 
-const ZIELGRUPPEN = [
-  "Handwerk",
-  "Garagen",
-  "Gastronomie",
-  "Coiffeure",
-  "Fahrschulen",
-  "Immobilienverwaltungen",
-  "alle KMU, bei denen das Telefon klingelt, während gearbeitet wird",
+// Branchen verlinken auf ihre eigene Seite
+const ZIELGRUPPEN: Array<{ text: string; href?: string }> = [
+  { text: "Handwerk", href: pfadFuer("handwerk") },
+  { text: "Garagen", href: pfadFuer("garage") },
+  { text: "Gastronomie", href: pfadFuer("gastro") },
+  { text: "Coiffeure", href: pfadFuer("coiffeur") },
+  { text: "Fahrschulen", href: pfadFuer("fahrschule") },
+  { text: "Immobilienverwaltungen", href: pfadFuer("immo") },
+  { text: "alle KMU, bei denen das Telefon klingelt, während gearbeitet wird" },
 ];
 
 export function Vorgehen() {
@@ -114,9 +115,13 @@ export function Vorgehen() {
         <div className="fuerwen reveal">
           <b>Für wen sich das lohnt:</b>
           <div className="chips">
-            {ZIELGRUPPEN.map((z) => (
-              <span key={z} className="chip">{z}</span>
-            ))}
+            {ZIELGRUPPEN.map((z) =>
+              z.href ? (
+                <a key={z.text} className="chip chip-link" href={z.href}>{z.text}</a>
+              ) : (
+                <span key={z.text} className="chip">{z.text}</span>
+              ),
+            )}
           </div>
         </div>
       </div>

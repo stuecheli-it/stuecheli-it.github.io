@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { BRANCHEN, type BrancheId } from "@/lib/branchen";
 import { pfadFuer, BRANCHENSEITEN } from "@/lib/branchenseiten";
 import { BrancheIcon, Illustration } from "./BranchenGrafik";
@@ -9,6 +9,12 @@ import { Haken, Pfeil } from "./Icons";
 export default function Branchen() {
   const [aktiv, setAktiv] = useState<BrancheId>("garage");
   const b = BRANCHEN.find((x) => x.id === aktiv) ?? BRANCHEN[0];
+  // Vorschau beim Darüberfahren, leicht verzögert, damit sie beim Überstreichen nicht flackert
+  const vorschauTimer = useRef(0);
+  const vorschau = (id: BrancheId) => {
+    window.clearTimeout(vorschauTimer.current);
+    vorschauTimer.current = window.setTimeout(() => setAktiv(id), 120);
+  };
 
   return (
     <section className="abschnitt" id="branchen">
@@ -17,29 +23,28 @@ export default function Branchen() {
           <div className="kicker">Für Ihren Betrieb</div>
           <h2>So klingt er in Ihrer Branche.</h2>
           <p className="sub">
-            Der Assistent kennt Ihr Angebot, Ihre Zeiten und Ihre Abläufe. Wählen Sie Ihre Branche und hören Sie zu.
+            Der Assistent kennt Ihr Angebot, Ihre Zeiten und Ihre Abläufe. Wählen Sie Ihre Branche und sehen Sie, was er dort für Sie übernimmt.
           </p>
         </div>
 
-        <div className="tabs reveal" role="tablist" aria-label="Branche wählen">
+        {/* Jede Branche öffnet ihre eigene Seite; darüberfahren zeigt unten ein Beispiel */}
+        <nav className="tabs reveal" aria-label="Branchenseiten">
           {BRANCHEN.map((x) => (
-            <button
+            <a
               key={x.id}
-              id={`tab-${x.id}`}
+              href={pfadFuer(x.id)}
               className={"tab" + (x.id === aktiv ? " aktiv" : "")}
-              type="button"
-              role="tab"
-              aria-selected={x.id === aktiv}
-              aria-controls="branchen-panel"
-              onClick={() => setAktiv(x.id)}
+              onMouseEnter={() => vorschau(x.id)}
+              onMouseLeave={() => window.clearTimeout(vorschauTimer.current)}
+              onFocus={() => setAktiv(x.id)}
             >
               <BrancheIcon id={x.id} />
               {x.tab}
-            </button>
+            </a>
           ))}
-        </div>
+        </nav>
 
-        <div className="branche" key={b.id} id="branchen-panel" role="tabpanel" aria-labelledby={`tab-${b.id}`}>
+        <div className="branche" key={b.id} id="branchen-panel">
           <div className="dialog">
             <div className="wer">Beispielgespräch · {b.titel}</div>
             {b.gespraech.map((z, i) => (
