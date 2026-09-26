@@ -1,6 +1,9 @@
 # Website V2.1: Arbeitsplan
 
 Ausgangslage: Version 2.0 ist live (Git-Marke `v2.0`, Stand 26.09.2026).
+
+**26.09.2026: V2.1 veröffentlicht** (Git-Marke `v2.1.0`): Branchenseiten, Verlinkung, Autoplay im Branchen-Abschnitt.
+Weitere Punkte unten werden weiter im Zweig `v2.1` entwickelt.
 Gearbeitet wird im Zweig `v2.1`. Die Live-Seite ändert sich erst, wenn `v2.1` in `main` übernommen wird,
 denn nur ein Push auf `main` veröffentlicht (Workflow «Website veröffentlichen»).
 
@@ -29,4 +32,4 @@ denn nur ein Push auf `main` veröffentlicht (Workflow «Website veröffentliche
 
 1. Änderungen im Zweig `v2.1` lokal prüfen (`npm run dev`, Port 8087).
 2. Nach dem Go des Inhabers: `v2.1` in `main` übernehmen und `main` pushen.
-3. Deploy-Lauf «Website veröffentlichen» abwarten, Live-Seite prüfen, Marke `v2.1` setzen.
+3. Deploy-Lauf «Website veröffentlichen» abwarten, Live-Seite prüfen, Marke setzen (z.B. `v2.1.1`; nicht `v2.1`, so heisst der Zweig).
