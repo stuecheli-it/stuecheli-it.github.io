@@ -168,6 +168,10 @@ button { font-family: inherit; }
 }
 .tab:hover { border-color: #c5cdd8; color: var(--graphit); }
 .tab.aktiv { background: var(--nacht); color: #ffffff; border-color: var(--nacht); }
+/* Fortschrittsbalken im aktiven Knopf: zeigt, wann die nächste Branche kommt */
+.tab { position: relative; overflow: hidden; }
+.tab-fortschritt { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: var(--verlauf); transform-origin: left; animation: tab-lauf linear forwards; }
+@keyframes tab-lauf { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 .tab svg { width: 18px; height: 18px; }
 .branche { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 28px; animation: einblenden 0.35s ease; }
 .branche[hidden] { display: none; }
