@@ -1,3 +1,5 @@
+import { MENUE_PUNKTE } from "@/lib/navigation";
+import HandyMenue from "./HandyMenue";
 import { Telefon } from "./Icons";
 
 export default function Kopf() {
@@ -14,15 +16,14 @@ export default function Kopf() {
           </span>
         </a>
         <nav className="nav" aria-label="Hauptnavigation">
-          <a href="/#branchen">Branchen</a>
-          <a href="/#leistungen">Leistungen</a>
-          <a href="/#vorgehen">Vorgehen</a>
-          <a href="/#preise">Preise</a>
-          <a href="/#kontakt">Kontakt</a>
+          {MENUE_PUNKTE.map((p) => (
+            <a key={p.href} href={p.href}>{p.text}</a>
+          ))}
           <a className="btn btn-dunkel btn-klein" href="tel:+41615391202">
             <Telefon />
             Demo anrufen
           </a>
+          <HandyMenue />
         </nav>
       </div>
     </header>

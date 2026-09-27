@@ -431,7 +431,7 @@ button { font-family: inherit; }
   .kopf .marke .marke-orb { height: 34px; width: 34px; }
   .marke-name { font-size: 19px; }
   .marke-zusatz { font-size: 9.5px; margin-top: 3px; }
-  .nav a:not(.btn) { display: none; }
+  .nav > a:not(.btn) { display: none; }
   .nav .btn { height: 38px; padding: 0 14px; font-size: 13px; }
   .hero .wrap { grid-template-columns: 1fr; gap: 40px; padding-top: 56px; padding-bottom: 72px; }
   .hero h1 { font-size: 40px; }
@@ -551,10 +551,10 @@ button { font-family: inherit; }
 @media (max-width: 1024px) {
   .kopf .wrap { gap: 20px; }
   .nav { gap: 22px; }
-  .nav a:not(.btn) { font-size: 14px; }
+  .nav > a:not(.btn) { font-size: 14px; }
 }
 @media (max-width: 860px) {
-  .nav a:not(.btn) { display: none; }
+  .nav > a:not(.btn) { display: none; }
 }
 
 /* ---------- Anfrage-Chat (Fenster hinter «Unverbindlich anfragen») ----------
@@ -760,4 +760,45 @@ button { font-family: inherit; }
   .recht { font-size: 15.5px; }
   .recht h2 { font-size: 19px; margin-top: 36px; }
   .recht-inhalt ol { columns: 1; }
+}
+
+/* ---------- Handy-Menü (unter 860 px) ---------- */
+.menue-knopf {
+  display: none; width: 40px; height: 40px; flex: 0 0 auto; border-radius: 50%; cursor: pointer;
+  border: 1px solid var(--linie); background: #ffffff; color: var(--graphit); place-items: center;
+  transition: background 0.15s, border-color 0.15s;
+}
+.menue-knopf:hover, .menue-knopf.offen { background: var(--papier); border-color: #c5cdd8; }
+.menue-knopf:focus-visible { outline: 2px solid var(--blau); outline-offset: 2px; }
+.menue-knopf svg { width: 20px; height: 20px; }
+.menue-panel {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 30; background: #ffffff;
+  border-bottom: 1px solid var(--linie); box-shadow: 0 24px 40px -20px rgba(11, 23, 40, 0.25);
+  padding: 4px 20px 22px; animation: menue-auf 0.22s ease;
+}
+@keyframes menue-auf { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+.menue-liste { list-style: none; margin: 0; padding: 0; }
+.menue-liste a {
+  display: flex; align-items: center; justify-content: space-between; padding: 14px 2px;
+  font-size: 18px; font-weight: 600; color: var(--graphit); border-bottom: 1px solid var(--linie);
+}
+.menue-liste a::after { content: "›"; font-size: 22px; font-weight: 400; color: var(--text3); }
+.menue-liste a:hover { color: var(--blau); }
+.menue-titel { margin: 20px 0 10px; font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blau); }
+.menue-branchen { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.menue-branchen a {
+  display: flex; align-items: center; gap: 8px; padding: 11px 12px; border-radius: 12px;
+  background: var(--papier); border: 1px solid var(--linie); font-size: 14.5px; font-weight: 500; color: var(--graphit);
+}
+.menue-branchen a:hover { color: var(--graphit); border-color: #c5cdd8; background: #ffffff; }
+.menue-branchen svg { width: 18px; height: 18px; flex: 0 0 auto; stroke: var(--blau); }
+.menue-recht { display: flex; gap: 20px; margin-top: 18px; }
+.menue-recht a { font-size: 13.5px; font-weight: 500; color: var(--text3); }
+.menue-recht a:hover { color: var(--graphit); }
+@media (max-width: 860px) {
+  .nav { gap: 8px; }
+  .menue-knopf { display: grid; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menue-panel { animation: none; }
 }
