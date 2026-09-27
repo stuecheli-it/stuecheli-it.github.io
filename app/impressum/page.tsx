@@ -17,8 +17,6 @@ export default function Impressum() {
         <br />
         Inhaber: {FIRMA.inhaber}
         <br />
-        {FIRMA.strasse}
-        <br />
         {FIRMA.plz} {FIRMA.ort}
         <br />
         {FIRMA.land}

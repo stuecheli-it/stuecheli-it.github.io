@@ -1,11 +1,10 @@
 // Firmenangaben für Impressum, Datenschutzerklärung und Fusszeile.
-// Quelle: eigener Eintrag im CRM (Stand 27.09.2026). Vor dem Veröffentlichen vom Inhaber bestätigen lassen.
+// Vom Inhaber am 27.09.2026 bestätigt. Strasse bewusst nicht veröffentlicht (Wunsch des Inhabers).
 
 export const FIRMA = {
   name: "Stücheli IT Consulting",
   inhaber: "Gilbert Stücheli",
   rechtsform: "Einzelunternehmen",
-  strasse: "Fellenbergstrasse 65",
   plz: "9000",
   ort: "St. Gallen",
   land: "Schweiz",

@@ -44,7 +44,7 @@ export default function Datenschutz() {
         <br />
         {FIRMA.inhaber}
         <br />
-        {FIRMA.strasse}, {FIRMA.plz} {FIRMA.ort}, {FIRMA.land}
+        {FIRMA.plz} {FIRMA.ort}, {FIRMA.land}
         <br />
         <a href={`mailto:${FIRMA.email}`}>{FIRMA.email}</a>
       </address>
@@ -93,6 +93,10 @@ export default function Datenschutz() {
         Auftragsbearbeiter: fonio GmbH, Neustiftgasse 73-75/3/7, 1070 Wien, Österreich. Weitere Informationen im{" "}
         <a href="https://www.fonio.ai/de/datenschutzerklarung/" rel="noopener">
           Datenschutzhinweis von fonio.ai
+        </a>{" "}
+        und im{" "}
+        <a href="https://www.fonio.ai/de/datenschutzerklarung-app/" rel="noopener">
+          Datenschutzhinweis zur fonio-Applikation
         </a>
         .
       </p>
@@ -101,9 +105,15 @@ export default function Datenschutz() {
       <p>
         Wenn Sie unsere Demo-Nummer <a href={FIRMA.demoTelefonLink}>{FIRMA.demoTelefon}</a> anrufen, nimmt ein
         KI-Telefonassistent von fonio.ai ab. Dabei werden Ihre Telefonnummer, Zeitpunkt und Dauer des Anrufs sowie der
-        Inhalt des Gesprächs bearbeitet. Das Gespräch kann aufgezeichnet und in Text umgewandelt werden; wir erhalten
-        eine Zusammenfassung. Zweck ist die Demonstration unseres Angebots und das Beantworten Ihres Anliegens. Für
-        Auftragsbearbeitung und Übermittlung gilt Abschnitt 3 sinngemäss.
+        Inhalt des Gesprächs bearbeitet.
+      </p>
+      <p>
+        <b>Die Gespräche werden aufgezeichnet.</b> Im Anschluss an den Anruf werden sie in Text umgewandelt, die
+        genannten Angaben erfasst (zum Beispiel Name, Anliegen und Rückrufwunsch) und ausgewertet; wir erhalten eine
+        Zusammenfassung. Aufzeichnungen und Gesprächsdaten werden nach <b>30 Tagen automatisch gelöscht</b>. Zweck
+        ist die Demonstration unseres Angebots und das Beantworten Ihres Anliegens. Wenn Sie keine Aufzeichnung
+        wünschen, schreiben Sie uns bitte eine E-Mail statt anzurufen. Für Auftragsbearbeitung und Übermittlung gilt
+        Abschnitt 3 sinngemäss.
       </p>
 
       <h2 id="email">5. Kontakt per E-Mail</h2>
@@ -116,20 +126,26 @@ export default function Datenschutz() {
       <p>Wir geben Personendaten nur an Dienstleister weiter, die wir für die oben genannten Zwecke einsetzen:</p>
       <ul>
         <li>GitHub, Inc., USA: Auslieferung dieser Website</li>
-        <li>fonio GmbH, Österreich, Hosting in Deutschland: KI-Web-Chat und KI-Telefonassistent</li>
+        <li>
+          fonio GmbH, Österreich, Hosting in Deutschland: KI-Web-Chat und KI-Telefonassistent. fonio setzt für
+          Sprach-, Telefonie- und KI-Funktionen weitere Unterauftragsbearbeiter ein, unter anderem in Irland (zum
+          Beispiel OpenAI, Microsoft, Twilio) und in den USA (zum Beispiel ElevenLabs, Deepgram, Cartesia, LiveKit).
+          Die vollständige Liste steht im Datenschutzhinweis zur fonio-Applikation.
+        </li>
         <li>Swisscom (Schweiz) AG, Schweiz: E-Mail</li>
       </ul>
       <p>
         Österreich und Deutschland gewährleisten nach Einschätzung des Bundesrats einen angemessenen Datenschutz. Bei
         Übermittlungen in Länder ohne angemessenen Datenschutz, etwa in die USA, stützen sich die Dienstleister auf
-        anerkannte Garantien, insbesondere eine Zertifizierung nach dem Swiss-U.S. Data Privacy Framework oder
-        Standardvertragsklauseln. Wir verkaufen keine Personendaten.
+        anerkannte Garantien, insbesondere eine Zertifizierung nach dem Data Privacy Framework,
+        Standardvertragsklauseln oder verbindliche interne Datenschutzvorschriften. Wir verkaufen keine Personendaten.
       </p>
 
       <h2 id="dauer">7. Aufbewahrung</h2>
       <p>
         Wir bewahren Personendaten nur so lange auf, wie es für den jeweiligen Zweck nötig ist oder das Gesetz es
-        verlangt. Chat- und Anrufdaten ohne weitere Geschäftsbeziehung löschen wir, sobald Ihr Anliegen erledigt ist.
+        verlangt. Aufzeichnungen und Daten von Anrufen an die Demo-Nummer werden nach 30 Tagen automatisch gelöscht.
+        Chat-Daten ohne weitere Geschäftsbeziehung löschen wir, sobald Ihr Anliegen erledigt ist.
         Unterlagen einer Geschäftsbeziehung bewahren wir während der gesetzlichen Fristen auf.
       </p>
 
