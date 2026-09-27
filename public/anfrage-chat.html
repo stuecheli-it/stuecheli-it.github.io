@@ -49,6 +49,25 @@
           return;
         }
         new MutationObserver(function () { pruefen(root); }).observe(root, { attributes: true, attributeFilter: [OFFEN] });
+        // Kontext aus der Adresse (von der Website gesetzt): woher die Anfrage kommt, z.B. Plan oder Branche.
+        // Nur bekannte Felder, kurz gehalten; fonio speichert den Kontext mit dem Gespräch.
+        if (wc.setContext) {
+          var FELDER = ["thema", "produkt", "plan", "abrechnung", "preis", "branche", "quelle"];
+          var parameter = new URLSearchParams(window.location.search);
+          var kontext = {};
+          var vorhanden = false;
+          FELDER.forEach(function (f) {
+            var wert = parameter.get(f);
+            if (wert) {
+              kontext[f] = wert.slice(0, 120);
+              vorhanden = true;
+            }
+          });
+          if (vorhanden) {
+            kontext.hinweis = "Die Person hat auf der Website bei «" + (kontext.thema || "") + "» auf «Unverbindlich anfragen» geklickt.";
+            try { wc.setContext(kontext); } catch (e) { /* Kontext ist optional */ }
+          }
+        }
         wc.open();
         pruefen(root);
       }

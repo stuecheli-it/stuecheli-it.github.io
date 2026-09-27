@@ -1,15 +1,16 @@
 "use client";
 
 import { useRef, useState } from "react";
+import type { AnfrageKontext } from "@/lib/fonio";
 import AnfrageChat from "./AnfrageChat";
 
 /** Knopf, der den Anfrage-Chat öffnet (wie «Unverbindlich anfragen» im Preis-Popup). */
 export default function AnfrageKnopf({
-  thema,
+  kontext,
   className,
   children,
 }: {
-  thema: string;
+  kontext: AnfrageKontext;
   className: string;
   children: React.ReactNode;
 }) {
@@ -20,7 +21,7 @@ export default function AnfrageKnopf({
       <button className={className} type="button" onClick={() => setOffen(true)}>
         {children}
       </button>
-      {offen && <AnfrageChat thema={thema} schliessen={schliessen} />}
+      {offen && <AnfrageChat kontext={kontext} schliessen={schliessen} />}
     </>
   );
 }

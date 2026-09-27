@@ -252,7 +252,17 @@ export default async function Branchenseite({ params }: Props) {
                   <li key={p}><Haken />{p}</li>
                 ))}
               </ul>
-              <AnfrageKnopf className="btn btn-primaer" thema={`Telefon KI · ${s.kurz}`}>
+              <AnfrageKnopf
+                className="btn btn-primaer"
+                kontext={{
+                  thema: `Telefon KI für ${s.mehrzahl}`,
+                  produkt: "Telefon KI",
+                  plan: SOLO.name,
+                  preis: `${chf(SOLO.monat)} pro Monat`,
+                  branche: s.mehrzahl,
+                  quelle: `Branchenseite ${s.kurz}`,
+                }}
+              >
                 Unverbindlich anfragen <Pfeil strich={2} />
               </AnfrageKnopf>
               <a className="bs-alle-preise" href="/#preise">

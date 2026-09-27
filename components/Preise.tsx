@@ -31,6 +31,7 @@ import {
   Telefon,
   Werkzeug,
 } from "./Icons";
+import type { AnfrageKontext } from "@/lib/fonio";
 import AnfrageChat from "./AnfrageChat";
 import { useFenster } from "./useFenster";
 
@@ -179,7 +180,7 @@ export default function Preise() {
   const [produktId, setProduktId] = useState<ProduktId>("telefon");
   const [abrechnung, setAbrechnung] = useState<Abrechnung>("monat");
   const [offen, setOffen] = useState<Plan | null>(null);
-  const [anfrage, setAnfrage] = useState<string | null>(null);
+  const [anfrage, setAnfrage] = useState<AnfrageKontext | null>(null);
   const produkt = PRODUKTE.find((p) => p.id === produktId) ?? PRODUKTE[0];
   const schliessen = useRef(() => setOffen(null)).current;
   const anfrageSchliessen = useRef(() => setAnfrage(null)).current;
@@ -295,11 +296,18 @@ export default function Preise() {
           schliessen={schliessen}
           anfragen={() => {
             setOffen(null);
-            setAnfrage(produkt.label + " " + offen.name);
+            setAnfrage({
+              thema: `${produkt.label} ${offen.name}`,
+              produkt: produkt.label,
+              plan: offen.name,
+              abrechnung: abrechnung === "jahr" ? "jährlich" : "monatlich",
+              preis: abrechnung === "jahr" ? `${chf(offen.jahr)} pro Jahr` : `${chf(offen.monat)} pro Monat`,
+              quelle: "Preise, Plan-Details",
+            });
           }}
         />
       )}
-      {anfrage && <AnfrageChat thema={anfrage} schliessen={anfrageSchliessen} />}
+      {anfrage && <AnfrageChat kontext={anfrage} schliessen={anfrageSchliessen} />}
     </section>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ANFRAGE_CHAT_SEITE } from "@/lib/fonio";
+import { anfrageChatAdresse, type AnfrageKontext } from "@/lib/fonio";
 import { Chat, Kreuz, Pfeil } from "./Icons";
 import { useFenster } from "./useFenster";
 
@@ -9,8 +9,10 @@ import { useFenster } from "./useFenster";
  * Chat-Fenster für «Unverbindlich anfragen».
  * fonio erlaubt nur ein Widget pro Seite. Der Demo-Chat belegt diesen Platz schon,
  * deshalb läuft der Anfrage-Chat in einem eigenen Rahmen (public/anfrage-chat.html).
+ * Der Kontext (Plan, Branche) geht über die Adresse an den Rahmen und von dort an fonio.
  */
-export default function AnfrageChat({ thema, schliessen }: { thema: string; schliessen: () => void }) {
+export default function AnfrageChat({ kontext, schliessen }: { kontext: AnfrageKontext; schliessen: () => void }) {
+  const { thema } = kontext;
   const fensterRef = useRef<HTMLDivElement>(null);
   const zuRef = useRef<HTMLButtonElement>(null);
   const [geladen, setGeladen] = useState(false);
@@ -52,7 +54,10 @@ export default function AnfrageChat({ thema, schliessen }: { thema: string; schl
             <span className="plan-produkt"><Chat />{thema}</span>
           </div>
           <h3 id="anfrageTitel">Unverbindlich anfragen</h3>
-          <p className="plan-fuer">Schreiben Sie uns kurz, worum es geht. Wir melden uns persönlich bei Ihnen.</p>
+          <p className="plan-fuer">
+            Ihre Anfrage zu «{thema}». Schreiben Sie uns kurz, was Sie wissen möchten. Wir melden uns persönlich bei
+            Ihnen.
+          </p>
         </header>
 
         <div className={"chat-rahmen" + (geladen ? " geladen" : "")}>
@@ -61,7 +66,7 @@ export default function AnfrageChat({ thema, schliessen }: { thema: string; schl
             Chat wird geladen …
           </div>
           <iframe
-            src={ANFRAGE_CHAT_SEITE}
+            src={anfrageChatAdresse(kontext)}
             title="Anfrage-Chat von Stücheli IT Consulting"
           />
         </div>

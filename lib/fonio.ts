@@ -8,6 +8,29 @@ export const FONIO_WIDGET_ID = "ad8e8193-6a15-45e9-9278-73b8d186a7d9";
 // für dieses Widget: https://stuecheli-it.github.io und http://localhost:8087
 export const ANFRAGE_CHAT_SEITE = "/anfrage-chat.html";
 
+/**
+ * Kontext für den Anfrage-Chat: woher die Anfrage kommt (Plan, Branche).
+ * Die Chat-Seite übergibt ihn mit fonio `setContext`; fonio speichert ihn mit dem Gespräch
+ * (im Widget-Code als «webchatContext»). Damit der Assistent ihn nutzt, im fonio-Prompt darauf verweisen.
+ */
+export type AnfrageKontext = {
+  /** Kurzform für die Anzeige, z.B. «Telefon KI Solo» */
+  thema: string;
+  produkt?: string;
+  plan?: string;
+  abrechnung?: string;
+  preis?: string;
+  branche?: string;
+  /** Wo auf der Website angefragt wurde */
+  quelle?: string;
+};
+
+export function anfrageChatAdresse(k: AnfrageKontext): string {
+  const p = new URLSearchParams();
+  for (const [schluessel, wert] of Object.entries(k)) if (wert) p.set(schluessel, wert);
+  return `${ANFRAGE_CHAT_SEITE}?${p.toString()}`;
+}
+
 type FonioWebchat = Partial<Record<"open" | "show" | "toggle" | "close" | "hide", () => void>>;
 
 declare global {
