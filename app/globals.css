@@ -715,3 +715,49 @@ button { font-family: inherit; }
   .bs-andere { grid-template-columns: 1fr; }
   .bs-preis { max-width: none; }
 }
+
+/* =====================================================================
+   Rechtsseiten: Impressum und Datenschutzerklärung
+   ===================================================================== */
+.fuss-recht { display: flex; gap: 16px; margin-top: 8px; }
+.fuss-recht a { font-size: 13px; color: #8a9bb3; }
+.fuss-recht a:hover { color: #ffffff; }
+.chat-fuss p a { display: inline; font-size: inherit; font-weight: 400; white-space: normal; color: var(--text3); text-decoration: underline; text-underline-offset: 2px; }
+.chat-fuss p a:hover { color: var(--graphit); }
+
+.recht-kopf { position: relative; overflow: hidden; background: var(--nacht); color: #ffffff; }
+.recht-kopf .wrap { position: relative; padding-top: 64px; padding-bottom: 64px; }
+.recht-kopf .bs-leiste-start { margin-bottom: 36px; }
+.recht-kopf .kicker { color: var(--tuerkis); }
+.recht-kopf h1 { font-size: 52px; font-weight: 700; letter-spacing: -0.03em; }
+.recht-stand { margin-top: 12px; font-size: 14px; color: #8a9bb3; }
+.recht-abschnitt { padding: 72px 0 96px; }
+
+.recht { max-width: 760px; font-size: 16.5px; line-height: 1.7; color: var(--text2); }
+.recht h2 { font-size: 22px; font-weight: 600; color: var(--graphit); margin: 44px 0 12px; scroll-margin-top: 24px; }
+.recht h2:first-child { margin-top: 0; }
+.recht p + p { margin-top: 12px; }
+.recht ul { margin: 10px 0 14px; padding-left: 22px; }
+.recht li { margin: 4px 0; }
+.recht li::marker { color: var(--blau); }
+.recht b { color: var(--graphit); font-weight: 600; }
+.recht a { text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(42, 111, 214, 0.35); }
+.recht a:hover { text-decoration-color: currentColor; }
+.recht-einleitung { font-size: 18px; color: var(--graphit); }
+.recht-adresse { font-style: normal; background: var(--papier); border: 1px solid var(--linie); border-radius: 16px; padding: 18px 22px; margin: 4px 0 14px; line-height: 1.65; }
+.recht-inhalt { margin: 28px 0 8px; padding: 20px 24px; border-radius: 16px; background: var(--papier); border: 1px solid var(--linie); }
+.recht-inhalt b { display: block; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blau); margin-bottom: 8px; }
+.recht-inhalt ol { margin: 0; padding-left: 22px; columns: 2; column-gap: 32px; font-size: 15px; }
+.recht-inhalt li { break-inside: avoid; }
+.recht-inhalt a { text-decoration: none; }
+.recht-inhalt a:hover { text-decoration: underline; }
+
+@media (max-width: 720px) {
+  .recht-kopf .wrap { padding-top: 40px; padding-bottom: 44px; }
+  .recht-kopf .bs-leiste-start { margin-bottom: 26px; }
+  .recht-kopf h1 { font-size: 34px; }
+  .recht-abschnitt { padding: 48px 0 72px; }
+  .recht { font-size: 15.5px; }
+  .recht h2 { font-size: 19px; margin-top: 36px; }
+  .recht-inhalt ol { columns: 1; }
+}

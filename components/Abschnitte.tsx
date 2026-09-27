@@ -179,6 +179,10 @@ export function Fuss() {
               <a key={b.slug} href={`/branchen/${b.slug}/`}>{b.kurz}</a>
             ))}
           </nav>
+          <nav className="fuss-recht" aria-label="Rechtliches">
+            <a href="/impressum/">Impressum</a>
+            <a href="/datenschutz/">Datenschutz</a>
+          </nav>
         </div>
         <div className="lockup">
           {/* Gleiches Logo wie in der Kopfzeile: Bildmarke plus echte Schrift, hier in der Variante für dunklen Grund */}

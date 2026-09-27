@@ -67,7 +67,9 @@ export default function AnfrageChat({ thema, schliessen }: { thema: string; schl
         </div>
 
         <footer className="plan-fuss chat-fuss">
-          <p>Lieber per E-Mail oder Telefon?</p>
+          <p>
+            Lieber per E-Mail oder Telefon? · <a href="/datenschutz/#chat">Datenschutz</a>
+          </p>
           <a href="#kontakt" onClick={schliessen}>
             Zu den Kontaktmöglichkeiten <Pfeil strich={2} />
           </a>

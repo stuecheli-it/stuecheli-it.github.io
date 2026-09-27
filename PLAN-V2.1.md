@@ -9,8 +9,8 @@ denn nur ein Push auf `main` veröffentlicht (Workflow «Website veröffentliche
 
 ## Priorität 1: Pflicht
 
-- [ ] **Datenschutzerklärung** (beide fonio-Chats bearbeiten Personendaten, Informationspflicht nach Schweizer Datenschutzgesetz). Entwurf durch Claude, Prüfung durch den Inhaber.
-- [ ] **Impressum** mit Firmenangaben.
+- [x] **Datenschutzerklärung** (beide fonio-Chats bearbeiten Personendaten, Informationspflicht nach Schweizer Datenschutzgesetz). Entwurf durch Claude, Prüfung durch den Inhaber.
+- [x] **Impressum** mit Firmenangaben (27.09.2026: /impressum/ und /datenschutz/, Angaben in lib/firma.ts).
 - [ ] **Vorschaubild und Firmendaten für Google** (Open-Graph-Bild für geteilte Links, strukturierte Daten LocalBusiness).
 
 ## Priorität 2: mehr Anfragen
