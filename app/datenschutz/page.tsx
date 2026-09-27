@@ -44,7 +44,7 @@ export default function Datenschutz() {
         <br />
         {FIRMA.inhaber}
         <br />
-        {FIRMA.plz} {FIRMA.ort}, {FIRMA.land}
+        {FIRMA.strasse}, {FIRMA.plz} {FIRMA.ort}, {FIRMA.land}
         <br />
         <a href={`mailto:${FIRMA.email}`}>{FIRMA.email}</a>
       </address>
