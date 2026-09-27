@@ -862,3 +862,44 @@ body.fenster-offen .chat-starter { display: none; }
 }
 .demo-wechsel:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.4); }
 .demo-wechsel:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
+/* ---------- Kopfzeile: Aufklappmenü «Branchen» (Desktop) ---------- */
+.nav-branchen { position: relative; }
+.nav-branchen-link { display: inline-flex; align-items: center; gap: 4px; }
+.nav-pfeil { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s; }
+.nav-branchen.offen .nav-pfeil { transform: rotate(180deg); }
+.nav-branchen.offen .nav-branchen-link { color: var(--graphit); }
+.nav-dropdown {
+  position: absolute; top: calc(100% + 14px); left: 50%; z-index: 40; width: 300px; margin-left: -150px;
+  background: #ffffff; border: 1px solid var(--linie); border-radius: 18px; padding: 8px;
+  box-shadow: 0 24px 48px -16px rgba(11, 23, 40, 0.28); animation: menue-auf 0.18s ease;
+}
+.nav-dropdown[hidden] { display: none; }
+/* Unsichtbare Brücke, damit die Maus auf dem Weg ins Menü nicht «herausfällt» */
+.nav-dropdown::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
+.nav-dropdown ul { list-style: none; margin: 0; padding: 0; }
+.nav-dropdown li a {
+  display: flex; align-items: center; gap: 12px; padding: 9px 10px; border-radius: 12px;
+  font-size: 15px; font-weight: 500; color: var(--graphit);
+}
+.nav-dropdown li a:hover, .nav-dropdown li a:focus-visible { background: var(--papier); color: var(--graphit); outline: none; }
+.nav-dropdown-ico {
+  width: 34px; height: 34px; flex: 0 0 auto; border-radius: 10px; display: grid; place-items: center;
+  background: linear-gradient(135deg, rgba(63, 240, 201, 0.18), rgba(58, 140, 255, 0.16) 55%, rgba(107, 69, 255, 0.16));
+}
+.nav-dropdown-ico svg { width: 18px; height: 18px; stroke: var(--blau); }
+.nav .nav-dropdown-alle {
+  display: flex; align-items: center; justify-content: space-between; margin-top: 6px; padding: 11px 10px 5px;
+  border-top: 1px solid var(--linie); font-size: 13.5px; font-weight: 600; color: var(--blau);
+}
+.nav .nav-dropdown-alle svg { width: 16px; height: 16px; transition: transform 0.2s; }
+.nav .nav-dropdown-alle:hover svg { transform: translateX(3px); }
+@media (max-width: 1024px) {
+  .nav-branchen-link { font-size: 14px; }
+}
+@media (max-width: 860px) {
+  .nav > .nav-branchen { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-dropdown { animation: none; }
+}
