@@ -1,4 +1,4 @@
-// Demo-Chats: allgemeiner Demo-Assistent (Startseite) und je ein Assistent pro Branche mit Beispiel-Firma.
+// Demo-Chats: je ein fonio-Assistent pro Branche mit Beispiel-Firma. Ohne Branche wählt man sie im Fenster aus.
 // Die Widget-IDs stehen in public/chat.html (Schlüssel wie unten). Die Firmen passen zu den Hero-Szenen.
 
 import type { BrancheId } from "./branchen";
@@ -6,15 +6,10 @@ import type { BrancheId } from "./branchen";
 export type DemoChat = {
   /** Schlüssel in public/chat.html */
   schluessel: string;
-  /** Beispiel-Firma; fehlt beim allgemeinen Demo-Assistenten */
-  firma?: string;
+  /** Beispiel-Firma */
+  firma: string;
   /** Anstösse für die ersten Fragen */
   beispiele: string[];
-};
-
-export const DEMO_ALLGEMEIN: DemoChat = {
-  schluessel: "demo",
-  beispiele: ["Was kann ein KI-Assistent für meinen Betrieb tun?", "Wie läuft die Einrichtung ab?"],
 };
 
 export const DEMO_BRANCHEN: Record<BrancheId, DemoChat> = {
@@ -69,10 +64,6 @@ export const DEMO_BRANCHEN: Record<BrancheId, DemoChat> = {
     ],
   },
 };
-
-export function demoFuer(branche?: BrancheId): DemoChat {
-  return branche ? DEMO_BRANCHEN[branche] : DEMO_ALLGEMEIN;
-}
 
 export const CHAT_SEITE = "/chat.html";
 

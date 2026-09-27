@@ -1,6 +1,9 @@
 # Chats der Website und ihre fonio-Assistenten
 
-Stand 27.09.2026. Alle Chats laufen im Fenster der Website über `public/chat.html?w=<schlüssel>`
+Stand 27.09.2026. Auf der Startseite und den Rechtsseiten wählt man im Demo-Fenster zuerst die Branche;
+auf einer Branchenseite startet direkt deren Beispiel-Firma. Der frühere «Demo Chat-Assistent» wird nicht mehr genutzt.
+
+Alle Chats laufen im Fenster der Website über `public/chat.html?w=<schlüssel>`
 (fonio erlaubt nur ein Widget pro Seite). Die Widget-IDs stehen in `public/chat.html`,
 Firmen und Beispielfragen in `lib/demo.ts`.
 
@@ -10,7 +13,6 @@ Bei jedem Widget sind in fonio als erlaubte Websites eingetragen:
 | Wo auf der Website | Name in fonio | Anzeigename im Chat | Schlüssel | Widget-ID |
 |---|---|---|---|---|
 | «Unverbindlich anfragen» (Preise, Branchenseiten) | Hompage - Anfragen | Stücheli IT Consulting | `anfrage` | 52aac962-8a9d-4f4f-9640-688f3b595eac |
-| Startseite, Impressum, Datenschutz: «Im Chat testen» und «Chat testen» | Demo Chat-Assistent | (wie in fonio eingestellt) | `demo` | ad8e8193-6a15-45e9-9278-73b8d186a7d9 |
 | Branchenseite Garage | Website-Demo Garage - Garage Muster AG | Garage Muster AG | `garage` | 39ec6ed4-a2fe-40b0-bc5e-9e502455f207 |
 | Branchenseite Handwerk | Website-Demo Handwerk - Muster Sanitär AG | Muster Sanitär AG | `handwerk` | 339ac663-aa40-4a4e-94ef-c24d8cb47754 |
 | Branchenseite Coiffeur | Website-Demo Coiffeur - Coiffure Muster | Coiffure Muster | `coiffeur` | e5b091dd-51d9-4df2-a5c4-da8e32323d39 |

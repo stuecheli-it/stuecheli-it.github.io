@@ -8,6 +8,7 @@ import { useFenster } from "./useFenster";
  * Gemeinsames Chat-Fenster für den Anfrage-Chat und die Demo-Chats.
  * Der fonio-Chat läuft in einem eigenen Rahmen (public/chat.html), weil fonio nur ein Widget pro Seite erlaubt.
  * Die Seite im Rahmen meldet, wann der Chat offen ist und wann er über das fonio-Kreuz geschlossen wurde.
+ * Ohne `adresse` zeigt das Fenster statt des Chats den `inhalt`, z.B. die Auswahl der Branche.
  */
 export default function ChatFenster({
   chip,
@@ -16,6 +17,8 @@ export default function ChatFenster({
   beispiele,
   hinweis,
   adresse,
+  inhalt,
+  zusatz,
   rahmenTitel,
   schliessen,
 }: {
@@ -26,8 +29,12 @@ export default function ChatFenster({
   beispiele?: string[];
   /** Kurzer Text im Fuss links, z.B. «Lieber per E-Mail oder Telefon?» */
   hinweis: string;
-  adresse: string;
-  rahmenTitel: string;
+  /** Chat-Seite im Rahmen; fehlt sie, erscheint `inhalt` */
+  adresse?: string;
+  inhalt?: React.ReactNode;
+  /** Zusätzliches Element neben dem Chip, z.B. «Andere Branche» */
+  zusatz?: React.ReactNode;
+  rahmenTitel?: string;
   schliessen: () => void;
 }) {
   const fensterRef = useRef<HTMLDivElement>(null);
@@ -37,6 +44,8 @@ export default function ChatFenster({
   useFenster(fensterRef, zuRef, schliessen);
 
   useEffect(() => {
+    setGeladen(false);
+    if (!adresse) return;
     const nachricht = (e: MessageEvent) => {
       if (e.origin !== window.location.origin) return;
       const typ = (e.data as { chatFenster?: string } | null)?.chatFenster;
@@ -50,7 +59,7 @@ export default function ChatFenster({
       window.removeEventListener("message", nachricht);
       window.clearTimeout(notfall);
     };
-  }, [schliessen]);
+  }, [schliessen, adresse]);
 
   // In den fonio-Chat (fremde Seite im Rahmen) lässt sich kein Text setzen, darum kopieren
   const kopieren = async (frage: string) => {
@@ -97,6 +106,7 @@ export default function ChatFenster({
           <div className="plan-glow" aria-hidden />
           <div className="plan-marken">
             <span className="plan-produkt"><Chat />{chip}</span>
+            {zusatz}
           </div>
           <h3 id="chatTitel">{titel}</h3>
           <p className="plan-fuer">{text}</p>
@@ -111,13 +121,17 @@ export default function ChatFenster({
           )}
         </header>
 
-        <div className={"chat-rahmen" + (geladen ? " geladen" : "")}>
-          <div className="chat-laden" aria-hidden={geladen}>
-            <span className="chat-punkte"><i /><i /><i /></span>
-            Chat wird geladen …
+        {adresse ? (
+          <div className={"chat-rahmen" + (geladen ? " geladen" : "")}>
+            <div className="chat-laden" aria-hidden={geladen}>
+              <span className="chat-punkte"><i /><i /><i /></span>
+              Chat wird geladen …
+            </div>
+            <iframe key={adresse} src={adresse} title={rahmenTitel} />
           </div>
-          <iframe src={adresse} title={rahmenTitel} />
-        </div>
+        ) : (
+          <div className="chat-auswahl">{inhalt}</div>
+        )}
 
         <footer className="plan-fuss chat-fuss">
           <p>

@@ -838,3 +838,27 @@ body.fenster-offen .chat-starter { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .chat-starter { transition: none; }
 }
+
+/* ---------- Demo-Chat: Auswahl der Branche ---------- */
+.chat-auswahl { flex: 1 1 auto; min-height: 0; overflow-y: auto; background: var(--papier); padding: 18px 18px 20px; }
+.demo-wahl { display: grid; grid-template-columns: 1fr; gap: 8px; }
+.demo-wahl button {
+  display: flex; align-items: center; gap: 14px; width: 100%; padding: 12px 16px 12px 12px; cursor: pointer; text-align: left;
+  font: inherit; color: var(--graphit); background: #ffffff; border: 1px solid var(--linie); border-radius: 14px;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+}
+.demo-wahl button:hover { border-color: #c5cdd8; box-shadow: var(--schatten); transform: translateY(-1px); }
+.demo-wahl button:focus-visible { outline: 2px solid var(--blau); outline-offset: 2px; }
+.demo-wahl-ico { width: 40px; height: 40px; flex: 0 0 auto; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, rgba(63, 240, 201, 0.18), rgba(58, 140, 255, 0.16) 55%, rgba(107, 69, 255, 0.16)); }
+.demo-wahl-ico svg { width: 20px; height: 20px; stroke: var(--blau); }
+.demo-wahl-text { display: flex; flex-direction: column; gap: 1px; flex: 1 1 auto; }
+.demo-wahl-text b { font-size: 15.5px; font-weight: 600; }
+.demo-wahl-text span { font-size: 13.5px; color: var(--text3); }
+.demo-wahl button > svg { width: 18px; height: 18px; flex: 0 0 auto; color: var(--text3); transition: transform 0.15s, color 0.15s; }
+.demo-wahl button:hover > svg { color: var(--blau); transform: translateX(3px); }
+.demo-wechsel {
+  height: 30px; padding: 0 12px; border-radius: 999px; cursor: pointer; font: inherit; font-size: 12.5px; font-weight: 500;
+  color: #dce6f3; background: transparent; border: 1px solid rgba(255, 255, 255, 0.22); transition: background 0.15s, border-color 0.15s;
+}
+.demo-wechsel:hover { background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.4); }
+.demo-wechsel:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
