@@ -903,3 +903,36 @@ body.fenster-offen .chat-starter { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .nav-dropdown { animation: none; }
 }
+
+/* ---------- Kopfzeile: «Demo» mit Auswahl und «Unverbindlich anfragen» ---------- */
+.kopf-aktionen { display: flex; align-items: center; gap: 10px; }
+.kopf-tel { display: none; }
+.demo-menue { position: relative; }
+.demo-menue-knopf { gap: 4px; padding: 0 14px 0 18px; }
+.demo-menue.offen .nav-pfeil { transform: rotate(180deg); }
+.demo-dropdown { left: auto; right: 0; margin-left: 0; width: 290px; top: calc(100% + 10px); display: flex; flex-direction: column; gap: 2px; }
+.demo-dropdown::before { top: -12px; height: 12px; }
+.demo-option {
+  display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px; border: 0; border-radius: 12px; cursor: pointer;
+  background: transparent; font: inherit; text-align: left; color: var(--graphit);
+}
+.nav a.demo-option { color: var(--graphit); font-size: inherit; }
+.demo-option:hover, .demo-option:focus-visible { background: var(--papier); color: var(--graphit); outline: none; }
+.demo-option b { display: block; font-size: 15px; font-weight: 600; }
+.demo-option small { display: block; font-size: 13px; color: var(--text3); margin-top: 1px; }
+.demo-option .nav-dropdown-ico svg { width: 18px; height: 18px; }
+
+.menue-aktionen { display: grid; gap: 8px; margin: 14px 0 8px; }
+.menue-aktionen .btn { width: 100%; }
+
+/* Bis 1000 px: Textlinks ins Menü, Branchen, Demo und Anfrage bleiben sichtbar */
+@media (max-width: 1000px) {
+  .nav { gap: 10px; }
+  .nav > a:not(.btn) { display: none; }
+  .nav > .nav-branchen { margin-right: 8px; }
+  .menue-knopf { display: grid; }
+}
+@media (max-width: 860px) {
+  .kopf-aktionen { display: none; }
+  .kopf-tel { display: inline-flex; }
+}

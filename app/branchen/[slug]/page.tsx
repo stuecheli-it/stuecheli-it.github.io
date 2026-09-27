@@ -90,7 +90,7 @@ export default async function Branchenseite({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Kopf />
+      <Kopf branche={s.id} />
       <main>
         {/* ---------- Hero ---------- */}
         <section className="hero bs-hero">
