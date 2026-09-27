@@ -559,9 +559,10 @@ button { font-family: inherit; }
 
 /* ---------- Anfrage-Chat (Fenster hinter «Unverbindlich anfragen») ----------
    Nutzt die Grundform des Plan-Popups, darin der fonio-Anfrage-Chat als Rahmen. */
-.chat-fenster { max-width: 480px; height: min(760px, 88vh); }
-.chat-kopf { flex: 0 0 auto; padding: 24px 28px 22px; }
-.chat-kopf h3 { font-size: 28px; margin-top: 14px; }
+/* Höchstens 480 px breit: Darüber zeigt fonio im Rahmen die Desktop-Karte statt den Chat bildschirmfüllend */
+.chat-fenster { max-width: 480px; height: min(820px, 92vh); max-height: min(820px, 92vh); }
+.chat-kopf { flex: 0 0 auto; padding: 20px 26px 18px; }
+.chat-kopf h3 { font-size: 26px; margin-top: 12px; }
 .chat-kopf .plan-fuer { font-size: 14.5px; line-height: 1.5; max-width: 380px; }
 .chat-rahmen { position: relative; flex: 1 1 auto; min-height: 0; background: #ffffff; }
 .chat-rahmen iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; opacity: 0; transition: opacity 0.3s ease; }
@@ -801,4 +802,39 @@ button { font-family: inherit; }
 }
 @media (prefers-reduced-motion: reduce) {
   .menue-panel { animation: none; }
+}
+
+/* ---------- Eigener Chat-Knopf unten rechts und Beispielfragen im Chat-Fenster ---------- */
+.chat-starter {
+  position: fixed; right: 20px; bottom: 20px; z-index: 60; height: 56px; min-width: 56px; padding: 0 20px 0 16px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--verlauf); color: #06121f; font: inherit; font-size: 15px; font-weight: 600;
+  box-shadow: 0 14px 34px -10px rgba(58, 140, 255, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.4) inset;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s;
+}
+.chat-starter:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 18px 40px -10px rgba(58, 140, 255, 0.7); }
+.chat-starter:focus-visible { outline: 2px solid var(--blau); outline-offset: 3px; }
+.chat-starter svg { width: 22px; height: 22px; flex: 0 0 auto; }
+body.fenster-offen .chat-starter { display: none; }
+
+.chat-beispiele {
+  display: flex; flex-wrap: nowrap; gap: 6px; margin: 12px -26px 0 0; padding-right: 26px; overflow-x: auto; scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); mask-image: linear-gradient(90deg, #000 85%, transparent);
+}
+.chat-beispiele::-webkit-scrollbar { display: none; }
+.chat-beispiele button {
+  font: inherit; font-size: 12.5px; line-height: 1.3; text-align: left; color: #dce6f3; cursor: pointer; white-space: nowrap; flex: 0 0 auto;
+  padding: 6px 11px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(255, 255, 255, 0.06);
+  transition: background 0.15s, border-color 0.15s;
+}
+.chat-beispiele button:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.35); }
+.chat-beispiele button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
+@media (max-width: 720px) {
+  .chat-starter { right: 14px; bottom: 14px; padding: 0; width: 56px; }
+  .chat-starter-text { display: none; }
+  .chat-beispiele { margin-right: -20px; padding-right: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chat-starter { transition: none; }
 }

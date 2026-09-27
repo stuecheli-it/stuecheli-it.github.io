@@ -5,7 +5,7 @@ import Kopf from "@/components/Kopf";
 import StimmeAuftrag from "@/components/StimmeAuftrag";
 import ChatKnopf from "@/components/ChatKnopf";
 import AnfrageKnopf from "@/components/AnfrageKnopf";
-import FonioWidget from "@/components/FonioWidget";
+import ChatStarter from "@/components/ChatStarter";
 import Reveal from "@/components/Reveal";
 import { Fuss, Kontakt, Nutzen, SCHRITTE } from "@/components/Abschnitte";
 import { BrancheIcon, Illustration } from "@/components/BranchenGrafik";
@@ -132,7 +132,7 @@ export default async function Branchenseite({ params }: Props) {
                   <Telefon strich={2} />
                   Demo anrufen
                 </a>
-                <ChatKnopf className="btn btn-hell">
+                <ChatKnopf className="btn btn-hell" branche={s.id}>
                   <Chat />
                   Im Chat testen
                 </ChatKnopf>
@@ -323,10 +323,10 @@ export default async function Branchenseite({ params }: Props) {
           </div>
         </section>
 
-        <Kontakt />
+        <Kontakt branche={s.id} />
       </main>
       <Fuss />
-      <FonioWidget />
+      <ChatStarter branche={s.id} />
       <Reveal />
     </>
   );

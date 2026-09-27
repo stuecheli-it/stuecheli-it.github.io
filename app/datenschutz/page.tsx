@@ -69,8 +69,10 @@ export default function Datenschutz() {
 
       <h2 id="chat">3. KI-Web-Chat</h2>
       <p>
-        Auf dieser Website können Sie mit uns über einen KI-Web-Chat schreiben: zum Ausprobieren (Knopf «Im Chat
-        testen» und Sprechblase unten rechts) und für unverbindliche Anfragen (Knopf «Unverbindlich anfragen»). Wir
+        Auf dieser Website können Sie mit uns über einen KI-Web-Chat schreiben: zum Ausprobieren (Knöpfe «Im Chat
+        testen» und «Chat testen» unten rechts) und für unverbindliche Anfragen (Knopf «Unverbindlich anfragen»). Die
+        Demo-Chats auf den Branchenseiten sprechen im Namen erfundener Beispiel-Firmen; dort wird nichts gebucht, und Sie
+        brauchen keine echten Angaben zu machen. Wir
         bieten diesen Dienst mit <b>fonio.ai</b> der fonio GmbH, Österreich, an. Der Dienst wird in Deutschland
         gehostet; im Zuge der Nutzung kann es zu Datenübermittlungen in weitere Länder kommen (siehe Abschnitt 6). Mit
         dem Anbieter besteht eine Vereinbarung zur Auftragsbearbeitung, die den Schutz Ihrer Daten sicherstellt.

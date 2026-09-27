@@ -1,4 +1,5 @@
 // Statische Abschnitte der Startseite (ohne eigene Logik im Browser).
+import type { BrancheId } from "@/lib/branchen";
 import { BRANCHENSEITEN, pfadFuer } from "@/lib/branchenseiten";
 import ChatKnopf from "./ChatKnopf";
 import { Auszeichnung, ChatPunkte, ChatStrich, Klemmbrett, Mail, Pfeil, Telefon, Uhr } from "./Icons";
@@ -131,7 +132,7 @@ export function Vorgehen() {
 
 // ---------- Kontakt ----------
 
-export function Kontakt() {
+export function Kontakt({ branche }: { branche?: BrancheId } = {}) {
   return (
     <section className="kontakt" id="kontakt">
       <div className="glow" />
@@ -154,9 +155,9 @@ export function Kontakt() {
             <div><b>+41 61 539 12 02</b><span>Den Assistenten hören, rund um die Uhr.</span></div>
             <span className="pfeil"><Pfeil /></span>
           </a>
-          <ChatKnopf className="weg">
+          <ChatKnopf className="weg" branche={branche}>
             <div className="ico24"><ChatStrich /></div>
-            <div><b>Im Chat ausprobieren</b><span>Unten rechts, ohne Anmeldung.</span></div>
+            <div><b>Im Chat ausprobieren</b><span>Sofort im Fenster, ohne Anmeldung.</span></div>
             <span className="pfeil"><Pfeil /></span>
           </ChatKnopf>
         </div>

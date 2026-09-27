@@ -1,7 +1,7 @@
 // Gemeinsamer Rahmen für Impressum und Datenschutzerklärung:
 // dunkler Kopf wie im Hero, darunter gut lesbarer Fliesstext.
 import Kopf from "./Kopf";
-import FonioWidget from "./FonioWidget";
+import ChatStarter from "./ChatStarter";
 import { Fuss } from "./Abschnitte";
 import { Pfeil } from "./Icons";
 
@@ -39,7 +39,7 @@ export default function RechtsSeite({
         </section>
       </main>
       <Fuss />
-      <FonioWidget />
+      <ChatStarter />
     </>
   );
 }

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="de-CH">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Chat · Stücheli IT Consulting</title>
+  <!--
+    Wird in den Chat-Fenstern der Website als Rahmen geladen (components/ChatFenster.tsx).
+    Adresse: /chat.html?w=<schluessel>, bei der Anfrage zusätzlich mit Kontext (thema, plan …).
+
+    fonio erlaubt nur ein Widget pro Seite, darum hat jeder Chat seinen eigenen Rahmen.
+    fonio bietet für diese Widgets nur den schwebenden Modus an (inline meldet «nicht verfügbar»).
+    Im schmalen Rahmen füllt das schwebende Chatfenster den ganzen Platz aus, darum öffnen wir es sofort.
+    Schliesst jemand den Chat über das fonio-Kreuz, schliesst sich auch das Fenster auf der Website.
+
+    Die Widgets stehen unten in WIDGETS. Im fonio-Konto ist bei jedem als erlaubte Website
+    https://stuecheli-it.github.io und http://localhost:8087 eingetragen.
+  -->
+  <style>
+    html, body { margin: 0; height: 100%; background: #ffffff; }
+  </style>
+</head>
+<body>
+  <script>
+    (function () {
+      // Schlüssel -> fonio-Widget. Name des Assistenten im fonio-Konto jeweils dahinter.
+      var WIDGETS = {
+        anfrage: "52aac962-8a9d-4f4f-9640-688f3b595eac", // «Hompage - Anfragen»
+        demo: "ad8e8193-6a15-45e9-9278-73b8d186a7d9", // «Demo Chat-Assistent» (allgemein, Startseite)
+        garage: "39ec6ed4-a2fe-40b0-bc5e-9e502455f207", // «Website-Demo Garage - Garage Muster AG»
+        handwerk: "339ac663-aa40-4a4e-94ef-c24d8cb47754", // «Website-Demo Handwerk - Muster Sanitär AG»
+        coiffeur: "e5b091dd-51d9-4df2-a5c4-da8e32323d39", // «Website-Demo Coiffeur - Coiffure Muster»
+        fahrschule: "d9f6979c-1820-4aa4-9a14-2f0232c2244b", // «Website-Demo Fahrschule - Fahrschule Muster»
+        gastro: "e91306cb-0b2e-40c4-9325-fb3e4a756b38", // «Website-Demo Gastronomie - Restaurant Muster»
+        immo: "84e91718-d13d-4810-9c17-5a1bfe54c420" // «Website-Demo Immobilien - Muster Immobilien AG»
+      };
+      var parameter = new URLSearchParams(window.location.search);
+      var schluessel = WIDGETS.hasOwnProperty(parameter.get("w")) ? parameter.get("w") : "demo";
+
+      var skript = document.createElement("script");
+      skript.type = "module";
+      skript.src = "https://widget.fonio.ai/webchat-widget.js";
+      skript.setAttribute("data-fonio-webchat-widget-id", WIDGETS[schluessel]);
+      skript.setAttribute("data-fonio-webchat-widget-mode", "floating");
+      document.body.appendChild(skript);
+
+      // Die fonio-Ereignisse «opened»/«closed» kommen nicht zuverlässig an.
+      // Verlässlich ist das Attribut, das fonio am Widget setzt, solange der Chat offen ist.
+      var OFFEN = "data-fonio-webchat-widget-open";
+      var versuche = 0;
+      var warOffen = false;
+      function melden(typ) {
+        if (window.parent !== window) window.parent.postMessage({ chatFenster: typ }, window.location.origin);
+      }
+      function pruefen(root) {
+        if (root.hasAttribute(OFFEN)) {
+          if (!warOffen) melden("offen");
+          warOffen = true;
+        } else if (warOffen) {
+          warOffen = false;
+          melden("zu");
+        }
+      }
+      // Nur beim Anfrage-Chat: Kontext aus der Adresse, woher die Anfrage kommt (Plan, Branche).
+      // Nur bekannte Felder, kurz gehalten; fonio speichert den Kontext mit dem Gespräch.
+      function kontextSetzen(wc) {
+        if (schluessel !== "anfrage" || !wc.setContext) return;
+        var FELDER = ["thema", "produkt", "plan", "abrechnung", "preis", "branche", "quelle"];
+        var kontext = {};
+        var vorhanden = false;
+        FELDER.forEach(function (f) {
+          var wert = parameter.get(f);
+          if (wert) {
+            kontext[f] = wert.slice(0, 120);
+            vorhanden = true;
+          }
+        });
+        if (!vorhanden) return;
+        kontext.hinweis = "Die Person hat auf der Website bei «" + (kontext.thema || "") + "» auf «Unverbindlich anfragen» geklickt.";
+        try { wc.setContext(kontext); } catch (e) { /* Kontext ist optional */ }
+      }
+      function starten() {
+        var wc = window.fonio && window.fonio.webchat;
+        var root = document.querySelector("fonio-webchat-widget-root");
+        if (!wc || !wc.open || !root) {
+          if (++versuche < 150) setTimeout(starten, 100);
+          return;
+        }
+        new MutationObserver(function () { pruefen(root); }).observe(root, { attributes: true, attributeFilter: [OFFEN] });
+        kontextSetzen(wc);
+        wc.open();
+        pruefen(root);
+      }
+      starten();
+    })();
+  </script>
+</body>
+</html>

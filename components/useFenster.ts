@@ -5,8 +5,7 @@ import { type RefObject, useEffect } from "react";
 /**
  * Gemeinsames Verhalten der Popup-Fenster:
  * Fokus auf den Schliessen-Knopf, Esc schliesst, Tab bleibt im Fenster,
- * die Seite dahinter scrollt nicht, und der schwebende fonio-Chatknopf wird ausgeblendet,
- * weil er sonst über dem Fenster liegt (er hat den höchstmöglichen z-index).
+ * die Seite dahinter scrollt nicht, und der Chat-Knopf unten rechts wird ausgeblendet.
  */
 export function useFenster(
   fensterRef: RefObject<HTMLElement | null>,
@@ -37,12 +36,12 @@ export function useFenster(
     document.body.style.overflow = "hidden";
     document.body.style.paddingRight = breite ? breite + "px" : "";
 
-    const chat = document.querySelector<HTMLElement>("fonio-webchat-widget-root:not([hidden])");
-    chat?.setAttribute("hidden", "");
+    // Blendet den eigenen Chat-Knopf unten rechts aus, solange ein Fenster offen ist
+    document.body.classList.add("fenster-offen");
 
     return () => {
       document.removeEventListener("keydown", taste);
-      chat?.removeAttribute("hidden");
+      document.body.classList.remove("fenster-offen");
       document.body.style.overflow = "";
       document.body.style.paddingRight = "";
       vorher?.focus({ preventScroll: true });
