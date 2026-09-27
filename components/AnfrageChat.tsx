@@ -10,7 +10,12 @@ export default function AnfrageChat({ kontext, schliessen }: { kontext: AnfrageK
     <ChatFenster
       chip={thema}
       titel="Unverbindlich anfragen"
-      text={<>Ihre Anfrage zu «{thema}». Schreiben Sie uns kurz, was Sie wissen möchten. Wir melden uns persönlich bei Ihnen.</>}
+      text={
+        <>
+          Ihre Anfrage zu «{thema}». Hinterlassen Sie hier Ihre Kontaktdaten, Gilbert Stücheli meldet sich persönlich bei
+          Ihnen und beantwortet Ihre Fragen.
+        </>
+      }
       hinweis="Lieber per E-Mail oder Telefon?"
       adresse={anfrageChatAdresse(kontext)}
       rahmenTitel="Anfrage-Chat von Stücheli IT Consulting"
