@@ -11,7 +11,7 @@ import { Chat, Kreuz, Menue } from "./Icons";
 import { kopfAnfrage } from "./KopfAktionen";
 
 /**
- * Menü für schmale Bildschirme (bis 1000 px sind die Textlinks in der Kopfzeile ausgeblendet).
+ * Menü für schmale Bildschirme (bis 940 px sind die Textlinks in der Kopfzeile ausgeblendet).
  * Öffnet unter der Kopfzeile ein Panel; schliesst bei Klick auf einen Link, Klick daneben, Esc
  * oder wenn der Bildschirm wieder breit genug ist.
  */
@@ -35,7 +35,7 @@ export default function HandyMenue({ branche }: { branche?: BrancheId }) {
       const ziel = e.target as Node;
       if (!panelRef.current?.contains(ziel) && !knopfRef.current?.contains(ziel)) setOffen(false);
     };
-    const breit = window.matchMedia("(min-width: 1001px)");
+    const breit = window.matchMedia("(min-width: 941px)");
     const wechsel = () => breit.matches && setOffen(false);
     document.addEventListener("keydown", taste);
     document.addEventListener("click", klick);

@@ -925,8 +925,8 @@ body.fenster-offen .chat-starter { display: none; }
 .menue-aktionen { display: grid; gap: 8px; margin: 14px 0 8px; }
 .menue-aktionen .btn { width: 100%; }
 
-/* Bis 1000 px: Textlinks ins Menü, Branchen, Demo und Anfrage bleiben sichtbar */
-@media (max-width: 1000px) {
+/* Bis 940 px: Textlinks ins Menü, Branchen, Demo und Anfrage bleiben sichtbar */
+@media (max-width: 940px) {
   .nav { gap: 10px; }
   .nav > a:not(.btn) { display: none; }
   .nav > .nav-branchen { margin-right: 8px; }

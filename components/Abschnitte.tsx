@@ -58,7 +58,7 @@ export function Leistungen() {
     <section className="abschnitt weiss" id="leistungen">
       <div className="wrap">
         <div className="reveal">
-          <div className="kicker">Leistungen</div>
+          <div className="kicker">Wie es funktioniert</div>
           <h2>Keine IT-Kenntnisse, keine neue Telefonanlage.</h2>
           <p className="sub">Wir erklären alles verständlich und ohne Fachbegriffe. Ihre Nummer bleibt.</p>
         </div>
