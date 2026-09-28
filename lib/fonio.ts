@@ -15,6 +15,8 @@ export type AnfrageKontext = {
   abrechnung?: string;
   preis?: string;
   branche?: string;
+  /** Website des Betriebs, z.B. aus der Live-Demo */
+  website?: string;
   /** Wo auf der Website angefragt wurde */
   quelle?: string;
 };

@@ -152,7 +152,7 @@ export function Kontakt({ branche }: { branche?: BrancheId } = {}) {
             <div><b>stuecheli.it@bluewin.ch</b><span>Wir antworten innert eines Arbeitstages.</span></div>
             <span className="pfeil"><Pfeil /></span>
           </a>
-          <LiveDemoKnopf className="weg">
+          <LiveDemoKnopf className="weg" branche={branche}>
             <div className="ico24"><Globus /></div>
             <div><b>Demo mit Ihrer Website</b><span>Eigener Assistent in rund 30 Sekunden, kostenlos.</span></div>
             <span className="pfeil"><Pfeil /></span>

@@ -132,7 +132,7 @@ export default async function Branchenseite({ params }: Props) {
               </h1>
               <p className="lead">{s.lead}</p>
               {/* Live-Demo mit der eigenen Website, daneben der Demo-Chat der Beispiel-Firma dieser Branche */}
-              <LiveDemoFormular />
+              <LiveDemoFormular branche={s.id} />
               <ChatKnopf className="hero-chat" branche={s.id}>
                 <Chat />
                 Oder gleich hier im Chat testen

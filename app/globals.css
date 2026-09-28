@@ -985,6 +985,7 @@ body.fenster-offen .chat-starter { display: none; }
 .live-demo-hinweis { margin-top: 14px; font-size: 14px; line-height: 1.55; color: #8a9bb3; }
 .live-demo-hinweis a { color: #c9d4e3; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(201, 212, 227, 0.4); }
 .live-demo-hinweis a:hover { color: #ffffff; }
+.live-demo-hinweis a { white-space: nowrap; }
 .hero-chat {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 0; border: 0; background: none;
   cursor: pointer; font: inherit; font-size: 15px; font-weight: 600; color: #ffffff; transition: color 0.15s;
@@ -1009,4 +1010,52 @@ body.fenster-offen .chat-starter { display: none; }
   .live-demo-ico { padding-left: 12px; }
   .live-demo-feld input { flex: 1 1 calc(100% - 50px); }
   .live-demo-feld .btn { width: 100%; }
+}
+
+/* So läuft die Demo: drei Schritte unter dem Feld */
+.live-demo-schritte { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.live-demo-schritte li { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: #c9d4e3; }
+.live-demo-nr {
+  width: 22px; height: 22px; border-radius: 50%; flex: 0 0 auto; display: grid; place-items: center;
+  font-size: 12px; font-weight: 700; color: #06121f; background: var(--verlauf);
+}
+.live-demo-schritte + .live-demo-hinweis { margin-top: 10px; }
+.live-demo.hell .live-demo-schritte li { color: var(--graphit); }
+
+/* Nachfassen nach der Live-Demo: Karte unten links */
+.nachfassen {
+  position: fixed; left: 20px; bottom: 20px; z-index: 70; width: min(380px, calc(100vw - 40px));
+  background: #ffffff; color: var(--graphit); border-radius: 20px; padding: 20px 20px 18px;
+  box-shadow: 0 30px 70px -20px rgba(4, 10, 20, 0.55), 0 0 0 1px rgba(11, 23, 40, 0.06);
+  animation: nachfassen-auf 0.45s cubic-bezier(0.2, 0.9, 0.25, 1);
+}
+.nachfassen::before { content: ""; position: absolute; left: 20px; right: 20px; top: 0; height: 3px; border-radius: 0 0 3px 3px; background: var(--verlauf); }
+@keyframes nachfassen-auf { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+.nachfassen-zu {
+  position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border-radius: 50%; border: 0; cursor: pointer;
+  display: grid; place-items: center; background: transparent; color: var(--text3); transition: background 0.15s, color 0.15s;
+}
+.nachfassen-zu:hover { background: var(--papier); color: var(--graphit); }
+.nachfassen-zu:focus-visible { outline: 2px solid var(--blau); outline-offset: 2px; }
+.nachfassen-zu svg { width: 16px; height: 16px; }
+.nachfassen-chip {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--blau);
+}
+.nachfassen-chip svg { width: 15px; height: 15px; }
+.nachfassen h2 { margin-top: 8px; padding-right: 28px; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; }
+.nachfassen p { margin-top: 6px; font-size: 14.5px; line-height: 1.5; color: var(--text2); }
+.nachfassen p b { color: var(--graphit); font-weight: 600; word-break: break-all; }
+.nachfassen-knoepfe { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
+.nachfassen-knoepfe .btn svg { width: 15px; height: 15px; }
+.nachfassen-spaeter { border: 0; background: none; cursor: pointer; font: inherit; font-size: 14px; font-weight: 500; color: var(--text3); padding: 6px 2px; }
+.nachfassen-spaeter:hover { color: var(--graphit); }
+body.fenster-offen .nachfassen { display: none; }
+@media (max-width: 720px) {
+  .nachfassen { left: 12px; right: 12px; bottom: 12px; width: auto; }
+  body.nachfassen-offen .chat-starter { display: none; }
+  .live-demo-schritte { flex-direction: column; gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nachfassen { animation: none; }
 }

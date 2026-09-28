@@ -108,7 +108,9 @@ export default function Datenschutz() {
         Mit dem Feld «Ihre Website» und dem Knopf «Eigene Demo erstellen» erstellen Sie bei unserem Partner fonio.ai
         einen Demo-Assistenten für Ihren Betrieb. Nach dem Absenden öffnet sich die Seite app.fonio.ai in einem neuen
         Tab. Dabei übergeben wir in der Adresse die eingegebene Website sowie einen Partner-Code, an dem fonio erkennt,
-        dass Sie über uns kommen. Wir selbst speichern Ihre Eingabe nicht.
+        dass Sie über uns kommen. Ihre Eingabe merkt sich nur Ihr Browser für die laufende Sitzung (Session Storage),
+        damit wir Ihnen nach der Demo die Einrichtung anbieten können. Uns erreicht sie erst, wenn Sie danach den
+        Anfrage-Chat nutzen; dann geht die Website-Adresse als Hinweis mit (Abschnitt 3).
       </p>
       <p>
         Auf app.fonio.ai bearbeitet die fonio GmbH Ihre Daten in eigener Verantwortung, zum Beispiel die Inhalte Ihrer

@@ -103,7 +103,7 @@ export default function KopfAktionen({ branche }: { branche?: BrancheId }) {
 
       {chat === "anfrage" && <AnfrageChat kontext={kopfAnfrage(branche)} schliessen={schliessen} />}
       {chat === "demo" && <DemoChat branche={branche} schliessen={schliessen} />}
-      {chat === "live" && <LiveDemoFenster schliessen={schliessen} />}
+      {chat === "live" && <LiveDemoFenster branche={branche} schliessen={schliessen} />}
     </div>
   );
 }

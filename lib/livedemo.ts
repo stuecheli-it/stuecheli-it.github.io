@@ -3,6 +3,8 @@
 // Der Code «ac» ordnet den Besucher uns als Partner zu (fonio speichert ihn 30 Tage im Browser).
 // Die Setup-Seite lässt sich nicht einbetten (X-Frame-Options SAMEORIGIN), darum öffnet sie in einem neuen Tab.
 
+import type { BrancheId } from "./branchen";
+
 export const LIVE_DEMO_ADRESSE = "https://app.fonio.ai/demo/setup";
 
 /**
@@ -38,5 +40,50 @@ export function websiteAusEingabe(eingabe: string): string | null {
     return /^([a-z0-9-]+\.)+[a-z]{2,}$/.test(host) ? host : null;
   } catch {
     return null;
+  }
+}
+
+/** Beispiel-Adresse im Feld, passend zur Branchenseite */
+export const LIVE_DEMO_PLATZHALTER: Record<BrancheId, string> = {
+  garage: "ihre-garage.ch",
+  handwerk: "ihr-handwerksbetrieb.ch",
+  coiffeur: "ihr-salon.ch",
+  fahrschule: "ihre-fahrschule.ch",
+  gastro: "ihr-restaurant.ch",
+  immo: "ihre-verwaltung.ch",
+};
+
+// ---------- Nachfassen: gestartete Demo merken, damit die Website beim Zurückkommen die Einrichtung anbieten kann ----------
+
+export type LiveDemoStart = { website?: string; branche?: BrancheId; zeit: number; erledigt?: boolean };
+
+const SPEICHER = "stuecheli-live-demo";
+
+/** Merkt die gestartete Demo für diesen Tab (sessionStorage; fehlt der Speicher, gibt es eben kein Nachfassen) */
+export function liveDemoMerken(start: { website?: string; branche?: BrancheId }) {
+  try {
+    sessionStorage.setItem(SPEICHER, JSON.stringify({ ...start, zeit: Date.now() }));
+  } catch {
+    // Speicher gesperrt, z.B. im privaten Modus
+  }
+}
+
+export function liveDemoLesen(): LiveDemoStart | null {
+  try {
+    const roh = sessionStorage.getItem(SPEICHER);
+    return roh ? (JSON.parse(roh) as LiveDemoStart) : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Nachfassen erledigt (angefragt oder «Später»): in diesem Tab nicht mehr zeigen */
+export function liveDemoErledigt() {
+  const start = liveDemoLesen();
+  if (!start) return;
+  try {
+    sessionStorage.setItem(SPEICHER, JSON.stringify({ ...start, erledigt: true }));
+  } catch {
+    // egal
   }
 }

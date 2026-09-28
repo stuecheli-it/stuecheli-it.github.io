@@ -1,12 +1,13 @@
 "use client";
 
 import { useRef, useState } from "react";
+import type { BrancheId } from "@/lib/branchen";
 import { Globus, Kreuz } from "./Icons";
 import LiveDemoFormular from "./LiveDemoFormular";
 import { useFenster } from "./useFenster";
 
 /** Fenster mit dem Live-Demo-Formular, für Kopfzeile und Kontakt (im Hero steht das Formular direkt). */
-export function LiveDemoFenster({ schliessen }: { schliessen: () => void }) {
+export function LiveDemoFenster({ branche, schliessen }: { branche?: BrancheId; schliessen: () => void }) {
   const fensterRef = useRef<HTMLDivElement>(null);
   // Fokus gleich ins Eingabefeld statt auf «Schliessen»
   const feldRef = useRef<HTMLElement | null>(null);
@@ -40,7 +41,7 @@ export function LiveDemoFenster({ schliessen }: { schliessen: () => void }) {
             feldRef.current = el?.querySelector<HTMLElement>("input:not([type=hidden])") ?? null;
           }}
         >
-          <LiveDemoFormular hell gesendet={schliessen} />
+          <LiveDemoFormular hell branche={branche} gesendet={schliessen} />
         </div>
         <footer className="plan-fuss chat-fuss">
           <p>
@@ -53,7 +54,15 @@ export function LiveDemoFenster({ schliessen }: { schliessen: () => void }) {
 }
 
 /** Knopf, der das Live-Demo-Fenster öffnet */
-export default function LiveDemoKnopf({ className, children }: { className: string; children: React.ReactNode }) {
+export default function LiveDemoKnopf({
+  className,
+  branche,
+  children,
+}: {
+  className: string;
+  branche?: BrancheId;
+  children: React.ReactNode;
+}) {
   const [offen, setOffen] = useState(false);
   const schliessen = useRef(() => setOffen(false)).current;
   return (
@@ -61,7 +70,7 @@ export default function LiveDemoKnopf({ className, children }: { className: stri
       <button className={className} type="button" onClick={() => setOffen(true)}>
         {children}
       </button>
-      {offen && <LiveDemoFenster schliessen={schliessen} />}
+      {offen && <LiveDemoFenster branche={branche} schliessen={schliessen} />}
     </>
   );
 }
