@@ -244,7 +244,7 @@ export default async function Branchenseite({ params }: Props) {
                 {chf(SOLO.monat)} <small>/ Monat</small>
               </div>
               <p className="setup">
-                Einrichtung durch uns: auf Anfrage. Pilotangebot für die ersten zehn Betriebe.
+                Einrichtung durch uns: offeriert auf Anfrage, passend zu Ihrem Betrieb. Pilotangebot für die ersten zehn Betriebe.
               </p>
               <ul>
                 {SOLO.punkte.map((p) => (

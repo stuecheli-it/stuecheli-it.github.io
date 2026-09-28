@@ -44,7 +44,7 @@ export const PRODUKTE: Produkt[] = [
         fuer: "Für 1 bis 20 Anrufe pro Tag",
         monat: 119,
         jahr: 1188,
-        setup: "Einrichtung durch uns: auf Anfrage",
+        setup: "Einrichtung durch uns: offeriert auf Anfrage, passend zu Ihrem Betrieb",
         punkte: [
           "1'000 Gesprächsminuten inklusive",
           "1 Rufnummer inklusive",
@@ -64,7 +64,7 @@ export const PRODUKTE: Produkt[] = [
         fuer: "Für 20 bis 100 Anrufe pro Tag",
         monat: 359,
         jahr: 3588,
-        setup: "Einrichtung durch uns: auf Anfrage",
+        setup: "Einrichtung durch uns: offeriert auf Anfrage, passend zu Ihrem Betrieb",
         punkte: [
           "3'600 Gesprächsminuten inklusive",
           "Bis 3 gleichzeitige Anrufe, 3 Rufnummern",
@@ -90,7 +90,7 @@ export const PRODUKTE: Produkt[] = [
         fuer: "Bis 100 Konversationen pro Monat",
         monat: 69,
         jahr: 696,
-        setup: "Einrichtung durch uns: auf Anfrage",
+        setup: "Einrichtung durch uns: offeriert auf Anfrage, passend zu Ihrem Betrieb",
         punkte: ["100 Konversationen pro Monat", "1 WhatsApp-Nummer inklusive", "Chat-Übergabe an Menschen", "Automatischer Terminplaner"],
         details: [
           { titel: "Nutzung", punkte: ["100 Konversationen pro Monat", "1 WhatsApp-Nummer inklusive", "Unbegrenzte Chatbots", "1 Benutzer"] },
@@ -103,7 +103,7 @@ export const PRODUKTE: Produkt[] = [
         fuer: "Bis 500 Konversationen pro Monat",
         monat: 249,
         jahr: 2496,
-        setup: "Einrichtung durch uns: auf Anfrage",
+        setup: "Einrichtung durch uns: offeriert auf Anfrage, passend zu Ihrem Betrieb",
         punkte: ["500 Konversationen pro Monat", "3 WhatsApp-Nummern", "Unbegrenzte Benutzer", "Alles aus Solo"],
         details: [
           { titel: "Nutzung", punkte: ["500 Konversationen pro Monat", "3 WhatsApp-Nummern inklusive", "Unbegrenzte Chatbots und Benutzer"] },
@@ -123,7 +123,7 @@ export const PRODUKTE: Produkt[] = [
         fuer: "Bis 100 Konversationen pro Monat",
         monat: 49,
         jahr: 504,
-        setup: "Einrichtung durch uns: auf Anfrage",
+        setup: "Einrichtung durch uns: offeriert auf Anfrage, passend zu Ihrem Betrieb",
         punkte: [
           "100 Konversationen pro Monat",
           "Unbegrenzte Chatbots, 1 Benutzer",
@@ -141,7 +141,7 @@ export const PRODUKTE: Produkt[] = [
         fuer: "Bis 400 Konversationen pro Monat",
         monat: 149,
         jahr: 1500,
-        setup: "Einrichtung durch uns: auf Anfrage",
+        setup: "Einrichtung durch uns: offeriert auf Anfrage, passend zu Ihrem Betrieb",
         punkte: [
           "400 Konversationen pro Monat",
           "Ohne fonio-Branding, im Design Ihrer Marke",
