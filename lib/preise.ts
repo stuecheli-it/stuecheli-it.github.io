@@ -1,6 +1,6 @@
 // Abopreise und Paketinhalte laut fonio.ai/de/preise in CHF, abgeglichen am 28.09.2026.
 // Jahrespreise sind Beträge pro Jahr (nicht pro Monat).
-// Einrichtungspreise sind die Ansätze von Stücheli IT Consulting.
+// Die Einrichtung durch Stücheli IT Consulting wird auf Anfrage offeriert (keine Beträge auf der Website).
 
 export type ProduktId = "telefon" | "whatsapp" | "webchat";
 
@@ -44,7 +44,7 @@ export const PRODUKTE: Produkt[] = [
         fuer: "Für 1 bis 20 Anrufe pro Tag",
         monat: 119,
         jahr: 1188,
-        setup: "Einmalige Einrichtung durch uns: CHF 1'290",
+        setup: "Einrichtung durch uns: auf Anfrage",
         punkte: [
           "1'000 Gesprächsminuten inklusive",
           "1 Rufnummer inklusive",
@@ -64,7 +64,7 @@ export const PRODUKTE: Produkt[] = [
         fuer: "Für 20 bis 100 Anrufe pro Tag",
         monat: 359,
         jahr: 3588,
-        setup: "Einmalige Einrichtung durch uns: CHF 1'890",
+        setup: "Einrichtung durch uns: auf Anfrage",
         punkte: [
           "3'600 Gesprächsminuten inklusive",
           "Bis 3 gleichzeitige Anrufe, 3 Rufnummern",

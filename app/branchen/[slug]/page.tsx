@@ -53,7 +53,7 @@ function allgemeineFragen(s: BranchenSeite): Frage[] {
     },
     {
       frage: `Was kostet das für ${s.mehrzahl === "Restaurants" ? "ein Restaurant" : "meinen Betrieb"}?`,
-      antwort: `Das Abo Telefon KI Solo kostet ${chf(SOLO.monat)} pro Monat (fonio-Listenpreis, exkl. MWST). Dazu kommt die einmalige Einrichtung durch uns: CHF 1'290, im Pilotangebot für die ersten zehn Betriebe CHF 690.`,
+      antwort: `Das Abo Telefon KI Solo kostet ${chf(SOLO.monat)} pro Monat (fonio-Listenpreis, exkl. MWST). Dazu kommt die einmalige Einrichtung durch uns. Diese offerieren wir auf Anfrage, passend zu Ihrem Betrieb; für die ersten zehn Betriebe gibt es ein Pilotangebot.`,
     },
   ];
 }
@@ -244,7 +244,7 @@ export default async function Branchenseite({ params }: Props) {
                 {chf(SOLO.monat)} <small>/ Monat</small>
               </div>
               <p className="setup">
-                Einrichtung durch uns einmalig CHF 1&apos;290. Pilotangebot für die ersten zehn Betriebe: CHF 690.
+                Einrichtung durch uns: auf Anfrage. Pilotangebot für die ersten zehn Betriebe.
               </p>
               <ul>
                 {SOLO.punkte.map((p) => (

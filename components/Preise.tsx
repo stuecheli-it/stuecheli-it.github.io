@@ -268,7 +268,7 @@ export default function Preise() {
             <div>
               <b>Pilotangebot für die ersten zehn Betriebe</b>
               <p>
-                Einrichtung des KI-Telefonassistenten für CHF 690 statt CHF 1&apos;290, weil wir Referenzen aus der
+                Einrichtung des KI-Telefonassistenten zum Vorzugspreis, weil wir Referenzen aus der
                 Region aufbauen. Im Gegenzug dürfen wir Sie namentlich als Referenz nennen.
               </p>
             </div>
