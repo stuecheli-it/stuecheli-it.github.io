@@ -10,6 +10,7 @@ denn nur ein Push auf `main` veröffentlicht (Workflow «Website veröffentliche
 ## Priorität 1: keine Anfrage verlieren
 
 - [x] **Live-Demo mit der eigenen Website** statt Demo-Nummer (28.09.2026): Feld im Hero, «Demo» in der Kopfzeile, Kontakt; leitet an den fonio-Partner-Link weiter (lib/livedemo.ts). Demo-Nummer entfernt, Datenschutz Abschnitt 4 neu.
+- [x] **Nachfassen nach der Live-Demo** (28.09.2026): Karte beim Zurückkommen, «Einrichtung besprechen» öffnet den Anfrage-Chat mit Website und Branche; drei Schritte unter dem Feld; Beispiel-Adresse pro Branche.
 
 - [ ] **E-Mail bei jeder neuen Anfrage** (fonio-Fähigkeit «E-Mail senden» beim Assistenten «Webseite - Anfragen»)
 - [x] ~~Demo-Nummer passend machen~~: Nummer ist nicht mehr auf der Website (28.09.2026).
