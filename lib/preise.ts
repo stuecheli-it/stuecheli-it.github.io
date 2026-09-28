@@ -1,4 +1,4 @@
-// Abopreise laut fonio-Listenpreisen in CHF, Stand 15.09.2026.
+// Abopreise und Paketinhalte laut fonio.ai/de/preise in CHF, abgeglichen am 28.09.2026.
 // Jahrespreise sind Beträge pro Jahr (nicht pro Monat).
 // Einrichtungspreise sind die Ansätze von Stücheli IT Consulting.
 
@@ -23,9 +23,15 @@ export type Produkt = {
   plaene: Plan[];
 };
 
-export const PREISSTAND = "15.09.2026";
+export const PREISSTAND = "28.09.2026";
 
-const ZUSATZKOSTEN_HINWEIS = "Zusätzliche Minuten, Nummern und Kontakte gemäss aktueller fonio-Preisliste";
+// Zusatzkosten laut fonio-Preisliste (CHF, exkl. MWST)
+const TELEFON_ZUSATZ = [
+  "CHF 15 pro 100 zusätzliche Minuten",
+  "CHF 7 pro Monat je weitere Rufnummer",
+  "CHF 20 pro Monat je 1'000 weitere Kontakte",
+];
+const WEITERE_ZUSATZKOSTEN = "übrige gemäss aktueller fonio-Preisliste";
 
 export const PRODUKTE: Produkt[] = [
   {
@@ -46,11 +52,11 @@ export const PRODUKTE: Produkt[] = [
           "Terminplaner, 120+ Stimmen, 60+ Sprachen",
         ],
         details: [
-          { titel: "Nutzung", punkte: ["1'000 Gesprächsminuten inklusive", "1 Anruf gleichzeitig", "1 Rufnummer inklusive", "1 Benutzer, 1 Kontoverbindung", "Unbegrenzte Assistenten"] },
+          { titel: "Nutzung", punkte: ["1'000 Gesprächsminuten inklusive", "1'000 Kontakte inklusive", "1 Anruf gleichzeitig", "1 Rufnummer inklusive", "1 Benutzer, 1 Kontoverbindung", "Unbegrenzte Assistenten"] },
           { titel: "Stimme & Sprache", punkte: ["120+ Stimmen", "60+ Sprachen", "Sprechgeschwindigkeit, Empfindlichkeit und Kreativität anpassbar", "Hintergrundgeräusche zuschaltbar"] },
           { titel: "Fähigkeiten", punkte: ["Terminplaner", "Unternehmensinfos direkt von Ihrer Website", "Selbstlernende Wissensdatenbank", "Anrufweiterleitung", "Internetsuche und Fachbegriffe", "DTMF-Codes senden"] },
           { titel: "Plattform & Support", punkte: ["Anrufaufzeichnung, auf Wunsch mit automatischem Löschen", "Prompt-Vorlagen und Einfachmodus", "Gratis Audio-Test", "E-Mail-Support, Onboarding Academy, Community-Zugang"] },
-          { titel: "Zusatzkosten", punkte: [ZUSATZKOSTEN_HINWEIS] },
+          { titel: "Zusatzkosten", punkte: TELEFON_ZUSATZ },
         ],
       },
       {
@@ -66,10 +72,10 @@ export const PRODUKTE: Produkt[] = [
           "Alles aus Solo",
         ],
         details: [
-          { titel: "Nutzung", punkte: ["3'600 Gesprächsminuten inklusive", "Bis 3 Anrufe gleichzeitig", "3 Rufnummern inklusive", "Unbegrenzte Benutzer, 3 Kontoverbindungen", "Unbegrenzte Assistenten"] },
+          { titel: "Nutzung", punkte: ["3'600 Gesprächsminuten inklusive", "3'000 Kontakte inklusive", "Bis 3 Anrufe gleichzeitig", "3 Rufnummern inklusive", "Unbegrenzte Benutzer, 3 Kontoverbindungen", "Unbegrenzte Assistenten"] },
           { titel: "Zusätzlich zu Solo", punkte: ["Eigener SIP-Trunk", "Outbound-Anrufe und Kampagnen (zu Verbindungskosten)", "Priorisierter Support"] },
           { titel: "Fähigkeiten", punkte: ["Alle Fähigkeiten aus Solo: Terminplaner, Wissensdatenbank, Anrufweiterleitung, Internetsuche, 120+ Stimmen, 60+ Sprachen"] },
-          { titel: "Zusatzkosten", punkte: [ZUSATZKOSTEN_HINWEIS] },
+          { titel: "Zusatzkosten", punkte: [...TELEFON_ZUSATZ, "CHF 5 pro Monat je weitere Kontoverbindung"] },
         ],
       },
     ],
@@ -89,7 +95,7 @@ export const PRODUKTE: Produkt[] = [
         details: [
           { titel: "Nutzung", punkte: ["100 Konversationen pro Monat", "1 WhatsApp-Nummer inklusive", "Unbegrenzte Chatbots", "1 Benutzer"] },
           { titel: "Funktionen", punkte: ["Chat-Übergabe an Menschen", "Automatischer Terminplaner", "Antworten aus Ihrer Wissensdatenbank"] },
-          { titel: "Zusatzkosten", punkte: [ZUSATZKOSTEN_HINWEIS] },
+          { titel: "Zusatzkosten", punkte: ["CHF 19 pro Monat je weitere WhatsApp-Nummer", WEITERE_ZUSATZKOSTEN] },
         ],
       },
       {
@@ -102,7 +108,7 @@ export const PRODUKTE: Produkt[] = [
         details: [
           { titel: "Nutzung", punkte: ["500 Konversationen pro Monat", "3 WhatsApp-Nummern inklusive", "Unbegrenzte Chatbots und Benutzer"] },
           { titel: "Zusätzlich zu Solo", punkte: ["Unterstützung bei der Einrichtung durch fonio", "Alle Funktionen aus Solo: Chat-Übergabe, Terminplaner, Wissensdatenbank"] },
-          { titel: "Zusatzkosten", punkte: [ZUSATZKOSTEN_HINWEIS] },
+          { titel: "Zusatzkosten", punkte: ["CHF 19 pro Monat je weitere WhatsApp-Nummer", WEITERE_ZUSATZKOSTEN] },
         ],
       },
     ],
@@ -114,26 +120,39 @@ export const PRODUKTE: Produkt[] = [
       {
         name: "Solo",
         beliebt: true,
-        fuer: "Chat-Assistent für Ihre Website",
+        fuer: "Bis 100 Konversationen pro Monat",
         monat: 49,
-        jahr: 499,
+        jahr: 504,
         setup: "Einrichtung durch uns: auf Anfrage",
-        punkte: ["Antworten aus Ihrem Firmenwissen", "Im Design Ihrer Marke", "Getestet vor dem Livegang"],
+        punkte: [
+          "100 Konversationen pro Monat",
+          "Unbegrenzte Chatbots, 1 Benutzer",
+          "Antworten aus Ihrem Firmenwissen",
+          "Im Chat steht «Bereitgestellt von fonio.ai»",
+        ],
         details: [
-          { titel: "Unsere Leistung", punkte: ["Einrichtung mit Ihrem Firmenwissen", "Gestaltung im Design Ihrer Marke", "Test auf einer Kopie Ihrer Website vor dem Livegang"] },
-          { titel: "Paketumfang", punkte: ["Anzahl Chats und Benutzer gemäss aktueller fonio-Preisliste. Wir beraten Sie gerne, welches Paket passt."] },
+          { titel: "Nutzung", punkte: ["100 Konversationen pro Monat", "Unbegrenzte Chatbots", "1 Benutzer", "Im Chat erscheint der Hinweis «Bereitgestellt von fonio.ai»"] },
+          { titel: "Unsere Leistung", punkte: ["Einrichtung mit Ihrem Firmenwissen", "Test auf einer Kopie Ihrer Website vor dem Livegang"] },
+          { titel: "Zusatzkosten", punkte: ["Gemäss aktueller fonio-Preisliste"] },
         ],
       },
       {
         name: "Team",
-        fuer: "Chat-Assistent für Ihre Website, für Teams",
-        monat: 139,
-        jahr: 1399,
+        fuer: "Bis 400 Konversationen pro Monat",
+        monat: 149,
+        jahr: 1500,
         setup: "Einrichtung durch uns: auf Anfrage",
-        punkte: ["Antworten aus Ihrem Firmenwissen", "Im Design Ihrer Marke", "Getestet vor dem Livegang"],
+        punkte: [
+          "400 Konversationen pro Monat",
+          "Ohne fonio-Branding, im Design Ihrer Marke",
+          "Übergabe an Menschen, Kalender-Anbindung",
+          "Alles aus Solo",
+        ],
         details: [
+          { titel: "Nutzung", punkte: ["400 Konversationen pro Monat", "Unbegrenzte Chatbots und Benutzer", "1 Kalender-Anbindung inklusive"] },
+          { titel: "Zusätzlich zu Solo", punkte: ["Kein fonio-Branding", "PDFs und Bilder hochladen", "Übergabe an Menschen", "Reporting mit Download und Auswertung"] },
           { titel: "Unsere Leistung", punkte: ["Einrichtung mit Ihrem Firmenwissen", "Gestaltung im Design Ihrer Marke", "Test auf einer Kopie Ihrer Website vor dem Livegang"] },
-          { titel: "Paketumfang", punkte: ["Anzahl Chats und Benutzer gemäss aktueller fonio-Preisliste. Wir beraten Sie gerne, welches Paket passt."] },
+          { titel: "Zusatzkosten", punkte: ["CHF 5 pro Monat je weitere Kalender-Anbindung", WEITERE_ZUSATZKOSTEN] },
         ],
       },
     ],

@@ -159,7 +159,7 @@ function DetailFenster({
             {hinweise.map((d) => (
               <p key={d.titel} className="plan-hinweis">
                 <Info />
-                <span><b>{d.titel}:</b> {d.punkte.join(" ")}</span>
+                <span><b>{d.titel}:</b> {d.punkte.join(" · ")}</span>
               </p>
             ))}
           </div>
