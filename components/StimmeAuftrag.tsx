@@ -79,6 +79,7 @@ export default function StimmeAuftrag({ branche }: { branche?: BrancheId } = {})
   const buehneRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const welleRef = useRef<HTMLDivElement>(null);
+  const chipsRef = useRef<HTMLElement>(null);
   const engineRef = useRef<Welle | null>(null);
   const sprecherRef = useRef<WelleSprecher>(liste[0].ablauf[0].wer);
   const feldRefs = useRef<Record<string, HTMLElement | null>>({});
@@ -196,6 +197,17 @@ export default function StimmeAuftrag({ branche }: { branche?: BrancheId } = {})
     return () => timer.forEach((t) => window.clearTimeout(t));
   }, [nr, schritt, spielt, fertig, ABLAUF, liste.length]);
 
+  // Handy: Die Branchen-Zeile ist wischbar, die laufende Branche wird darin sichtbar gehalten
+  useEffect(() => {
+    const zeile = chipsRef.current;
+    const chip = zeile?.children[nr] as HTMLElement | undefined;
+    if (!zeile || !chip || zeile.scrollWidth <= zeile.clientWidth) return;
+    zeile.scrollTo({
+      left: chip.offsetLeft - (zeile.clientWidth - chip.offsetWidth) / 2,
+      behavior: bewegt ? "smooth" : "auto",
+    });
+  }, [nr, bewegt]);
+
   const aktuelle = fertig ? null : ABLAUF[schritt];
 
   return (
@@ -205,7 +217,7 @@ export default function StimmeAuftrag({ branche }: { branche?: BrancheId } = {})
       aria-label="Beispiel: Der KI-Assistent nimmt einen Anruf entgegen und füllt dabei einen Auftrag aus"
     >
       {liste.length > 1 && (
-        <nav className="beispiel-chips" aria-label="Branchenseiten">
+        <nav ref={chipsRef} className="beispiel-chips chip-zeile" aria-label="Branchenseiten">
           {liste.map((b, i) => (
             <a
               key={b.id}

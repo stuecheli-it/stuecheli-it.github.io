@@ -24,6 +24,7 @@ export default function Branchen() {
   /** Startet Fortschrittsbalken und Wartezeit neu, z.B. nach dem Wegfahren mit der Maus */
   const [runde, setRunde] = useState(0);
   const b = BRANCHEN.find((x) => x.id === aktiv) ?? BRANCHEN[0];
+  const mehrzahl = BRANCHENSEITEN.find((s) => s.id === b.id)?.mehrzahl ?? b.titel;
 
   // Vorschau beim Darüberfahren, leicht verzögert, damit sie beim Überstreichen nicht flackert
   const vorschauTimer = useRef(0);
@@ -110,6 +111,10 @@ export default function Branchen() {
                 <div key={i} className={"blase " + z.wer}>{z.text}</div>
               ))}
             </div>
+            {/* Handy: Link direkt unter dem Gespräch, der untere kommt erst nach den Vorteilen */}
+            <a className="btn btn-linie branche-mehr-handy" href={pfadFuer(b.id)}>
+              Mehr für {mehrzahl} <Pfeil strich={2} />
+            </a>
             <div className="vorteile">
               <Illustration b={b} />
               {b.vorteile.map((v) => (
@@ -119,7 +124,7 @@ export default function Branchen() {
                 </div>
               ))}
               <a className="branche-mehr" href={pfadFuer(b.id)}>
-                Mehr für {BRANCHENSEITEN.find((s) => s.id === b.id)?.mehrzahl ?? b.titel} <Pfeil strich={2} />
+                Mehr für {mehrzahl} <Pfeil strich={2} />
               </a>
             </div>
           </div>

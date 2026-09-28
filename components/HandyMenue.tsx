@@ -7,7 +7,7 @@ import { MENUE_PUNKTE } from "@/lib/navigation";
 import AnfrageChat from "./AnfrageChat";
 import { BrancheIcon } from "./BranchenGrafik";
 import DemoChat from "./DemoChat";
-import { Chat, Kreuz, Menue } from "./Icons";
+import { Chat, Kreuz, Menue, Pfeil } from "./Icons";
 import { kopfAnfrage } from "./KopfAktionen";
 
 /**
@@ -89,22 +89,32 @@ export default function HandyMenue({ branche }: { branche?: BrancheId }) {
                 Im Chat testen
               </button>
             </div>
-            <ul className="menue-liste">
-              {MENUE_PUNKTE.map((p) => (
-                <li key={p.href}>
-                  <a href={p.href} onClick={zu}>{p.text}</a>
-                </li>
-              ))}
-            </ul>
+            {/* Die Branchen zuerst: danach suchen die meisten Besucher */}
             <div className="menue-titel">Ihre Branche</div>
             <div className="menue-branchen">
               {BRANCHENSEITEN.map((b) => (
-                <a key={b.slug} href={`/branchen/${b.slug}/`} onClick={zu}>
+                <a
+                  key={b.slug}
+                  href={`/branchen/${b.slug}/`}
+                  className={b.id === branche ? "aktiv" : undefined}
+                  aria-current={b.id === branche ? "page" : undefined}
+                  onClick={zu}
+                >
                   <BrancheIcon id={b.id} />
                   {b.kurz}
                 </a>
               ))}
             </div>
+            <a className="menue-alle" href="/#branchen" onClick={zu}>
+              Alle Branchen im Überblick <Pfeil strich={2} />
+            </a>
+            <ul className="menue-liste">
+              {MENUE_PUNKTE.filter((p) => p.href !== "/#branchen").map((p) => (
+                <li key={p.href}>
+                  <a href={p.href} onClick={zu}>{p.text}</a>
+                </li>
+              ))}
+            </ul>
             <div className="menue-recht">
               <a href="/impressum/" onClick={zu}>Impressum</a>
               <a href="/datenschutz/" onClick={zu}>Datenschutz</a>

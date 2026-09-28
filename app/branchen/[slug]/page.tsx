@@ -104,17 +104,20 @@ export default async function Branchenseite({ params }: Props) {
                 Startseite
               </a>
               <span className="bs-leiste-trenner" aria-hidden="true" />
-              {BRANCHENSEITEN.map((x) => (
-                <a
-                  key={x.slug}
-                  href={`/branchen/${x.slug}/`}
-                  className={"beispiel-chip" + (x.id === s.id ? " aktiv" : "")}
-                  aria-current={x.id === s.id ? "page" : undefined}
-                >
-                  <BrancheIcon id={x.id} />
-                  <span>{x.kurz}</span>
-                </a>
-              ))}
+              {/* Auf dem Handy eine wischbare Zeile mit Namen, die aktuelle Branche vorne */}
+              <div className="chip-zeile">
+                {BRANCHENSEITEN.map((x) => (
+                  <a
+                    key={x.slug}
+                    href={`/branchen/${x.slug}/`}
+                    className={"beispiel-chip" + (x.id === s.id ? " aktiv" : "")}
+                    aria-current={x.id === s.id ? "page" : undefined}
+                  >
+                    <BrancheIcon id={x.id} />
+                    <span>{x.kurz}</span>
+                  </a>
+                ))}
+              </div>
             </nav>
             <div>
               <div className="augenbraue">

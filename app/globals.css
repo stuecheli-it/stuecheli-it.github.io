@@ -440,8 +440,6 @@ button { font-family: inherit; }
   .welle-flaeche { height: 112px; }
   .auftrag-karte { padding: 16px 16px 14px; }
   .auftrag-feld { grid-template-columns: 100px 1fr 20px; gap: 8px; }
-  .beispiel-chip { padding: 0 10px; height: 34px; }
-  .beispiel-chip:not(.aktiv) span { display: none; }
   .blase { max-width: 90%; }
   .nutzen .wrap { grid-template-columns: 1fr; gap: 22px; padding-top: 36px; padding-bottom: 36px; }
   .nutz { padding: 0; }
@@ -543,8 +541,22 @@ button { font-family: inherit; }
 @media (min-width: 1025px) {
   .beispiel-chips { flex-wrap: nowrap; margin: 0 -32px; }
 }
+.chip-zeile { display: contents; }
+.beispiel-chips.chip-zeile { display: flex; }
 @media (max-width: 720px) {
   .beispiel-chip svg { display: block; }
+  .beispiel-chip { padding: 0 12px; height: 36px; font-size: 13px; flex: 0 0 auto; }
+  /* Branchen mit Namen in einer wischbaren Zeile, bis an den Bildschirmrand, mit weichem Auslauf rechts */
+  .chip-zeile, .beispiel-chips.chip-zeile {
+    display: flex; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; overflow-x: auto;
+    margin: 0 -20px; padding: 2px 20px; scroll-padding: 0 20px; scrollbar-width: none;
+    mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 36px), transparent);
+  }
+  .chip-zeile::-webkit-scrollbar { display: none; }
+  /* min-width 0: sonst dehnt die lange Zeile die Spalte und damit die ganze Seite */
+  .bs-leiste, .hero .demo, .auftrag-buehne, .chip-zeile { min-width: 0; }
+  .bs-leiste .chip-zeile { flex: 1 1 100%; }
+  .bs-leiste .beispiel-chip.aktiv { order: -1; }
 }
 
 /* Kopfzeile auf Tablet-Breite: Menü kompakter, darunter nur noch der Anruf-Knopf (sonst stösst es ans Logo) */
@@ -599,6 +611,11 @@ button { font-family: inherit; }
 .branche-mehr { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 15px; font-weight: 600; color: #2a6fd6; }
 .branche-mehr svg { width: 16px; height: 16px; transition: transform 0.2s; }
 .branche-mehr:hover svg { transform: translateX(3px); }
+.branche-mehr-handy { display: none; }
+.branche-mehr-handy svg { width: 16px; height: 16px; }
+@media (max-width: 720px) {
+  .branche-mehr-handy { display: flex; width: 100%; height: 48px; font-size: 15px; background: #ffffff; }
+}
 
 /* Fusszeile: Branchen-Links */
 .fuss-branchen { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px; }
@@ -793,6 +810,12 @@ button { font-family: inherit; }
 }
 .menue-branchen a:hover { color: var(--graphit); border-color: #c5cdd8; background: #ffffff; }
 .menue-branchen svg { width: 18px; height: 18px; flex: 0 0 auto; stroke: var(--blau); }
+.menue-branchen a.aktiv { background: #ffffff; border-color: var(--blau); box-shadow: inset 0 0 0 1px var(--blau); color: var(--blau); font-weight: 600; }
+.menue-panel .menue-alle {
+  display: inline-flex; align-items: center; gap: 6px; margin: 12px 2px 6px;
+  font-size: 14.5px; font-weight: 600; color: #2a6fd6;
+}
+.menue-panel .menue-alle svg { width: 15px; height: 15px; }
 .menue-recht { display: flex; gap: 20px; margin-top: 18px; }
 .menue-recht a { font-size: 13.5px; font-weight: 500; color: var(--text3); }
 .menue-recht a:hover { color: var(--graphit); }
