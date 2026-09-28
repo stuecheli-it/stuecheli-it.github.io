@@ -5,14 +5,25 @@
 
 export const LIVE_DEMO_ADRESSE = "https://app.fonio.ai/demo/setup";
 
+/**
+ * Allgemeine Demo ohne Website: dorthin führt auch fonios «Ohne Website fortfahren» (Route /demo mit id=default).
+ * Die Parameter bleiben dabei erhalten, auch der Partner-Code; mit isTrial blendet fonio «Experten buchen» aus.
+ */
+const LIVE_DEMO_OHNE_WEBSITE = "https://app.fonio.ai/demo";
+
 /** Feste Parameter des Partner-Links */
 export const LIVE_DEMO_PARAMETER = { isTrial: "true", ac: "N2YCC7PJEK", language: "de" } as const;
 
-/** Partner-Link, mit Website personalisiert oder ohne («ohne Website fortfahren») */
+/** Partner-Link: mit Website die Setup-Seite, die daraus einen Assistenten erstellt, ohne Website die allgemeine Demo */
 export function liveDemoLink(website?: string): string {
   const p = new URLSearchParams(LIVE_DEMO_PARAMETER);
-  if (website) p.set("website", website);
-  return `${LIVE_DEMO_ADRESSE}?${p.toString()}`;
+  if (website) {
+    p.set("website", website);
+    return `${LIVE_DEMO_ADRESSE}?${p.toString()}`;
+  }
+  p.set("id", "default");
+  p.set("productType", "voice");
+  return `${LIVE_DEMO_OHNE_WEBSITE}?${p.toString()}`;
 }
 
 /**
