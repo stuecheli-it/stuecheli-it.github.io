@@ -12,7 +12,7 @@ Bei jedem Widget sind in fonio als erlaubte Websites eingetragen:
 
 | Wo auf der Website | Name in fonio | Anzeigename im Chat | Schlüssel | Widget-ID |
 |---|---|---|---|---|
-| «Unverbindlich anfragen» (Preise, Branchenseiten) | Hompage - Anfragen | Stücheli IT Consulting | `anfrage` | 52aac962-8a9d-4f4f-9640-688f3b595eac |
+| «Unverbindlich anfragen» (Preise, Branchenseiten) | Webseite - Anfragen | Stücheli IT Consulting | `anfrage` | 52aac962-8a9d-4f4f-9640-688f3b595eac |
 | Branchenseite Garage | Website-Demo Garage - Garage Muster AG | Garage Muster AG | `garage` | 39ec6ed4-a2fe-40b0-bc5e-9e502455f207 |
 | Branchenseite Handwerk | Website-Demo Handwerk - Muster Sanitär AG | Muster Sanitär AG | `handwerk` | 339ac663-aa40-4a4e-94ef-c24d8cb47754 |
 | Branchenseite Coiffeur | Website-Demo Coiffeur - Coiffure Muster | Coiffure Muster | `coiffeur` | e5b091dd-51d9-4df2-a5c4-da8e32323d39 |

@@ -19,7 +19,7 @@ export type AnfrageKontext = {
   quelle?: string;
 };
 
-/** Anfrage-Chat hinter «Unverbindlich anfragen» (fonio-Assistent «Hompage - Anfragen») */
+/** Anfrage-Chat hinter «Unverbindlich anfragen» (fonio-Assistent «Webseite - Anfragen») */
 export function anfrageChatAdresse(k: AnfrageKontext): string {
   const p = new URLSearchParams({ w: "anfrage" });
   for (const [schluessel, wert] of Object.entries(k)) if (wert) p.set(schluessel, wert);
