@@ -5,7 +5,7 @@ import { FIRMA, RECHTSTEXTE_STAND } from "@/lib/firma";
 export const metadata: Metadata = {
   title: "Datenschutzerklärung | Stücheli IT Consulting",
   description:
-    "Wie Stücheli IT Consulting Personendaten auf dieser Website, im KI-Web-Chat und am KI-Telefonassistenten bearbeitet.",
+    "Wie Stücheli IT Consulting Personendaten auf dieser Website, im KI-Web-Chat und bei der Live-Demo bearbeitet.",
   alternates: { canonical: "/datenschutz/" },
 };
 
@@ -17,8 +17,8 @@ export default function Datenschutz() {
     <RechtsSeite kicker="Rechtliches" titel="Datenschutzerklärung" stand={RECHTSTEXTE_STAND}>
       <p className="recht-einleitung">
         Wir nehmen den Schutz Ihrer Personendaten ernst. Hier erklären wir, welche Daten wir bearbeiten, wenn Sie
-        diese Website besuchen, mit unserem KI-Web-Chat schreiben, unsere Demo-Nummer anrufen oder uns eine E-Mail
-        senden. Massgebend ist das Schweizer Datenschutzgesetz (DSG). Soweit die Datenschutz-Grundverordnung der EU
+        diese Website besuchen, mit unserem KI-Web-Chat schreiben, eine Live-Demo mit Ihrer Website erstellen oder uns
+        eine E-Mail senden. Massgebend ist das Schweizer Datenschutzgesetz (DSG). Soweit die Datenschutz-Grundverordnung der EU
         (DSGVO) anwendbar ist, gelten ergänzend die Hinweise in Abschnitt 9.
       </p>
 
@@ -28,7 +28,7 @@ export default function Datenschutz() {
           <li><a href="#verantwortlich">Verantwortlich</a></li>
           <li><a href="#website">Besuch dieser Website</a></li>
           <li><a href="#chat">KI-Web-Chat</a></li>
-          <li><a href="#telefon">KI-Telefonassistent (Demo-Nummer)</a></li>
+          <li><a href="#live-demo">Live-Demo mit Ihrer Website</a></li>
           <li><a href="#email">Kontakt per E-Mail</a></li>
           <li><a href="#empfaenger">Empfänger und Bekanntgabe ins Ausland</a></li>
           <li><a href="#dauer">Aufbewahrung</a></li>
@@ -103,19 +103,22 @@ export default function Datenschutz() {
         .
       </p>
 
-      <h2 id="telefon">4. KI-Telefonassistent (Demo-Nummer)</h2>
+      <h2 id="live-demo">4. Live-Demo mit Ihrer Website</h2>
       <p>
-        Wenn Sie unsere Demo-Nummer <a href={FIRMA.demoTelefonLink}>{FIRMA.demoTelefon}</a> anrufen, nimmt ein
-        KI-Telefonassistent von fonio.ai ab. Dabei werden Ihre Telefonnummer, Zeitpunkt und Dauer des Anrufs sowie der
-        Inhalt des Gesprächs bearbeitet.
+        Mit dem Feld «Ihre Website» und dem Knopf «Eigene Demo erstellen» erstellen Sie bei unserem Partner fonio.ai
+        einen Demo-Assistenten für Ihren Betrieb. Nach dem Absenden öffnet sich die Seite app.fonio.ai in einem neuen
+        Tab. Dabei übergeben wir in der Adresse die eingegebene Website sowie einen Partner-Code, an dem fonio erkennt,
+        dass Sie über uns kommen. Wir selbst speichern Ihre Eingabe nicht.
       </p>
       <p>
-        <b>Die Gespräche werden aufgezeichnet.</b> Im Anschluss an den Anruf werden sie in Text umgewandelt, die
-        genannten Angaben erfasst (zum Beispiel Name, Anliegen und Rückrufwunsch) und ausgewertet; wir erhalten eine
-        Zusammenfassung. Aufzeichnungen und Gesprächsdaten werden nach <b>30 Tagen automatisch gelöscht</b>. Zweck
-        ist die Demonstration unseres Angebots und das Beantworten Ihres Anliegens. Wenn Sie keine Aufzeichnung
-        wünschen, schreiben Sie uns bitte eine E-Mail statt anzurufen. Für Auftragsbearbeitung und Übermittlung gilt
-        Abschnitt 3 sinngemäss.
+        Auf app.fonio.ai bearbeitet die fonio GmbH Ihre Daten in eigener Verantwortung, zum Beispiel die Inhalte Ihrer
+        Website, Ihre Telefonnummer für den Demo-Anruf, das Gespräch selbst oder ein Testkonto. Es gelten die{" "}
+        <a href="https://www.fonio.ai/de/datenschutzerklarung-app/" rel="noopener">
+          Datenschutzhinweise zur fonio-Applikation
+        </a>
+        . fonio speichert den Partner-Code bis zu 30 Tage in Ihrem Browser. Über diesen Code kann fonio uns mitteilen,
+        dass Sie eine Demo erstellt oder ein Testkonto eröffnet haben, damit wir Sie bei der Einrichtung begleiten
+        können.
       </p>
 
       <h2 id="email">5. Kontakt per E-Mail</h2>
@@ -129,7 +132,7 @@ export default function Datenschutz() {
       <ul>
         <li>GitHub, Inc., USA: Auslieferung dieser Website</li>
         <li>
-          fonio GmbH, Österreich, Hosting in Deutschland: KI-Web-Chat und KI-Telefonassistent. fonio setzt für
+          fonio GmbH, Österreich, Hosting in Deutschland: KI-Web-Chat und Live-Demo. fonio setzt für
           Sprach-, Telefonie- und KI-Funktionen weitere Unterauftragsbearbeiter ein, unter anderem in Irland (zum
           Beispiel OpenAI, Microsoft, Twilio) und in den USA (zum Beispiel ElevenLabs, Deepgram, Cartesia, LiveKit).
           Die vollständige Liste steht im Datenschutzhinweis zur fonio-Applikation.
@@ -146,8 +149,7 @@ export default function Datenschutz() {
       <h2 id="dauer">7. Aufbewahrung</h2>
       <p>
         Wir bewahren Personendaten nur so lange auf, wie es für den jeweiligen Zweck nötig ist oder das Gesetz es
-        verlangt. Aufzeichnungen und Daten von Anrufen an die Demo-Nummer werden nach 30 Tagen automatisch gelöscht.
-        Chat-Daten ohne weitere Geschäftsbeziehung löschen wir, sobald Ihr Anliegen erledigt ist.
+        verlangt. Chat-Daten ohne weitere Geschäftsbeziehung löschen wir, sobald Ihr Anliegen erledigt ist.
         Unterlagen einer Geschäftsbeziehung bewahren wir während der gesetzlichen Fristen auf.
       </p>
 

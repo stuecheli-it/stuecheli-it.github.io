@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: BESCHREIBUNG,
   openGraph: {
     title: TITEL,
-    description: "KI-Telefonassistenten für KMU in der Deutschschweiz. Hören Sie ihn selbst: +41 61 539 12 02.",
+    description: "KI-Telefonassistenten für KMU in der Deutschschweiz. Erstellen Sie in rund 30 Sekunden eine Demo mit Ihrer eigenen Website.",
     type: "website",
     url: "/",
     locale: "de_CH",

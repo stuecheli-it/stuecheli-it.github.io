@@ -22,6 +22,14 @@ export function Telefon({ strich = 1.8, farbe = "currentColor" }: IconProps) {
 export function Chat({ strich = 1.8, farbe = "currentColor" }: IconProps) {
   return <svg {...basis(strich, farbe)}><path d={CHAT_PFAD} /></svg>;
 }
+export function Globus({ strich = 1.8, farbe = "currentColor" }: IconProps) {
+  return (
+    <svg {...basis(strich, farbe)}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3a13.5 13.5 0 0 1 0 18M12 3a13.5 13.5 0 0 0 0 18" />
+    </svg>
+  );
+}
 export function ChatPunkte({ strich = 1.8, farbe = "currentColor" }: IconProps) {
   return <svg {...basis(strich, farbe)}><path d={CHAT_PFAD} /><path d="M8 11h.01M12 11h.01M16 11h.01" /></svg>;
 }

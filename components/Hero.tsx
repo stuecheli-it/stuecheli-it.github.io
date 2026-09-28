@@ -1,5 +1,6 @@
 import ChatKnopf from "./ChatKnopf";
-import { Chat, Telefon } from "./Icons";
+import { Chat } from "./Icons";
+import LiveDemoFormular from "./LiveDemoFormular";
 import StimmeAuftrag from "./StimmeAuftrag";
 
 export default function Hero() {
@@ -19,17 +20,12 @@ export default function Hero() {
             Nimmt jeden Anruf entgegen, gibt Auskunft und meldet Ihnen, was wirklich zu Ihnen muss. Eingerichtet und
             betreut aus der Region, ohne neue Telefonanlage.
           </p>
-          <div className="cta">
-            <a className="btn btn-primaer" href="tel:+41615391202">
-              <Telefon strich={2} />
-              +41 61 539 12 02 anrufen
-            </a>
-            <ChatKnopf className="btn btn-hell">
-              <Chat />
-              Im Chat testen
-            </ChatKnopf>
-          </div>
-          <p className="klein">Hören Sie ihn selbst. Kostenlos, unverbindlich, rund um die Uhr.</p>
+          {/* Live-Demo mit der eigenen Website (fonio-Partner-Link), daneben der Demo-Chat */}
+          <LiveDemoFormular />
+          <ChatKnopf className="hero-chat">
+            <Chat />
+            Oder gleich hier im Chat testen
+          </ChatKnopf>
         </div>
 
         <div className="demo">

@@ -29,17 +29,15 @@ export default function Impressum() {
       <p>Rechtsform: {FIRMA.rechtsform}</p>
       <p>Verantwortlich für den Inhalt: {FIRMA.inhaber}</p>
 
-      <h2>Demo-Nummer</h2>
-      <p>
-        Unter <a href={FIRMA.demoTelefonLink}>{FIRMA.demoTelefon}</a> nimmt unser KI-Telefonassistent ab. Die Nummer
-        dient zum Ausprobieren. Für persönliche Anliegen erreichen Sie uns per E-Mail.
-      </p>
-
       <h2>Partnerschaft mit fonio.ai</h2>
       <p>
         Wir sind Partner der fonio GmbH, Wien (Österreich), und richten deren KI-Assistenten für unsere Kundschaft ein.
         Das fonio-Abo aktivieren wir gemeinsam mit unserer Kundschaft; Vertragspartner für das Abo ist fonio.ai. Die
         Preise auf dieser Website sind Listenpreise von fonio.ai ohne Gewähr; massgebend ist das jeweilige Angebot.
+      </p>
+      <p>
+        Die Live-Demo mit Ihrer Website läuft direkt bei fonio.ai (app.fonio.ai). Dort gelten die Bedingungen und die
+        Datenschutzhinweise von fonio.ai.
       </p>
 
       <h2>Haftungsausschluss</h2>

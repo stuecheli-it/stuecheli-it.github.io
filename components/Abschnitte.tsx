@@ -2,7 +2,8 @@
 import type { BrancheId } from "@/lib/branchen";
 import { BRANCHENSEITEN, pfadFuer } from "@/lib/branchenseiten";
 import ChatKnopf from "./ChatKnopf";
-import { Auszeichnung, ChatPunkte, ChatStrich, Klemmbrett, Mail, Pfeil, Telefon, Uhr } from "./Icons";
+import { Auszeichnung, ChatPunkte, ChatStrich, Globus, Klemmbrett, Mail, Pfeil, Telefon, Uhr } from "./Icons";
+import LiveDemoKnopf from "./LiveDemoFenster";
 
 const verzoegert = (i: number) => (i > 0 ? ` verzoegert-${i}` : "");
 
@@ -141,7 +142,8 @@ export function Kontakt({ branche }: { branche?: BrancheId } = {}) {
           <div className="kicker">Kontakt</div>
           <h2>Neugierig, wie das für Ihren Betrieb klingen würde?</h2>
           <p className="sub">
-            Schreiben Sie uns oder rufen Sie den Assistenten direkt an. Wir zeigen es Ihnen live, ohne Verpflichtung.
+            Schreiben Sie uns, testen Sie den Assistenten im Chat oder erstellen Sie eine Demo mit Ihrer eigenen Website.
+            Ohne Verpflichtung.
           </p>
         </div>
         <div className="wege reveal verzoegert-1">
@@ -150,11 +152,11 @@ export function Kontakt({ branche }: { branche?: BrancheId } = {}) {
             <div><b>stuecheli.it@bluewin.ch</b><span>Wir antworten innert eines Arbeitstages.</span></div>
             <span className="pfeil"><Pfeil /></span>
           </a>
-          <a className="weg" href="tel:+41615391202">
-            <div className="ico24"><Telefon /></div>
-            <div><b>+41 61 539 12 02</b><span>Den Assistenten hören, rund um die Uhr.</span></div>
+          <LiveDemoKnopf className="weg">
+            <div className="ico24"><Globus /></div>
+            <div><b>Demo mit Ihrer Website</b><span>Eigener Assistent in rund 30 Sekunden, kostenlos.</span></div>
             <span className="pfeil"><Pfeil /></span>
-          </a>
+          </LiveDemoKnopf>
           <ChatKnopf className="weg" branche={branche}>
             <div className="ico24"><ChatStrich /></div>
             <div><b>Im Chat ausprobieren</b><span>Sofort im Fenster, ohne Anmeldung.</span></div>

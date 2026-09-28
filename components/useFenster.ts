@@ -4,7 +4,7 @@ import { type RefObject, useEffect } from "react";
 
 /**
  * Gemeinsames Verhalten der Popup-Fenster:
- * Fokus auf den Schliessen-Knopf, Esc schliesst, Tab bleibt im Fenster,
+ * Fokus auf das Startelement (meist der Schliessen-Knopf), Esc schliesst, Tab bleibt im Fenster,
  * die Seite dahinter scrollt nicht, und der Chat-Knopf unten rechts wird ausgeblendet.
  */
 export function useFenster(
@@ -19,7 +19,7 @@ export function useFenster(
     const taste = (e: KeyboardEvent) => {
       if (e.key === "Escape") return schliessen();
       if (e.key !== "Tab" || !fensterRef.current) return;
-      const ziele = fensterRef.current.querySelectorAll<HTMLElement>("button, a[href], iframe");
+      const ziele = fensterRef.current.querySelectorAll<HTMLElement>("button, a[href], iframe, input:not([type=hidden])");
       const erstes = ziele[0];
       const letztes = ziele[ziele.length - 1];
       if (e.shiftKey && document.activeElement === erstes) {

@@ -4,12 +4,13 @@ import { notFound } from "next/navigation";
 import Kopf from "@/components/Kopf";
 import StimmeAuftrag from "@/components/StimmeAuftrag";
 import ChatKnopf from "@/components/ChatKnopf";
+import LiveDemoFormular from "@/components/LiveDemoFormular";
 import AnfrageKnopf from "@/components/AnfrageKnopf";
 import ChatStarter from "@/components/ChatStarter";
 import Reveal from "@/components/Reveal";
 import { Fuss, Kontakt, Nutzen, SCHRITTE } from "@/components/Abschnitte";
 import { BrancheIcon, Illustration } from "@/components/BranchenGrafik";
-import { Chat, Haken, Pfeil, Telefon } from "@/components/Icons";
+import { Chat, Haken, Pfeil } from "@/components/Icons";
 import { BRANCHEN } from "@/lib/branchen";
 import { BRANCHENSEITEN, seiteFuer, type BranchenSeite, type Frage } from "@/lib/branchenseiten";
 import { PREISSTAND, PRODUKTE, chf } from "@/lib/preise";
@@ -130,17 +131,12 @@ export default async function Branchenseite({ params }: Props) {
                 <span className="glanz">Ihr Telefon nimmt ab.</span>
               </h1>
               <p className="lead">{s.lead}</p>
-              <div className="cta">
-                <a className="btn btn-primaer" href="tel:+41615391202">
-                  <Telefon strich={2} />
-                  Demo anrufen
-                </a>
-                <ChatKnopf className="btn btn-hell" branche={s.id}>
-                  <Chat />
-                  Im Chat testen
-                </ChatKnopf>
-              </div>
-              <p className="klein">Die Demo spricht für alle Branchen. Für Ihren Betrieb richten wir ihn auf Ihr Angebot ein.</p>
+              {/* Live-Demo mit der eigenen Website, daneben der Demo-Chat der Beispiel-Firma dieser Branche */}
+              <LiveDemoFormular />
+              <ChatKnopf className="hero-chat" branche={s.id}>
+                <Chat />
+                Oder gleich hier im Chat testen
+              </ChatKnopf>
             </div>
             <div className="demo">
               <StimmeAuftrag branche={s.id} />

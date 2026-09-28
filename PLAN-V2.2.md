@@ -9,8 +9,10 @@ denn nur ein Push auf `main` veröffentlicht (Workflow «Website veröffentliche
 
 ## Priorität 1: keine Anfrage verlieren
 
+- [x] **Live-Demo mit der eigenen Website** statt Demo-Nummer (28.09.2026): Feld im Hero, «Demo» in der Kopfzeile, Kontakt; leitet an den fonio-Partner-Link weiter (lib/livedemo.ts). Demo-Nummer entfernt, Datenschutz Abschnitt 4 neu.
+
 - [ ] **E-Mail bei jeder neuen Anfrage** (fonio-Fähigkeit «E-Mail senden» beim Assistenten «Webseite - Anfragen»)
-- [ ] **Demo-Nummer +41 61 539 12 02** passend machen: hängt am Assistenten «Demo Fahrschulen». Allgemeine Demo oder neutrale Begrüssung.
+- [x] ~~Demo-Nummer passend machen~~: Nummer ist nicht mehr auf der Website (28.09.2026).
 - [ ] **Kontext im Anfrage-Chat einschalten**: fonio meldet `isSetContextEnabled: false`, der Plan-Kontext kommt so wahrscheinlich nicht an.
 
 ## Priorität 2: Vertrauen

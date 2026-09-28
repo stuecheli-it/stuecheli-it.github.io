@@ -11,10 +11,7 @@ export const FIRMA = {
   land: "Schweiz",
   email: "stuecheli.it@bluewin.ch",
   website: "https://stuecheli-it.github.io",
-  /** Demo-Nummer des KI-Telefonassistenten (keine persönliche Nummer) */
-  demoTelefon: "+41 61 539 12 02",
-  demoTelefonLink: "tel:+41615391202",
 } as const;
 
 /** Stand der Rechtstexte */
-export const RECHTSTEXTE_STAND = "27.09.2026";
+export const RECHTSTEXTE_STAND = "28.09.2026";

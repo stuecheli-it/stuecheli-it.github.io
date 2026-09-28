@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import type { BrancheId } from "@/lib/branchen";
 import { BRANCHENSEITEN } from "@/lib/branchenseiten";
 import { DEMO_BRANCHEN } from "@/lib/demo";
-import { FIRMA } from "@/lib/firma";
 import type { AnfrageKontext } from "@/lib/fonio";
 import AnfrageChat from "./AnfrageChat";
 import DemoChat from "./DemoChat";
-import { Chat, Telefon } from "./Icons";
+import { Chat, Globus } from "./Icons";
+import { LiveDemoFenster } from "./LiveDemoFenster";
 
 /** Kontext für «Unverbindlich anfragen» aus der Kopfzeile, auf Branchenseiten mit Branche */
 export function kopfAnfrage(branche?: BrancheId): AnfrageKontext {
@@ -20,11 +20,11 @@ export function kopfAnfrage(branche?: BrancheId): AnfrageKontext {
 
 /**
  * Knöpfe rechts in der Kopfzeile (Desktop und Tablet):
- * «Demo» mit Auswahl Anrufen oder Chat und «Unverbindlich anfragen» als Hauptknopf.
+ * «Demo» mit Auswahl Live-Demo mit der eigenen Website oder Chat und «Unverbindlich anfragen» als Hauptknopf.
  */
 export default function KopfAktionen({ branche }: { branche?: BrancheId }) {
   const [demoOffen, setDemoOffen] = useState(false);
-  const [chat, setChat] = useState<"anfrage" | "demo" | null>(null);
+  const [chat, setChat] = useState<"anfrage" | "demo" | "live" | null>(null);
   const boxRef = useRef<HTMLDivElement>(null);
   const knopfRef = useRef<HTMLButtonElement>(null);
   const schliessen = useRef(() => setChat(null)).current;
@@ -66,13 +66,20 @@ export default function KopfAktionen({ branche }: { branche?: BrancheId }) {
         </button>
         {demoOffen && (
           <div className="nav-dropdown demo-dropdown">
-            <a className="demo-option" href={FIRMA.demoTelefonLink} onClick={() => setDemoOffen(false)}>
-              <span className="nav-dropdown-ico"><Telefon /></span>
+            <button
+              type="button"
+              className="demo-option"
+              onClick={() => {
+                setDemoOffen(false);
+                setChat("live");
+              }}
+            >
+              <span className="nav-dropdown-ico"><Globus /></span>
               <span>
-                <b>Anrufen</b>
-                <small>{FIRMA.demoTelefon}, rund um die Uhr</small>
+                <b>Mit Ihrer Website</b>
+                <small>Eigene Demo in rund 30 Sekunden</small>
               </span>
-            </a>
+            </button>
             <button
               type="button"
               className="demo-option"
@@ -96,6 +103,7 @@ export default function KopfAktionen({ branche }: { branche?: BrancheId }) {
 
       {chat === "anfrage" && <AnfrageChat kontext={kopfAnfrage(branche)} schliessen={schliessen} />}
       {chat === "demo" && <DemoChat branche={branche} schliessen={schliessen} />}
+      {chat === "live" && <LiveDemoFenster schliessen={schliessen} />}
     </div>
   );
 }

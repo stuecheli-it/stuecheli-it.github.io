@@ -1,10 +1,10 @@
 import type { BrancheId } from "@/lib/branchen";
-import { FIRMA } from "@/lib/firma";
 import { MENUE_PUNKTE } from "@/lib/navigation";
 import BranchenMenue from "./BranchenMenue";
 import HandyMenue from "./HandyMenue";
 import KopfAktionen from "./KopfAktionen";
-import { Telefon } from "./Icons";
+import { Globus } from "./Icons";
+import LiveDemoKnopf from "./LiveDemoFenster";
 
 /** Kopfzeile; auf Branchenseiten mit `branche`, damit Demo und Anfrage dazu passen */
 export default function Kopf({ branche }: { branche?: BrancheId } = {}) {
@@ -29,11 +29,11 @@ export default function Kopf({ branche }: { branche?: BrancheId } = {}) {
             ),
           )}
           <KopfAktionen branche={branche} />
-          {/* Auf dem Handy: Anruf direkt erreichbar, Anfrage und Chat stehen im Menü */}
-          <a className="btn btn-dunkel btn-klein kopf-tel" href={FIRMA.demoTelefonLink}>
-            <Telefon />
-            Demo anrufen
-          </a>
+          {/* Auf dem Handy: Live-Demo direkt erreichbar, Anfrage und Chat stehen im Menü */}
+          <LiveDemoKnopf className="btn btn-dunkel btn-klein kopf-tel">
+            <Globus />
+            Live-Demo
+          </LiveDemoKnopf>
           <HandyMenue branche={branche} />
         </nav>
       </div>
