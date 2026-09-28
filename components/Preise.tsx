@@ -5,7 +5,7 @@ import {
   PREISSTAND,
   PRODUKTE,
   chf,
-  ersparnisProJahr,
+  ersparnisProMonat,
   proMonatImJahresabo,
   rabattLabel,
   rabattProzent,
@@ -37,20 +37,19 @@ import { useFenster } from "./useFenster";
 
 type Abrechnung = "monat" | "jahr";
 
+/** Wie auf fonio.ai: im Jahresabo gross der Monatsbetrag mit «Spare CHF …» daneben */
 function Betrag({ plan, abrechnung }: { plan: Plan; abrechnung: Abrechnung }) {
   return abrechnung === "monat" ? (
     <>{chf(plan.monat)} <small>/ Monat</small></>
   ) : (
-    <>{chf(plan.jahr)} <small>/ Jahr</small></>
+    <>
+      {proMonatImJahresabo(plan)} <span className="spare-marke">Spare {ersparnisProMonat(plan)}</span>
+    </>
   );
 }
 
 function JahresInfo({ plan }: { plan: Plan }) {
-  return (
-    <p className="spare">
-      Entspricht {proMonatImJahresabo(plan)} pro Monat · Sie sparen {chf(ersparnisProJahr(plan))} pro Jahr
-    </p>
-  );
+  return <p className="spare">Pro Monat, jährlich abgerechnet ({chf(plan.jahr)} pro Jahr)</p>;
 }
 
 const PRODUKT_ICON: Record<ProduktId, () => ReactElement> = {
@@ -137,7 +136,7 @@ function DetailFenster({
             </div>
             {abrechnung === "jahr" && (
               <p className="plan-spare">
-                Entspricht {proMonatImJahresabo(plan)} pro Monat · Sie sparen {chf(ersparnisProJahr(plan))} pro Jahr
+                Pro Monat, jährlich abgerechnet ({chf(plan.jahr)} pro Jahr)
               </p>
             )}
             <p className="plan-setup"><Werkzeug />{plan.setup}</p>
@@ -301,7 +300,10 @@ export default function Preise() {
               produkt: produkt.label,
               plan: offen.name,
               abrechnung: abrechnung === "jahr" ? "jährlich" : "monatlich",
-              preis: abrechnung === "jahr" ? `${chf(offen.jahr)} pro Jahr` : `${chf(offen.monat)} pro Monat`,
+              preis:
+                abrechnung === "jahr"
+                  ? `${proMonatImJahresabo(offen)} pro Monat, jährlich abgerechnet (${chf(offen.jahr)} pro Jahr)`
+                  : `${chf(offen.monat)} pro Monat`,
               quelle: "Preise, Plan-Details",
             });
           }}

@@ -179,6 +179,12 @@ export function ersparnisProJahr(plan: Plan): number {
   return plan.monat * 12 - plan.jahr;
 }
 
+/** Ersparnis pro Monat im Jahresabo, wie fonio sie anzeigt («Spare CHF 20») */
+export function ersparnisProMonat(plan: Plan): string {
+  const wert = plan.monat - plan.jahr / 12;
+  return chf(wert, !Number.isInteger(wert));
+}
+
 export function rabattProzent(plan: Plan): number {
   return Math.round((1 - plan.jahr / (plan.monat * 12)) * 100);
 }

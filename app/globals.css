@@ -228,7 +228,14 @@ button { font-family: inherit; }
 .preis .fuer { font-size: 14px; color: var(--text2); }
 .preis .betrag { font-size: 40px; font-weight: 700; letter-spacing: -0.03em; margin-top: 18px; line-height: 1; display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }
 .preis .betrag small { font-size: 15px; font-weight: 400; color: var(--text2); letter-spacing: 0; }
-.preis .spare { font-size: 13px; font-weight: 600; color: var(--gruen); margin-top: 8px; }
+.preis .spare { font-size: 13px; font-weight: 500; color: var(--text2); margin-top: 8px; }
+/* «Spare CHF 20» neben dem Monatsbetrag im Jahresabo, wie auf fonio.ai */
+.spare-marke {
+  align-self: center; display: inline-flex; align-items: center; height: 28px; padding: 0 11px; border-radius: 999px;
+  border: 1px solid rgba(88, 93, 254, 0.45); color: #585dfe; font-size: 14px; font-weight: 500; letter-spacing: 0;
+  white-space: nowrap; margin-left: 6px;
+}
+.plan-betrag .spare-marke { border-color: rgba(63, 240, 201, 0.5); color: var(--tuerkis); }
 .preis .setup { font-size: 14px; color: var(--text2); margin-top: 4px; padding-bottom: 18px; border-bottom: 1px solid var(--linie); }
 .preis ul { list-style: none; margin: 16px 0 24px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .preis li { display: flex; gap: 10px; font-size: 14.5px; color: var(--text2); line-height: 1.45; }
@@ -300,7 +307,7 @@ button { font-family: inherit; }
 .plan-abrechnung button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
 .plan-abrechnung .rabatt { color: #0b6f59; background: rgba(63, 240, 201, 0.35); }
 .plan-abrechnung button:not(.aktiv) .rabatt { color: var(--tuerkis); background: rgba(63, 240, 201, 0.14); }
-.plan-spare { font-size: 13.5px; font-weight: 600; color: var(--tuerkis); margin-top: 12px; animation: einblenden 0.3s ease; }
+.plan-spare { font-size: 13.5px; font-weight: 500; color: #9fb0c6; margin-top: 12px; animation: einblenden 0.3s ease; }
 .plan-setup {
   display: inline-flex; align-items: center; gap: 9px; margin-top: 18px; padding: 8px 14px 8px 12px; border-radius: 12px;
   background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); font-size: 14px; color: #c9d4e3;
