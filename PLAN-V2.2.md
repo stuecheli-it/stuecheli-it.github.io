@@ -4,7 +4,9 @@ Ausgangslage: V2.1 ist live und abgeschlossen (Git-Marke `v2.1.9`, Commit 212a98
 Enthalten sind Branchenseiten, Impressum und Datenschutz, Handy-Menü, eigene Chat-Fenster mit sechs
 Branchen-Demos und dem Anfrage-Chat sowie die neue Kopfzeile mit «Branchen», «Demo» und «Unverbindlich anfragen».
 
-Gearbeitet wird im Zweig `v2.2`. Die Live-Seite ändert sich erst, wenn `v2.2` in `main` übernommen wird,
+**29.09.2026: V2.2 abgeschlossen** mit Marke `v2.2.3` (Commit e5b6c1e). Weiter geht es im Zweig `v2.3`, siehe PLAN-V2.3.md.
+
+Gearbeitet wurde im Zweig `v2.2`. Die Live-Seite ändert sich erst, wenn `v2.2` in `main` übernommen wird,
 denn nur ein Push auf `main` veröffentlicht (Workflow «Website veröffentlichen»).
 
 ## Priorität 1: keine Anfrage verlieren
