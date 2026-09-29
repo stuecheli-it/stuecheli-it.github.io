@@ -2,25 +2,16 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { BrancheId } from "@/lib/branchen";
-import { BRANCHENSEITEN } from "@/lib/branchenseiten";
 import { DEMO_BRANCHEN } from "@/lib/demo";
-import type { AnfrageKontext } from "@/lib/fonio";
+import { kopfAnfrage } from "@/lib/fonio";
 import AnfrageChat from "./AnfrageChat";
 import DemoChat from "./DemoChat";
 import { Chat, Globus } from "./Icons";
 import { LiveDemoFenster } from "./LiveDemoFenster";
 
-/** Kontext für «Unverbindlich anfragen» aus der Kopfzeile, auf Branchenseiten mit Branche */
-export function kopfAnfrage(branche?: BrancheId): AnfrageKontext {
-  const s = branche ? BRANCHENSEITEN.find((x) => x.id === branche) : undefined;
-  return s
-    ? { thema: `Telefon KI für ${s.mehrzahl}`, branche: s.mehrzahl, quelle: `Kopfzeile, Branchenseite ${s.kurz}` }
-    : { thema: "Allgemeine Anfrage", quelle: "Kopfzeile" };
-}
-
 /**
  * Knöpfe rechts in der Kopfzeile (Desktop und Tablet):
- * «Demo» mit Auswahl Live-Demo mit der eigenen Website oder Chat und «Unverbindlich anfragen» als Hauptknopf.
+ * «Demo» mit Auswahl Anruf-Demo mit der eigenen Website oder Beispiel-Chat und «Unverbindlich anfragen» als Hauptknopf.
  */
 export default function KopfAktionen({ branche }: { branche?: BrancheId }) {
   const [demoOffen, setDemoOffen] = useState(false);
@@ -76,8 +67,8 @@ export default function KopfAktionen({ branche }: { branche?: BrancheId }) {
             >
               <span className="nav-dropdown-ico"><Globus /></span>
               <span>
-                <b>Mit Ihrer Website</b>
-                <small>Eigene Demo in rund 30 Sekunden</small>
+                <b>Anruf-Demo mit Ihrer Website</b>
+                <small>fonio ruft Sie an, Sie hören Ihren Assistenten</small>
               </span>
             </button>
             <button
@@ -90,7 +81,7 @@ export default function KopfAktionen({ branche }: { branche?: BrancheId }) {
             >
               <span className="nav-dropdown-ico"><Chat /></span>
               <span>
-                <b>Im Chat testen</b>
+                <b>Beispiel-Chat</b>
                 <small>{branche ? `Beispiel-Firma: ${DEMO_BRANCHEN[branche].firma}` : "Beispiel-Firma Ihrer Branche wählen"}</small>
               </span>
             </button>

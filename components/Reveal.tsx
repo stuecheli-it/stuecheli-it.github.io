@@ -2,7 +2,12 @@
 
 import { useEffect } from "react";
 
-/** Blendet Elemente mit der Klasse `reveal` beim Scrollen ein. */
+/**
+ * Blendet Elemente mit der Klasse `reveal` beim Scrollen ein.
+ * Ausgelöst wird kurz bevor ein Element in den Bildschirm kommt, damit beim schnellen Scrollen keine leeren
+ * oder halb durchsichtigen Flächen stehen bleiben. Was beim Laden schon im Bild oder darüber liegt
+ * (z.B. nach einem Sprung zu /#preise), erscheint sofort.
+ */
 export default function Reveal() {
   useEffect(() => {
     const elemente = document.querySelectorAll<HTMLElement>(".reveal");
@@ -11,6 +16,7 @@ export default function Reveal() {
       elemente.forEach((el) => el.classList.add("sichtbar"));
       return;
     }
+    const unten = window.innerHeight;
     const beobachter = new IntersectionObserver(
       (eintraege) => {
         eintraege.forEach((e) => {
@@ -20,9 +26,12 @@ export default function Reveal() {
           }
         });
       },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.1 },
+      { rootMargin: "0px 0px 12% 0px", threshold: 0 },
     );
-    elemente.forEach((el) => beobachter.observe(el));
+    elemente.forEach((el) => {
+      if (el.getBoundingClientRect().top < unten) el.classList.add("sichtbar", "sofort");
+      else beobachter.observe(el);
+    });
     return () => beobachter.disconnect();
   }, []);
   return null;

@@ -1,10 +1,10 @@
 import type { BrancheId } from "@/lib/branchen";
+import { kopfAnfrage } from "@/lib/fonio";
 import { MENUE_PUNKTE } from "@/lib/navigation";
+import AnfrageKnopf from "./AnfrageKnopf";
 import BranchenMenue from "./BranchenMenue";
 import HandyMenue from "./HandyMenue";
 import KopfAktionen from "./KopfAktionen";
-import { Globus } from "./Icons";
-import LiveDemoKnopf from "./LiveDemoFenster";
 import LiveDemoNachfassen from "./LiveDemoNachfassen";
 
 /** Kopfzeile; auf Branchenseiten mit `branche`, damit Demo und Anfrage dazu passen */
@@ -30,11 +30,10 @@ export default function Kopf({ branche }: { branche?: BrancheId } = {}) {
             ),
           )}
           <KopfAktionen branche={branche} />
-          {/* Auf dem Handy: Live-Demo direkt erreichbar, Anfrage und Chat stehen im Menü */}
-          <LiveDemoKnopf className="btn btn-dunkel btn-klein kopf-tel" branche={branche}>
-            <Globus />
-            Live-Demo
-          </LiveDemoKnopf>
+          {/* Auf dem Handy: die Anfrage direkt erreichbar; die Anruf-Demo steht im Hero und im Menü */}
+          <AnfrageKnopf className="btn btn-dunkel btn-klein kopf-tel" kontext={kopfAnfrage(branche)}>
+            Anfragen
+          </AnfrageKnopf>
           <HandyMenue branche={branche} />
         </nav>
         {/* Nach der Live-Demo: Einrichtung anbieten, wenn der Besucher zurückkommt (erscheint unten links) */}

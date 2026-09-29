@@ -2,9 +2,13 @@
 
 import { useRef, useState } from "react";
 import type { BrancheId } from "@/lib/branchen";
+import { gewaehlteBranche } from "@/lib/gewaehlteBranche";
 import DemoChat from "./DemoChat";
 
-/** Knopf «Im Chat testen»: öffnet den Demo-Chat (mit Branche den Assistenten der Beispiel-Firma). */
+/**
+ * Knopf zum Beispiel-Chat: öffnet den Assistenten einer Beispiel-Firma.
+ * Ohne `branche` startet er mit der zuletzt gewählten Branche, sonst mit der Auswahl.
+ */
 export default function ChatKnopf({
   className,
   branche,
@@ -15,13 +19,21 @@ export default function ChatKnopf({
   children: React.ReactNode;
 }) {
   const [offen, setOffen] = useState(false);
+  const [start, setStart] = useState<BrancheId | undefined>(branche);
   const schliessen = useRef(() => setOffen(false)).current;
   return (
     <>
-      <button className={className} type="button" onClick={() => setOffen(true)}>
+      <button
+        className={className}
+        type="button"
+        onClick={() => {
+          setStart(branche ?? gewaehlteBranche());
+          setOffen(true);
+        }}
+      >
         {children}
       </button>
-      {offen && <DemoChat branche={branche} schliessen={schliessen} />}
+      {offen && <DemoChat branche={start} schliessen={schliessen} />}
     </>
   );
 }

@@ -48,14 +48,14 @@ export const PRODUKTE: Produkt[] = [
         punkte: [
           "1'000 Gesprächsminuten inklusive",
           "1 Rufnummer inklusive",
-          "Unbegrenzte Assistenten, 1 Benutzer",
+          "Unbegrenzte Assistenten, 1 Benutzerkonto",
           "Terminplaner, 120+ Stimmen, 60+ Sprachen",
         ],
         details: [
           { titel: "Nutzung", punkte: ["1'000 Gesprächsminuten inklusive", "1'000 Kontakte inklusive", "1 Anruf gleichzeitig", "1 Rufnummer inklusive", "1 Benutzer, 1 Kontoverbindung", "Unbegrenzte Assistenten"] },
           { titel: "Stimme & Sprache", punkte: ["120+ Stimmen", "60+ Sprachen", "Sprechgeschwindigkeit, Empfindlichkeit und Kreativität anpassbar", "Hintergrundgeräusche zuschaltbar"] },
-          { titel: "Fähigkeiten", punkte: ["Terminplaner", "Unternehmensinfos direkt von Ihrer Website", "Selbstlernende Wissensdatenbank", "Anrufweiterleitung", "Internetsuche und Fachbegriffe", "DTMF-Codes senden"] },
-          { titel: "Plattform & Support", punkte: ["Anrufaufzeichnung, auf Wunsch mit automatischem Löschen", "Prompt-Vorlagen und Einfachmodus", "Gratis Audio-Test", "E-Mail-Support, Onboarding Academy, Community-Zugang"] },
+          { titel: "Fähigkeiten", punkte: ["Terminplaner", "Unternehmensinfos direkt von Ihrer Website", "Selbstlernende Wissensdatenbank", "Anrufweiterleitung", "Internetsuche und Fachbegriffe", "Tastenwahl im Gespräch (DTMF)"] },
+          { titel: "Plattform & Support", punkte: ["Anrufaufzeichnung, auf Wunsch mit automatischem Löschen", "Vorlagen für die Anweisungen des Assistenten", "Gratis Audio-Test", "E-Mail-Support, Onboarding Academy, Community-Zugang"] },
           { titel: "Zusatzkosten", punkte: TELEFON_ZUSATZ },
         ],
       },
@@ -68,12 +68,12 @@ export const PRODUKTE: Produkt[] = [
         punkte: [
           "3'600 Gesprächsminuten inklusive",
           "Bis 3 gleichzeitige Anrufe, 3 Rufnummern",
-          "Eigener SIP-Trunk, Outbound-Anrufe",
+          "Eigene Telefonie-Anbindung (SIP-Trunk), ausgehende Anrufe",
           "Alles aus Solo",
         ],
         details: [
           { titel: "Nutzung", punkte: ["3'600 Gesprächsminuten inklusive", "3'000 Kontakte inklusive", "Bis 3 Anrufe gleichzeitig", "3 Rufnummern inklusive", "Unbegrenzte Benutzer, 3 Kontoverbindungen", "Unbegrenzte Assistenten"] },
-          { titel: "Zusätzlich zu Solo", punkte: ["Eigener SIP-Trunk", "Outbound-Anrufe und Kampagnen (zu Verbindungskosten)", "Priorisierter Support"] },
+          { titel: "Zusätzlich zu Solo", punkte: ["Eigene Telefonie-Anbindung (SIP-Trunk)", "Ausgehende Anrufe und Kampagnen (zu Verbindungskosten)", "Priorisierter Support"] },
           { titel: "Fähigkeiten", punkte: ["Alle Fähigkeiten aus Solo: Terminplaner, Wissensdatenbank, Anrufweiterleitung, Internetsuche, 120+ Stimmen, 60+ Sprachen"] },
           { titel: "Zusatzkosten", punkte: [...TELEFON_ZUSATZ, "CHF 5 pro Monat je weitere Kontoverbindung"] },
         ],

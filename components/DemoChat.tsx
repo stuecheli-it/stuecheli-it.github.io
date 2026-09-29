@@ -19,8 +19,8 @@ export default function DemoChat({ branche, schliessen }: { branche?: BrancheId;
   if (!gewaehlt) {
     return (
       <ChatFenster
-        chip="Demo"
-        titel="Chat testen"
+        chip="Beispiel"
+        titel="Beispiel-Chat"
         text={
           <>
             Wählen Sie eine Branche. Sie schreiben dann mit dem Assistenten einer erfundenen Beispiel-Firma, so wie Ihre
@@ -50,13 +50,13 @@ export default function DemoChat({ branche, schliessen }: { branche?: BrancheId;
   const demo = DEMO_BRANCHEN[gewaehlt];
   return (
     <ChatFenster
-      chip={`Demo · ${demo.firma}`}
+      chip={`Beispiel · ${demo.firma}`}
       zusatz={
         <button type="button" className="demo-wechsel" onClick={() => setGewaehlt(undefined)}>
           Andere Branche
         </button>
       }
-      titel="Chat testen"
+      titel="Beispiel-Chat"
       text={
         <>
           Sie schreiben mit dem Assistenten der Beispiel-Firma «{demo.firma}». Alle Angaben sind erfunden, es wird nichts

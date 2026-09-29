@@ -10,13 +10,14 @@
   --weiss: #ffffff;
   --graphit: #1d1d1f;
   --text2: #5c6675;
-  --text3: #86868b;
+  /* Kiesel und Grün so dunkel, dass auch kleine Schrift auf Weiss und Papier AA erreicht (≥ 4.5:1) */
+  --text3: #67707d;
   --linie: #e4e9f0;
   --tuerkis: #3ff0c9;
   --blau: #3a8cff;
   --violett: #6b45ff;
   --cyan: #3fc8ff;
-  --gruen: #0f9f7f;
+  --gruen: #0c7a62;
   --verlauf: linear-gradient(120deg, #3ff0c9 0%, #3a8cff 48%, #6b45ff 100%);
   --radius: 16px;
   --schatten: 0 1px 2px rgba(11, 23, 40, 0.04), 0 12px 32px -12px rgba(11, 23, 40, 0.12);
@@ -38,6 +39,8 @@ a:hover { color: #1f56a8; }
 h1, h2, h3, h4 { margin: 0; letter-spacing: -0.02em; line-height: 1.12; }
 p { margin: 0; }
 button { font-family: inherit; }
+::selection { background: rgba(58, 140, 255, 0.24); color: inherit; }
+input { caret-color: var(--blau); }
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 40px; }
 
 /* ---------- Kopfzeile ---------- */
@@ -89,15 +92,6 @@ button { font-family: inherit; }
     radial-gradient(60% 55% at 78% 30%, rgba(58, 140, 255, 0.28) 0%, rgba(58, 140, 255, 0) 70%),
     radial-gradient(45% 45% at 10% 90%, rgba(107, 69, 255, 0.24) 0%, rgba(107, 69, 255, 0) 70%),
     radial-gradient(30% 30% at 55% 100%, rgba(63, 240, 201, 0.12) 0%, rgba(63, 240, 201, 0) 70%);
-}
-.hero-raster {
-  position: absolute; inset: 0; pointer-events: none; opacity: 0.35;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(70% 70% at 50% 40%, #000 30%, transparent 100%);
-  mask-image: radial-gradient(70% 70% at 50% 40%, #000 30%, transparent 100%);
 }
 .hero .wrap {
   position: relative; display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 64px;
@@ -152,15 +146,25 @@ button { font-family: inherit; }
 .abschnitt h2 { font-size: 42px; font-weight: 700; max-width: 640px; }
 .abschnitt .sub { font-size: 18px; color: var(--text2); max-width: 600px; margin-top: 16px; line-height: 1.6; }
 
-/* Einblenden beim Scrollen */
-.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+/* Einblenden beim Scrollen: startet kurz vor dem Bildschirmrand, kurz und ohne Nachziehen */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.5s cubic-bezier(0.2, 0.9, 0.25, 1), transform 0.5s cubic-bezier(0.2, 0.9, 0.25, 1); }
 .reveal.sichtbar { opacity: 1; transform: none; }
+.reveal.sofort { transition: none; }
 .reveal.verzoegert-1 { transition-delay: 0.1s; }
 .reveal.verzoegert-2 { transition-delay: 0.2s; }
 .reveal.verzoegert-3 { transition-delay: 0.3s; }
 
 /* ---------- Branchen ---------- */
-.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 40px; }
+.tabs-zeile { display: flex; align-items: flex-start; gap: 8px; margin-top: 40px; }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; flex: 1 1 auto; }
+.tab:focus-visible { outline: 2px solid var(--blau); outline-offset: 2px; }
+.tabs-pause {
+  width: 44px; height: 44px; flex: 0 0 auto; border-radius: 50%; border: 1px solid var(--linie); background: #ffffff;
+  color: var(--text2); display: grid; place-items: center; cursor: pointer; transition: color 0.15s, border-color 0.15s;
+}
+.tabs-pause:hover { color: var(--graphit); border-color: var(--linie-kraeftig, #c5cdd8); }
+.tabs-pause:focus-visible { outline: 2px solid var(--blau); outline-offset: 2px; }
+.tabs-pause svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .tab {
   height: 44px; padding: 0 20px; border-radius: 999px; border: 1px solid var(--linie); background: #ffffff;
   font-size: 15px; font-weight: 500; color: var(--text2); cursor: pointer;
@@ -196,19 +200,19 @@ button { font-family: inherit; }
 .karte h3 { font-size: 20px; font-weight: 600; margin-top: 8px; }
 .karte p { font-size: 15px; color: var(--text2); line-height: 1.6; }
 
-/* ---------- Vorgehen ---------- */
-.schritte { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 48px; position: relative; }
+/* ---------- Ablauf (Wie es funktioniert) ---------- */
+.schritte { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 48px 0 0; position: relative; }
 .schritt { position: relative; padding-top: 24px; }
 .schritt .nr { width: 48px; height: 48px; border-radius: 50%; background: #ffffff; border: 1px solid var(--linie); display: grid; place-items: center; font-weight: 700; font-size: 16px; color: var(--blau); box-shadow: var(--schatten); }
 .schritt .strich { position: absolute; top: 47px; left: 60px; right: -12px; height: 1px; background: var(--linie); }
 .schritt h3 { font-size: 20px; font-weight: 600; margin-top: 22px; }
 .schritt p { font-size: 15px; color: var(--text2); margin-top: 8px; line-height: 1.6; }
-.fuerwen { margin-top: 56px; background: #ffffff; border: 1px solid var(--linie); border-radius: var(--radius); padding: 26px 30px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
-.fuerwen b { font-size: 15px; font-weight: 600; white-space: nowrap; }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { font-size: 14px; color: var(--text2); background: var(--papier); border: 1px solid var(--linie); border-radius: 999px; padding: 5px 13px; }
-.chip-link { transition: border-color 0.15s, color 0.15s, background 0.15s; }
-.chip-link:hover { color: var(--graphit); border-color: #c5cdd8; background: #ffffff; }
+.ablauf-zusatz {
+  margin-top: 56px; max-width: 760px; background: #ffffff; border: 1px solid var(--linie); border-radius: var(--radius);
+  padding: 20px 24px; display: flex; gap: 14px; align-items: flex-start; font-size: 15px; line-height: 1.6; color: var(--text2);
+}
+.ablauf-zusatz svg { width: 22px; height: 22px; flex: 0 0 auto; margin-top: 1px; stroke: var(--blau); }
+.ablauf-zusatz b { color: var(--graphit); font-weight: 600; }
 
 /* ---------- Preise ---------- */
 .schalter { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 44px; }
@@ -240,9 +244,19 @@ button { font-family: inherit; }
 .preis ul { list-style: none; margin: 16px 0 24px; padding: 0; display: flex; flex-direction: column; gap: 10px; }
 .preis li { display: flex; gap: 10px; font-size: 14.5px; color: var(--text2); line-height: 1.45; }
 .preis li svg { width: 18px; height: 18px; flex: 0 0 auto; stroke: var(--blau); margin-top: 2px; }
-.preis .btn { margin-top: auto; width: 100%; }
+.preis > .btn { margin-top: auto; width: 100%; }
+.preis-aktionen { margin-top: auto; display: flex; flex-direction: column; align-items: stretch; gap: 4px; }
+.preis-aktionen .btn { width: 100%; }
+.preis-aktionen .btn svg { transition: transform 0.2s; }
+.preis-aktionen .btn:hover svg { transform: translateX(3px); }
+.preis-details {
+  min-height: 44px; border: 0; background: none; cursor: pointer; font: inherit; font-size: 14.5px; font-weight: 600;
+  color: #2a6fd6; border-radius: 999px;
+}
+.preis-details:hover { color: #1f56a8; text-decoration: underline; text-underline-offset: 3px; }
+.preis-details:focus-visible { outline: 2px solid var(--blau); outline-offset: 2px; }
 .steuer { font-size: 13px; color: var(--text3); margin-top: 18px; }
-.hinweise { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 36px; }
+.hinweise { display: grid; grid-template-columns: 1fr; gap: 20px; margin-top: 36px; max-width: 880px; }
 .hinweis { background: #ffffff; border: 1px solid var(--linie); border-radius: var(--radius); padding: 24px 26px; display: flex; gap: 16px; }
 .hinweis .ico24 { background: var(--papier); }
 .hinweis b { display: block; font-size: 15px; font-weight: 600; margin-bottom: 4px; }
@@ -393,6 +407,28 @@ button { font-family: inherit; }
 .weg span { font-size: 13.5px; color: #9fb0c6; }
 .weg .pfeil { margin-left: auto; width: 20px; height: 20px; color: #9fb0c6; flex: 0 0 auto; display: flex; }
 .weg .pfeil svg { width: 100%; height: 100%; }
+.weg:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+/* Der erste Weg ist die Anfrage: einziger Verlauf im Kontaktbereich */
+.weg.weg-haupt {
+  border: 1.5px solid transparent;
+  background: linear-gradient(var(--nacht-hell), var(--nacht-hell)) padding-box, var(--verlauf) border-box;
+  box-shadow: 0 18px 40px -18px rgba(58, 140, 255, 0.55);
+}
+.weg.weg-haupt:hover { background: linear-gradient(#142a4a, #142a4a) padding-box, var(--verlauf) border-box; }
+.weg.weg-haupt .ico24 { background: var(--verlauf); }
+.weg.weg-haupt .ico24 svg { stroke: #06121f; }
+.weg.weg-haupt span { color: #c9d4e3; }
+.weg.weg-haupt .pfeil { color: #ffffff; }
+
+/* Wer dahintersteht: Name, Rolle, Ort (Foto folgt mit der Seite «Über mich») */
+.person { display: flex; align-items: center; gap: 14px; margin-top: 28px; }
+.person-zeichen {
+  width: 52px; height: 52px; flex: 0 0 auto; border-radius: 50%; display: grid; place-items: center;
+  font-size: 17px; font-weight: 700; letter-spacing: 0.02em; color: #ffffff;
+  background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.18);
+}
+.person b { display: block; font-size: 16px; font-weight: 600; color: #ffffff; }
+.person span span { font-size: 14px; color: #9fb0c6; }
 
 /* ---------- Fusszeile ---------- */
 .fuss { background: #07101c; color: #9fb0c6; border-top: 1px solid rgba(255, 255, 255, 0.08); }
@@ -407,7 +443,7 @@ button { font-family: inherit; }
 .lockup .trenner { width: 1px; height: 32px; background: rgba(255, 255, 255, 0.35); }
 .lockup .fonio { display: flex; flex-direction: column; align-items: center; gap: 4px; }
 .lockup .fonio img { height: 16px; }
-.lockup .fonio span { font-size: 9px; letter-spacing: 0.3em; text-indent: 0.3em; color: #9fb0c6; }
+.lockup .fonio span { font-size: 11px; letter-spacing: 0.24em; text-indent: 0.24em; color: #9fb0c6; }
 
 /* ---------- Ohne Bewegung ---------- */
 @media (prefers-reduced-motion: reduce) {
@@ -415,6 +451,7 @@ button { font-family: inherit; }
   .orb .balken line, .auftrag-kopf .status i, .platzhalter, .tipp-cursor { animation: none !important; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .branche, .preis, .plan-hintergrund, .plan-fenster, .plan-kachel, .plan-spare, .welle-zeile, .auftrag-feld.gefuellt dd, .auftrag-karte { animation: none; }
+  .chat-starter.zurueck { transition: none; }
 }
 
 /* ---------- Tablet ---------- */
@@ -434,12 +471,29 @@ button { font-family: inherit; }
   .wrap { padding: 0 20px; }
   .kopf .wrap { height: 64px; }
   .kopf .logo img { height: 36px; }
-  .kopf .marke { gap: 9px; }
+  .kopf .marke { gap: 9px; padding: 5px 0; }
   .kopf .marke .marke-orb { height: 34px; width: 34px; }
   .marke-name { font-size: 19px; }
   .marke-zusatz { font-size: 9.5px; margin-top: 3px; }
   .nav > a:not(.btn) { display: none; }
-  .nav .btn { height: 38px; padding: 0 14px; font-size: 13px; }
+  .nav .btn { height: 44px; padding: 0 18px; font-size: 14px; }
+  .menue-knopf { width: 44px; height: 44px; }
+  /* Nutzen als ruhiges 2×2-Raster nur mit Titeln: Die Details erzählt der Hero schon */
+  .nutzen .wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 16px; padding-top: 28px; padding-bottom: 28px; }
+  .nutz, .nutz + .nutz { padding: 0; border: 0; align-items: center; gap: 12px; }
+  .nutz .ico24 { width: 40px; height: 40px; }
+  .nutz b { font-size: 14px; line-height: 1.3; }
+  .nutz span { display: none; }
+  .tabs-zeile { margin-top: 28px; }
+  .tab { height: 44px; }
+  .gruppe button { height: 44px; }
+  .hero-chat { min-height: 44px; }
+  .branche-mehr { min-height: 44px; }
+  .auftrag-kopf .knopf { width: 44px; height: 44px; }
+  .fuss-branchen { gap: 0 18px; }
+  .fuss-branchen a, .fuss-recht a { display: inline-flex; align-items: center; min-height: 44px; }
+  .fuss-recht { margin-top: 0; gap: 20px; }
+  .person { margin-top: 22px; }
   .hero .wrap { grid-template-columns: 1fr; gap: 40px; padding-top: 56px; padding-bottom: 72px; }
   .hero h1 { font-size: 40px; }
   .hero .lead { font-size: 17px; }
@@ -448,14 +502,11 @@ button { font-family: inherit; }
   .auftrag-karte { padding: 16px 16px 14px; }
   .auftrag-feld { grid-template-columns: 100px 1fr 20px; gap: 8px; }
   .blase { max-width: 90%; }
-  .nutzen .wrap { grid-template-columns: 1fr; gap: 22px; padding-top: 36px; padding-bottom: 36px; }
-  .nutz { padding: 0; }
-  .nutz + .nutz { border-left: 0; padding-left: 0; padding-top: 22px; border-top: 1px solid var(--linie); }
   .abschnitt { padding: 72px 0; }
   .abschnitt h2, .kontakt h2 { font-size: 30px; }
   .abschnitt .sub, .kontakt .sub { font-size: 16px; }
-  .tabs { margin-top: 28px; gap: 6px; }
-  .tab { height: 40px; padding: 0 14px; font-size: 14px; }
+  .tabs { gap: 6px; }
+  .tab { padding: 0 14px; font-size: 14px; }
   .branche { grid-template-columns: 1fr; gap: 22px; }
   .dialog { padding: 18px; }
   .karten, .schritte, .hinweise { grid-template-columns: 1fr; }
@@ -552,7 +603,7 @@ button { font-family: inherit; }
 .beispiel-chips.chip-zeile { display: flex; }
 @media (max-width: 720px) {
   .beispiel-chip svg { display: block; }
-  .beispiel-chip { padding: 0 12px; height: 36px; font-size: 13px; flex: 0 0 auto; }
+  .beispiel-chip { padding: 0 14px; height: 44px; font-size: 13px; flex: 0 0 auto; }
   /* Branchen mit Namen in einer wischbaren Zeile, bis an den Bildschirmrand, mit weichem Auslauf rechts */
   .chip-zeile, .beispiel-chips.chip-zeile {
     display: flex; flex-wrap: nowrap; justify-content: flex-start; gap: 6px; overflow-x: auto;
@@ -733,7 +784,7 @@ button { font-family: inherit; }
   .bs-leiste { margin-bottom: -12px; gap: 4px; }
   .bs-leiste { row-gap: 10px; }
   .bs-leiste-trenner { flex-basis: 100%; height: 0; margin: 0; background: none; }
-  .bs-leiste-start { height: 34px; }
+  .bs-leiste-start { height: 44px; }
   .bs-anrufe { grid-template-columns: 1fr; margin-top: 32px; }
   .bs-frage summary { padding: 16px 18px; font-size: 15px; }
   .bs-frage p { padding: 0 18px 18px; }
@@ -840,12 +891,14 @@ button { font-family: inherit; }
   display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 0; border-radius: 999px; cursor: pointer;
   background: var(--verlauf); color: #06121f; font: inherit; font-size: 15px; font-weight: 600;
   box-shadow: 0 14px 34px -10px rgba(58, 140, 255, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.4) inset;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s;
+  transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.25, 1), opacity 0.2s ease, box-shadow 0.2s ease, filter 0.2s;
 }
 .chat-starter:hover { transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 18px 40px -10px rgba(58, 140, 255, 0.7); }
 .chat-starter:focus-visible { outline: 2px solid var(--blau); outline-offset: 3px; }
 .chat-starter svg { width: 22px; height: 22px; flex: 0 0 auto; }
 body.fenster-offen .chat-starter { display: none; }
+/* Über Preiskarten, Kontakt und Fusszeile tritt der Knopf zurück, damit er nichts verdeckt */
+.chat-starter.zurueck { opacity: 0; transform: translateY(16px) scale(0.92); pointer-events: none; }
 
 .chat-beispiele {
   display: flex; flex-wrap: nowrap; gap: 6px; margin: 12px -26px 0 0; padding-right: 26px; overflow-x: auto; scrollbar-width: none;
@@ -953,6 +1006,16 @@ body.fenster-offen .chat-starter { display: none; }
 .demo-option .nav-dropdown-ico svg { width: 18px; height: 18px; }
 
 .menue-aktionen { display: grid; gap: 8px; margin: 14px 0 8px; }
+.menue-aktionen-zwei { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.menue-aktionen-zwei .btn { padding: 0 12px; }
+/* Offenes Menü füllt den Bildschirm unter der Kopfzeile; die Seite dahinter steht still */
+body.menue-offen { overflow: hidden; }
+@media (max-width: 940px) {
+  .menue-panel { height: calc(100dvh - 80px); overflow-y: auto; overscroll-behavior: contain; }
+}
+@media (max-width: 720px) {
+  .menue-panel { height: calc(100dvh - 64px); }
+}
 .menue-aktionen .btn { width: 100%; }
 
 /* Bis 940 px: Textlinks ins Menü, Branchen, Demo und Anfrage bleiben sichtbar */
@@ -984,7 +1047,7 @@ body.fenster-offen .chat-starter { display: none; }
   flex: 1 1 auto; min-width: 0; height: 46px; border: 0; outline: none; background: transparent;
   font: inherit; font-size: 16px; color: var(--graphit);
 }
-.live-demo-feld input::placeholder { color: #8a97a8; }
+.live-demo-feld input::placeholder { color: var(--text3); }
 .live-demo-feld .btn { flex: 0 0 auto; height: 48px; padding: 0 22px; }
 .live-demo-feld .btn svg { width: 16px; height: 16px; transition: transform 0.2s; }
 .live-demo-feld .btn:hover svg { transform: translateX(3px); }
@@ -1066,3 +1129,41 @@ body.fenster-offen .nachfassen { display: none; }
 @media (prefers-reduced-motion: reduce) {
   .nachfassen { animation: none; }
 }
+
+/* =====================================================================
+   Handy: Verdichtung (Kritik 29.09.2026)
+   Steht am Ende, damit es die Grundregeln der einzelnen Bausteine überschreibt.
+   ===================================================================== */
+@media (max-width: 720px) {
+  .abschnitt { padding: 56px 0; }
+  .kontakt .wrap { padding-top: 56px; padding-bottom: 56px; }
+  .welle-flaeche { height: 96px; }
+  .menue-knopf { width: 44px; height: 44px; }
+  .auftrag-kopf .knopf { width: 44px; height: 44px; }
+
+  /* Branchen: Tabs als eine wischbare Zeile wie im Hero, ohne Illustration und ohne doppelten Link */
+  .tabs-zeile { gap: 6px; }
+  .tabs {
+    flex-wrap: nowrap; overflow-x: auto; min-width: 0; margin: 0 0 0 -20px; padding: 2px 0 2px 20px; scrollbar-width: none;
+    mask-image: linear-gradient(90deg, transparent 0, #000 16px, #000 calc(100% - 28px), transparent);
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { flex: 0 0 auto; }
+  .vorteile .illu, .vorteile .branche-mehr { display: none; }
+  .vorteile { gap: 14px; padding: 0; }
+
+  /* Ablauf: Nummer links, Text rechts */
+  .schritte { gap: 20px; margin-top: 32px; }
+  .schritt { display: grid; grid-template-columns: 44px 1fr; column-gap: 16px; }
+  .schritt .nr { width: 44px; height: 44px; grid-row: span 2; }
+  .schritt h3 { margin-top: 9px; font-size: 18px; }
+  .schritt p { margin-top: 4px; }
+  .ablauf-zusatz { margin-top: 32px; padding: 16px 18px; }
+
+  .hinweise { margin-top: 28px; }
+}
+@media (max-width: 940px) {
+  .menue-recht a, .menue-panel .menue-alle { display: inline-flex; align-items: center; min-height: 44px; }
+  .menue-recht { margin-top: 8px; }
+}
+.bs-alle-preise { display: flex; align-items: center; justify-content: center; min-height: 44px; margin-top: 6px; }

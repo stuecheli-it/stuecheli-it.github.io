@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ABSCHLUSS_MS, SZENARIEN, type BrancheId } from "@/lib/auftrag/ablauf";
 import type { Welle, WelleSprecher } from "@/lib/auftrag/Welle";
-import { pfadFuer } from "@/lib/branchenseiten";
+import { brancheWaehlen } from "@/lib/gewaehlteBranche";
 import { Auto, Besteck, Haken, Haus, Hut, Schere, Werkzeug } from "./Icons";
 
 const ICONS: Record<BrancheId, React.ReactNode> = {
@@ -71,7 +71,7 @@ function RuhigeWelle() {
 /**
  * Hero-Visual «Stimme wird Auftrag»: Eine Schallwelle aus Partikeln zeigt das Gespräch,
  * wichtige Angaben fliegen als Partikel in eine Auftragskarte und füllen sie aus.
- * Die Beispiele der sechs Branchen laufen nacheinander ab; ein Klick auf eine Branche öffnet deren Seite.
+ * Die Beispiele der sechs Branchen laufen nacheinander ab; ein Klick auf eine Branche zeigt deren Beispiel von vorne.
  * Mit `branche` läuft nur dieses eine Beispiel in Schleife (Branchenseiten), ohne Branchen-Knöpfe.
  */
 export default function StimmeAuftrag({ branche }: { branche?: BrancheId } = {}) {
@@ -79,7 +79,7 @@ export default function StimmeAuftrag({ branche }: { branche?: BrancheId } = {})
   const buehneRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const welleRef = useRef<HTMLDivElement>(null);
-  const chipsRef = useRef<HTMLElement>(null);
+  const chipsRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<Welle | null>(null);
   const sprecherRef = useRef<WelleSprecher>(liste[0].ablauf[0].wer);
   const feldRefs = useRef<Record<string, HTMLElement | null>>({});
@@ -217,19 +217,28 @@ export default function StimmeAuftrag({ branche }: { branche?: BrancheId } = {})
       aria-label="Beispiel: Der KI-Assistent nimmt einen Anruf entgegen und füllt dabei einen Auftrag aus"
     >
       {liste.length > 1 && (
-        <nav ref={chipsRef} className="beispiel-chips chip-zeile" aria-label="Branchenseiten">
+        <div ref={chipsRef} className="beispiel-chips chip-zeile" role="group" aria-label="Beispiel einer Branche zeigen">
           {liste.map((b, i) => (
-            <a
+            <button
               key={b.id}
-              href={pfadFuer(b.id)}
+              type="button"
               className={"beispiel-chip" + (i === nr ? " aktiv" : "")}
-              aria-current={i === nr ? "true" : undefined}
+              aria-pressed={i === nr}
+              onClick={() => {
+                // Beispiel dieser Branche von vorne zeigen, die Seite bleibt stehen
+                setGefuellt([]);
+                setSchritt(0);
+                setNr(i);
+                setRunde((r) => r + 1);
+                setSpielt(true);
+                brancheWaehlen(b.id);
+              }}
             >
               {ICONS[b.id]}
               <span>{b.tab}</span>
-            </a>
+            </button>
           ))}
-        </nav>
+        </div>
       )}
 
       <div ref={welleRef} className="welle-flaeche" aria-hidden="true">

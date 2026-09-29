@@ -5,26 +5,26 @@ import StimmeAuftrag from "./StimmeAuftrag";
 
 export default function Hero() {
   return (
-    <section className="hero">
+    // Im Hero steht der Beispiel-Chat schon als Link, darum tritt der Chat-Knopf hier zurück
+    <section className="hero" data-ohne-chatknopf>
       <div className="hero-glow" />
-      <div className="hero-raster" />
       <div className="wrap">
         <div>
-          <div className="augenbraue"><span className="punkt" />KI-Telefonassistent für KMU · fonio.ai-Partner</div>
+          <div className="augenbraue"><span className="punkt" />KI-Telefonassistent für KMU in der Ostschweiz</div>
           <h1>
             Ihr Telefon nimmt
             <br />
             <span className="glanz">jetzt immer ab.</span>
           </h1>
           <p className="lead">
-            Nimmt jeden Anruf entgegen, gibt Auskunft und meldet Ihnen, was wirklich zu Ihnen muss. Eingerichtet und
-            betreut aus der Region, ohne neue Telefonanlage.
+            Nimmt jeden Anruf entgegen, gibt Auskunft und meldet Ihnen, was wirklich zu Ihnen muss. Persönlich
+            eingerichtet und betreut aus St. Gallen, ohne neue Telefonanlage.
           </p>
-          {/* Live-Demo mit der eigenen Website (fonio-Partner-Link), daneben der Demo-Chat */}
+          {/* Anruf-Demo mit der eigenen Website (fonio-Partner-Link), daneben der Beispiel-Chat */}
           <LiveDemoFormular />
           <ChatKnopf className="hero-chat">
             <Chat />
-            Oder gleich hier im Chat testen
+            Lieber schreiben? Beispiel-Chat öffnen
           </ChatKnopf>
         </div>
 

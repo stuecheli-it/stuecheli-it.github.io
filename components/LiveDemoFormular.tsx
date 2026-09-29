@@ -12,8 +12,8 @@ import {
 } from "@/lib/livedemo";
 import { Globus, Pfeil } from "./Icons";
 
-/** So läuft die Demo bei fonio, in drei kurzen Schritten unter dem Feld */
-const SCHRITTE = ["Website eingeben", "In rund 30 Sekunden bereit", "Er ruft Sie an"];
+/** So läuft die Anruf-Demo bei fonio, in drei kurzen Schritten unter dem Feld */
+const SCHRITTE = ["Website eingeben", "In rund 30 Sekunden bereit", "fonio ruft Sie an, Sie hören Ihren Assistenten"];
 
 /**
  * Feld «Ihre Website» plus «Eigene Demo erstellen»: leitet die Adresse an unseren fonio-Partner-Link weiter.
@@ -34,7 +34,9 @@ export default function LiveDemoFormular({
 }) {
   const id = useId();
   const eingabeRef = useRef<HTMLInputElement>(null);
-  const [fehler, setFehler] = useState(false);
+  /** «leer»: nichts eingegeben, «ungueltig»: Eingabe ist keine Website-Adresse */
+  const [fehler, setFehler] = useState<"leer" | "ungueltig" | null>(null);
+  const beispiel = branche ? LIVE_DEMO_PLATZHALTER[branche] : "garage-muster.ch";
 
   const fertig = () => {
     if (gesendet) window.setTimeout(gesendet, 0);
@@ -44,10 +46,10 @@ export default function LiveDemoFormular({
     const website = websiteAusEingabe(eingabeRef.current?.value ?? "");
     if (!website || !eingabeRef.current) {
       e.preventDefault();
-      setFehler(true);
+      setFehler(eingabeRef.current?.value.trim() ? "ungueltig" : "leer");
       return;
     }
-    setFehler(false);
+    setFehler(null);
     // Bereinigt senden, z.B. «https://www.Garage.ch/kontakt» als «www.garage.ch». Ohne JavaScript geht die Eingabe
     // unverändert an fonio, das sie selbst prüft.
     eingabeRef.current.value = website;
@@ -79,21 +81,23 @@ export default function LiveDemoFormular({
             autoCorrect="off"
             spellCheck={false}
             placeholder={branche ? LIVE_DEMO_PLATZHALTER[branche] : "ihre-website.ch"}
-            aria-invalid={fehler}
-            aria-describedby={fehler ? `${id}-fehler` : undefined}
-            onChange={() => fehler && setFehler(false)}
+            aria-invalid={fehler !== null}
+            aria-describedby={fehler ? `${id}-fehler` : `${id}-hinweis`}
+            onChange={() => fehler && setFehler(null)}
           />
           <button type="submit" className="btn btn-primaer">
-            Eigene Demo erstellen <Pfeil strich={2} />
+            Anruf-Demo starten <Pfeil strich={2} />
           </button>
         </div>
       </form>
       {fehler && (
         <p id={`${id}-fehler`} className="live-demo-fehler" role="alert">
-          Bitte geben Sie eine Website-Adresse ein, zum Beispiel {branche ? LIVE_DEMO_PLATZHALTER[branche] : "garage-muster.ch"}.
+          {fehler === "leer"
+            ? `Bitte geben Sie die Adresse Ihrer Website ein, zum Beispiel ${beispiel}.`
+            : `Das sieht nicht nach einer Website-Adresse aus. Bitte so eingeben: ${beispiel}.`}
         </p>
       )}
-      <ol className="live-demo-schritte" aria-label="So läuft die Demo">
+      <ol className="live-demo-schritte" aria-label="So läuft die Anruf-Demo">
         {SCHRITTE.map((s, i) => (
           <li key={s}>
             <span className="live-demo-nr" aria-hidden="true">{i + 1}</span>
@@ -101,8 +105,9 @@ export default function LiveDemoFormular({
           </li>
         ))}
       </ol>
-      <p className="live-demo-hinweis">
-        Kostenlos und ohne Anmeldung, bei unserem Partner fonio.{" "}
+      <p id={`${id}-hinweis`} className="live-demo-hinweis">
+        Kostenlos bei fonio.ai, dem Anbieter der Technik. Die Seite öffnet sich in einem neuen Tab und fragt nach Ihrer
+        Telefonnummer für den Demo-Anruf.{" "}
         <a
           href={liveDemoLink()}
           target="_blank"

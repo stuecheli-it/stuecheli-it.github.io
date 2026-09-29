@@ -28,11 +28,12 @@ export function LiveDemoFenster({ branche, schliessen }: { branche?: BrancheId; 
         <header className="plan-kopf chat-kopf">
           <div className="plan-glow" aria-hidden />
           <div className="plan-marken">
-            <span className="plan-produkt"><Globus />Live-Demo</span>
+            <span className="plan-produkt"><Globus />Anruf-Demo</span>
           </div>
-          <h3 id="liveDemoTitel">Ihre eigene Demo</h3>
+          <h3 id="liveDemoTitel">So klingt Ihr Assistent</h3>
           <p className="plan-fuer">
-            Geben Sie die Adresse Ihrer Website ein. Der Assistent liest sie und spricht danach wie Ihr eigener Betrieb.
+            Geben Sie die Adresse Ihrer Website ein. Der Assistent liest sie, danach ruft fonio Sie an und Sie hören ihn
+            sprechen wie Ihren eigenen Betrieb.
           </p>
         </header>
         <div

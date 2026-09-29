@@ -8,6 +8,27 @@ Zusatzkosten in CHF, Jahresabo wie auf fonio.ai), Einrichtung «offeriert auf An
 Gearbeitet wird im Zweig `v2.3`. Die Live-Seite ändert sich erst, wenn `v2.3` in `main` übernommen wird,
 denn nur ein Push auf `main` veröffentlicht (Workflow «Website veröffentlichen»).
 
+## Erledigt: Überarbeitung nach Design-Kritik (29.09.2026, noch nicht veröffentlicht)
+
+Kritik der Startseite: 22/32 (Bericht in `../.impeccable/critique/`). Umgesetzt:
+
+- [x] **Region und Person:** Ostschweiz / St. Gallen in Augenbraue, Lead, Fusszeile und Beschreibung. Der Name des
+      Inhabers steht auf Wunsch nur noch in der Personenzeile im Kontakt (plus Impressum, Datenschutz, Anfrage-Chat).
+- [x] **Begriffe:** «Anruf-Demo» (fonio ruft an, Hinweis auf die Telefonnummer vor dem Klick) und «Beispiel-Chat»;
+      Fehlermeldung unterscheidet leer / ungültig; Fachbegriffe im Plan-Fenster erklärt.
+- [x] **Weg zur Anfrage:** Preiskarten mit «Unverbindlich anfragen» (Plan wird mitgegeben), «Alle Details» als Link;
+      Kontakt beginnt mit «Einrichtung besprechen»; Handy-Kopfzeile «Anfragen» statt «Live-Demo»; Chat-Knopf tritt
+      über Hero, Preiskarten, Kontakt und Fusszeile zurück.
+- [x] **Kürzer:** Leistungen und Vorgehen zu «Wie es funktioniert» zusammengelegt (nach den Preisen), Chips «Für wen
+      sich das lohnt» und Hinweis «Nach dem Livegang» (jetzt im Kleingedruckten) entfernt. Handy: 11,5 → 8,5 Bildschirme.
+- [x] **Branchen-Tabs:** echte Tabs an Ort und Stelle, Wechsel endet nach der ersten Wahl, Pausenknopf; Hero-Chips
+      zeigen das Beispiel statt die Seite zu wechseln; Beispiel-Chat startet mit der zuletzt gewählten Branche.
+- [x] **Lesbarkeit:** Kiesel `#67707d` und Grün `#0c7a62` (AA auch in kleiner Schrift), «PARTNER» 11 px, alle
+      Tippflächen auf dem Handy ≥ 44 px, Handy-Menü füllt den Bildschirm, Gitternetz im Hero entfernt.
+
+Hinweis zum Punkt «Live-Demo-Knopf auf dem Handy beim Scrollen» unten: Die Kopfzeile zeigt auf dem Handy jetzt
+«Anfragen». Die Anruf-Demo steht im Hero, im Menü und im Kontakt. Eine mitlaufende Leiste bleibt offen.
+
 ## Offene Klärungen
 
 - [ ] **Partner-Leads bei fonio** (Frage an David): Zählen Testkonten über den Code `ac` fest als unsere Kunden, und

@@ -1,5 +1,7 @@
 // fonio-Chats der Website. Alle laufen in eigenen Rahmen über public/chat.html
 // (fonio erlaubt nur ein Widget pro Seite). Die Widget-IDs stehen dort, die Demo-Chats in lib/demo.ts.
+import type { BrancheId } from "./branchen";
+import { BRANCHENSEITEN } from "./branchenseiten";
 import { CHAT_SEITE } from "./demo";
 
 /**
@@ -20,6 +22,14 @@ export type AnfrageKontext = {
   /** Wo auf der Website angefragt wurde */
   quelle?: string;
 };
+
+/** Kontext für «Unverbindlich anfragen» aus der Kopfzeile und dem Handy-Menü, auf Branchenseiten mit Branche */
+export function kopfAnfrage(branche?: BrancheId): AnfrageKontext {
+  const s = branche ? BRANCHENSEITEN.find((x) => x.id === branche) : undefined;
+  return s
+    ? { thema: `Telefon KI für ${s.mehrzahl}`, branche: s.mehrzahl, quelle: `Kopfzeile, Branchenseite ${s.kurz}` }
+    : { thema: "Allgemeine Anfrage", quelle: "Kopfzeile" };
+}
 
 /** Anfrage-Chat hinter «Unverbindlich anfragen» (fonio-Assistent «Webseite - Anfragen») */
 export function anfrageChatAdresse(k: AnfrageKontext): string {

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { BRANCHEN, type BrancheId } from "@/lib/branchen";
 import { pfadFuer, BRANCHENSEITEN } from "@/lib/branchenseiten";
+import { brancheWaehlen } from "@/lib/gewaehlteBranche";
 import { BrancheIcon, Illustration } from "./BranchenGrafik";
 import { Haken, Pfeil } from "./Icons";
 
@@ -10,15 +11,20 @@ import { Haken, Pfeil } from "./Icons";
 const DAUER_MS = 7000;
 
 /**
- * Branchen-Abschnitt der Startseite.
- * Die Beispiele wechseln automatisch; ein Klick auf eine Branche öffnet ihre Seite.
- * Mit der Maus über dem Abschnitt hält der Wechsel an (Vorschau der Branche unter dem Zeiger),
- * ausserhalb des Bildschirms und bei «weniger Bewegung» läuft er nicht.
+ * Branchen-Abschnitt der Startseite: echte Tabs, die das Beispiel an Ort und Stelle wechseln.
+ * Zur Branchenseite führt der Link «Mehr für …» unter dem Beispiel.
+ * Die Beispiele wechseln automatisch, bis der Besucher selbst eine Branche wählt oder den Wechsel anhält.
+ * Mit der Maus über dem Abschnitt, mit dem Fokus in den Tabs, ausserhalb des Bildschirms
+ * und bei «weniger Bewegung» läuft der Wechsel nicht.
  */
 export default function Branchen() {
   const abschnittRef = useRef<HTMLElement>(null);
+  const tabRefs = useRef<Partial<Record<BrancheId, HTMLButtonElement | null>>>({});
   const [aktiv, setAktiv] = useState<BrancheId>("garage");
+  /** Vorübergehend angehalten (Maus darüber, Fokus in den Tabs) */
   const [pausiert, setPausiert] = useState(false);
+  /** Dauerhaft angehalten: Besucher hat gewählt oder «Anhalten» gedrückt */
+  const [gestoppt, setGestoppt] = useState(false);
   const [sichtbar, setSichtbar] = useState(false);
   const [bewegt, setBewegt] = useState(false);
   /** Startet Fortschrittsbalken und Wartezeit neu, z.B. nach dem Wegfahren mit der Maus */
@@ -26,26 +32,16 @@ export default function Branchen() {
   const b = BRANCHEN.find((x) => x.id === aktiv) ?? BRANCHEN[0];
   const mehrzahl = BRANCHENSEITEN.find((s) => s.id === b.id)?.mehrzahl ?? b.titel;
 
-  // Vorschau beim Darüberfahren, leicht verzögert, damit sie beim Überstreichen nicht flackert
-  const vorschauTimer = useRef(0);
-  const vorschau = (id: BrancheId) => {
-    window.clearTimeout(vorschauTimer.current);
-    vorschauTimer.current = window.setTimeout(() => setAktiv(id), 120);
-  };
-
   useEffect(() => {
     setBewegt(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
     const el = abschnittRef.current;
     if (!el) return;
     const beobachter = new IntersectionObserver(([e]) => setSichtbar(e.isIntersecting), { threshold: 0.25 });
     beobachter.observe(el);
-    return () => {
-      beobachter.disconnect();
-      window.clearTimeout(vorschauTimer.current);
-    };
+    return () => beobachter.disconnect();
   }, []);
 
-  const laeuft = bewegt && sichtbar && !pausiert;
+  const laeuft = bewegt && sichtbar && !pausiert && !gestoppt;
 
   // Automatischer Wechsel zur nächsten Branche
   useEffect(() => {
@@ -56,55 +52,96 @@ export default function Branchen() {
     return () => window.clearTimeout(t);
   }, [laeuft, aktiv, runde]);
 
+  const waehlen = (id: BrancheId, fokus = false) => {
+    setAktiv(id);
+    setGestoppt(true);
+    brancheWaehlen(id);
+    if (fokus) tabRefs.current[id]?.focus();
+  };
+
+  // Pfeiltasten, Pos1 und Ende wie bei Tabs üblich
+  const taste = (e: React.KeyboardEvent) => {
+    const i = BRANCHEN.findIndex((x) => x.id === aktiv);
+    const ziel =
+      e.key === "ArrowRight" ? (i + 1) % BRANCHEN.length
+      : e.key === "ArrowLeft" ? (i - 1 + BRANCHEN.length) % BRANCHEN.length
+      : e.key === "Home" ? 0
+      : e.key === "End" ? BRANCHEN.length - 1
+      : -1;
+    if (ziel < 0) return;
+    e.preventDefault();
+    waehlen(BRANCHEN[ziel].id, true);
+  };
+
   return (
     <section className="abschnitt" id="branchen" ref={abschnittRef}>
       <div className="wrap">
         <div className="reveal">
           <div className="kicker">Für Ihren Betrieb</div>
-          <h2>So klingt er in Ihrer Branche.</h2>
+          <h2>Das übernimmt er in Ihrer Branche.</h2>
           <p className="sub">
-            Der Assistent kennt Ihr Angebot, Ihre Zeiten und Ihre Abläufe. Wählen Sie Ihre Branche und sehen Sie, was er
-            dort für Sie übernimmt.
+            Der Assistent kennt Ihr Angebot, Ihre Zeiten und Ihre Abläufe. Wählen Sie Ihre Branche und lesen Sie ein
+            Beispielgespräch.
           </p>
         </div>
 
         <div
           onMouseEnter={() => setPausiert(true)}
           onMouseLeave={() => {
-            window.clearTimeout(vorschauTimer.current);
             setPausiert(false);
             setRunde((r) => r + 1);
           }}
         >
-          {/* Jede Branche öffnet ihre eigene Seite */}
-          <nav className="tabs reveal" aria-label="Branchenseiten">
-            {BRANCHEN.map((x) => (
-              <a
-                key={x.id}
-                href={pfadFuer(x.id)}
-                className={"tab" + (x.id === aktiv ? " aktiv" : "")}
-                onMouseEnter={() => vorschau(x.id)}
-                onFocus={() => {
-                  setAktiv(x.id);
-                  setPausiert(true);
-                }}
-                onBlur={() => setPausiert(false)}
+          <div className="tabs-zeile reveal">
+            <div className="tabs" role="tablist" aria-label="Branche wählen" onKeyDown={taste}>
+              {BRANCHEN.map((x) => (
+                <button
+                  key={x.id}
+                  ref={(el) => {
+                    tabRefs.current[x.id] = el;
+                  }}
+                  type="button"
+                  role="tab"
+                  id={`tab-${x.id}`}
+                  aria-selected={x.id === aktiv}
+                  aria-controls="branchen-panel"
+                  tabIndex={x.id === aktiv ? 0 : -1}
+                  className={"tab" + (x.id === aktiv ? " aktiv" : "")}
+                  onClick={() => waehlen(x.id)}
+                  onFocus={() => setPausiert(true)}
+                  onBlur={() => setPausiert(false)}
+                >
+                  <BrancheIcon id={x.id} />
+                  {x.tab}
+                  {x.id === aktiv && laeuft && (
+                    <span
+                      key={aktiv + runde}
+                      className="tab-fortschritt"
+                      style={{ animationDuration: DAUER_MS + "ms" }}
+                      aria-hidden="true"
+                    />
+                  )}
+                </button>
+              ))}
+            </div>
+            {bewegt && (
+              <button
+                type="button"
+                className="tabs-pause"
+                onClick={() => setGestoppt((g) => !g)}
+                aria-label={gestoppt ? "Automatischen Wechsel fortsetzen" : "Automatischen Wechsel anhalten"}
+                title={gestoppt ? "Automatischen Wechsel fortsetzen" : "Automatischen Wechsel anhalten"}
               >
-                <BrancheIcon id={x.id} />
-                {x.tab}
-                {x.id === aktiv && laeuft && (
-                  <span
-                    key={aktiv + runde}
-                    className="tab-fortschritt"
-                    style={{ animationDuration: DAUER_MS + "ms" }}
-                    aria-hidden="true"
-                  />
+                {gestoppt ? (
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5l12 7-12 7z" /></svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14" /></svg>
                 )}
-              </a>
-            ))}
-          </nav>
+              </button>
+            )}
+          </div>
 
-          <div className="branche" key={b.id} id="branchen-panel">
+          <div className="branche" key={b.id} id="branchen-panel" role="tabpanel" aria-labelledby={`tab-${b.id}`}>
             <div className="dialog">
               <div className="wer">Beispielgespräch · {b.titel}</div>
               {b.gespraech.map((z, i) => (

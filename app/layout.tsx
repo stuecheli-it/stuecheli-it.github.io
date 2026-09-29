@@ -7,7 +7,7 @@ const geist = Geist({ subsets: ["latin"], weight: ["400", "500", "600", "700"], 
 
 const TITEL = "Stücheli IT Consulting | Ihr Telefon nimmt jetzt immer ab";
 const BESCHREIBUNG =
-  "KI-Telefonassistenten für KMU in der Deutschschweiz: nimmt jeden Anruf entgegen, gibt Auskunft und meldet Ihnen, was wirklich zu Ihnen muss. Eingerichtet und betreut von Stücheli IT Consulting, fonio.ai-Partner.";
+  "KI-Telefonassistenten für KMU in der Ostschweiz: nimmt jeden Anruf entgegen, gibt Auskunft und meldet Ihnen, was wirklich zu Ihnen muss. Persönlich eingerichtet und betreut aus St. Gallen, fonio.ai-Partner.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://stuecheli-it.github.io"),
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   description: BESCHREIBUNG,
   openGraph: {
     title: TITEL,
-    description: "KI-Telefonassistenten für KMU in der Deutschschweiz. Erstellen Sie in rund 30 Sekunden eine Demo mit Ihrer eigenen Website.",
+    description: "KI-Telefonassistenten für KMU in der Ostschweiz, eingerichtet aus St. Gallen. Hören Sie Ihren Assistenten in einer Anruf-Demo mit Ihrer eigenen Website.",
     type: "website",
     url: "/",
     locale: "de_CH",

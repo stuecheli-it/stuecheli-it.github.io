@@ -94,9 +94,8 @@ export default async function Branchenseite({ params }: Props) {
       <Kopf branche={s.id} />
       <main>
         {/* ---------- Hero ---------- */}
-        <section className="hero bs-hero">
+        <section className="hero bs-hero" data-ohne-chatknopf>
           <div className="hero-glow" />
-          <div className="hero-raster" />
           <div className="wrap">
             {/* Übersicht wie im Hero der Startseite: zurück zur Startseite oder direkt zu einer anderen Branche */}
             <nav className="bs-leiste" aria-label="Branchen">
@@ -135,7 +134,7 @@ export default async function Branchenseite({ params }: Props) {
               <LiveDemoFormular branche={s.id} />
               <ChatKnopf className="hero-chat" branche={s.id}>
                 <Chat />
-                Oder gleich hier im Chat testen
+                Lieber schreiben? Beispiel-Chat öffnen
               </ChatKnopf>
             </div>
             <div className="demo">
@@ -237,7 +236,7 @@ export default async function Branchenseite({ params }: Props) {
               </ol>
             </div>
             <div className="preis mitte bs-preis reveal verzoegert-1">
-              <span className="beliebt">Passt für die meisten</span>
+              <span className="beliebt">Beliebt</span>
               <h3>Telefon KI {SOLO.name}</h3>
               <p className="fuer">{SOLO.fuer}</p>
               <div className="betrag">

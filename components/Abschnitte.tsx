@@ -1,8 +1,10 @@
 // Statische Abschnitte der Startseite (ohne eigene Logik im Browser).
 import type { BrancheId } from "@/lib/branchen";
-import { BRANCHENSEITEN, pfadFuer } from "@/lib/branchenseiten";
-import ChatKnopf from "./ChatKnopf";
-import { Auszeichnung, ChatPunkte, ChatStrich, Globus, Klemmbrett, Mail, Pfeil, Telefon, Uhr } from "./Icons";
+import { BRANCHENSEITEN } from "@/lib/branchenseiten";
+import { FIRMA } from "@/lib/firma";
+import type { AnfrageKontext } from "@/lib/fonio";
+import AnfrageKnopf from "./AnfrageKnopf";
+import { Chat, ChatPunkte, ChatStrich, Globus, Klemmbrett, Mail, Pfeil, Uhr } from "./Icons";
 import LiveDemoKnopf from "./LiveDemoFenster";
 
 const verzoegert = (i: number) => (i > 0 ? ` verzoegert-${i}` : "");
@@ -13,7 +15,7 @@ const NUTZEN = [
   { icon: <Uhr />, titel: "Immer erreichbar", text: "Auch abends, am Wochenende und wenn alle im Einsatz sind." },
   { icon: <ChatStrich />, titel: "Gibt Auskunft", text: "Öffnungszeiten, Anfahrt, Ablauf und Zuständigkeiten." },
   { icon: <Klemmbrett />, titel: "Nimmt auf, was zählt", text: "Anliegen, Termine und Rückrufwünsche." },
-  { icon: <Mail />, titel: "Sie lesen mit", text: "Jedes Gespräch kommt zusammengefasst per Mail." },
+  { icon: <Mail />, titel: "Zusammenfassung per Mail", text: "Sie lesen jedes Gespräch nach, wann es Ihnen passt." },
 ];
 
 export function Nutzen() {
@@ -34,98 +36,43 @@ export function Nutzen() {
   );
 }
 
-// ---------- Leistungen ----------
+// ---------- Ablauf: so richten wir ihn ein ----------
 
-const LEISTUNGEN = [
+export const SCHRITTE = [
+  { titel: "Zuhören", text: "Sie erzählen, wie bei Ihnen telefoniert wird und was Anrufende wollen." },
   {
-    icon: <Telefon />,
-    titel: "KI-Telefonassistent",
-    text: "Nimmt jeden Anruf freundlich und in Ihrem Namen entgegen, gibt Auskunft, nimmt Anliegen und Rückrufwünsche auf und leitet weiter, was wirklich zu Ihnen muss.",
+    titel: "Einrichten",
+    text: "Wir füttern den Assistenten mit Ihrem Wissen, testen mit Ihnen und passen an, bis er klingt wie Ihr Betrieb.",
   },
-  {
-    icon: <ChatPunkte />,
-    titel: "Webchat & WhatsApp",
-    text: "Derselbe Assistent als Chat auf Ihrer Website oder direkt in WhatsApp: beantwortet Kundenfragen aus Ihrem Firmenwissen. Im Design Ihrer Marke, getestet vor dem Livegang.",
-  },
-  {
-    icon: <Auszeichnung />,
-    titel: "Einrichtung & Betreuung",
-    text: "Wir füttern den Assistenten mit Ihrem Wissen und testen mit Ihnen, bis er klingt wie Ihr Betrieb. Und wir bleiben dran, wenn sich bei Ihnen etwas ändert.",
-  },
+  { titel: "Dranbleiben", text: "Ändert sich bei Ihnen etwas, ändern wir den Assistenten mit." },
 ];
 
-export function Leistungen() {
+export function Ablauf() {
   return (
-    <section className="abschnitt weiss" id="leistungen">
+    <section className="abschnitt" id="ablauf">
       <div className="wrap">
         <div className="reveal">
           <div className="kicker">Wie es funktioniert</div>
           <h2>Keine IT-Kenntnisse, keine neue Telefonanlage.</h2>
-          <p className="sub">Wir erklären alles verständlich und ohne Fachbegriffe. Ihre Nummer bleibt.</p>
+          <p className="sub">Ihre Nummer bleibt. Sie erzählen, wir richten ein und bleiben dran, ohne Fachbegriffe.</p>
         </div>
-        <div className="karten">
-          {LEISTUNGEN.map((l, i) => (
-            <div key={l.titel} className={"karte reveal" + verzoegert(i)}>
-              <div className="ico24">{l.icon}</div>
-              <h3>{l.titel}</h3>
-              <p>{l.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ---------- Vorgehen ----------
-
-export const SCHRITTE = [
-  { titel: "Zuhören", text: "Sie erzählen, wie bei Ihnen telefoniert wird und was Anrufende wollen." },
-  { titel: "Einrichten", text: "Wir richten ihn ein, testen mit Ihnen und passen an, bis er klingt wie Ihr Betrieb." },
-  { titel: "Dranbleiben", text: "Ändert sich bei Ihnen etwas, ändern wir den Assistenten mit." },
-];
-
-// Branchen verlinken auf ihre eigene Seite
-const ZIELGRUPPEN: Array<{ text: string; href?: string }> = [
-  { text: "Handwerk", href: pfadFuer("handwerk") },
-  { text: "Garagen", href: pfadFuer("garage") },
-  { text: "Gastronomie", href: pfadFuer("gastro") },
-  { text: "Coiffeure", href: pfadFuer("coiffeur") },
-  { text: "Fahrschulen", href: pfadFuer("fahrschule") },
-  { text: "Immobilienverwaltungen", href: pfadFuer("immo") },
-  { text: "alle KMU, bei denen das Telefon klingelt, während gearbeitet wird" },
-];
-
-export function Vorgehen() {
-  return (
-    <section className="abschnitt" id="vorgehen">
-      <div className="wrap">
-        <div className="reveal">
-          <div className="kicker">So arbeiten wir</div>
-          <h2>Drei Schritte, keine Umwege.</h2>
-        </div>
-        <div className="schritte">
+        <ol className="schritte">
           {SCHRITTE.map((s, i) => (
-            <div key={s.titel} className={"schritt reveal" + verzoegert(i)}>
-              <div className="nr">{i + 1}</div>
+            <li key={s.titel} className={"schritt reveal" + verzoegert(i)}>
+              <div className="nr" aria-hidden="true">{i + 1}</div>
               {i < SCHRITTE.length - 1 && <div className="strich" />}
               <h3>{s.titel}</h3>
               <p>{s.text}</p>
-            </div>
+            </li>
           ))}
-        </div>
-        <div className="fuerwen reveal">
-          <b>Für wen sich das lohnt:</b>
-          <div className="chips">
-            {ZIELGRUPPEN.map((z) =>
-              z.href ? (
-                <a key={z.text} className="chip chip-link" href={z.href}>{z.text}</a>
-              ) : (
-                <span key={z.text} className="chip">{z.text}</span>
-              ),
-            )}
-          </div>
-        </div>
+        </ol>
+        <p className="ablauf-zusatz reveal">
+          <ChatPunkte />
+          <span>
+            <b>Auch als Chat:</b> Derselbe Assistent beantwortet Fragen auf Ihrer Website oder in WhatsApp, im Design
+            Ihrer Marke und getestet vor dem Livegang.
+          </span>
+        </p>
       </div>
     </section>
   );
@@ -133,35 +80,52 @@ export function Vorgehen() {
 
 // ---------- Kontakt ----------
 
+function kontaktAnfrage(branche?: BrancheId): AnfrageKontext {
+  const s = branche ? BRANCHENSEITEN.find((x) => x.id === branche) : undefined;
+  return s
+    ? { thema: `Telefon KI für ${s.mehrzahl}`, branche: s.mehrzahl, quelle: `Kontakt, Branchenseite ${s.kurz}` }
+    : { thema: "Einrichtung besprechen", quelle: "Kontakt" };
+}
+
 export function Kontakt({ branche }: { branche?: BrancheId } = {}) {
   return (
-    <section className="kontakt" id="kontakt">
+    <section className="kontakt" id="kontakt" data-ohne-chatknopf>
       <div className="glow" />
       <div className="wrap">
         <div className="reveal">
           <div className="kicker">Kontakt</div>
           <h2>Neugierig, wie das für Ihren Betrieb klingen würde?</h2>
           <p className="sub">
-            Schreiben Sie uns, testen Sie den Assistenten im Chat oder erstellen Sie eine Demo mit Ihrer eigenen Website.
-            Ohne Verpflichtung.
+            Sie sprechen direkt mit dem Inhaber. Er richtet Ihren Assistenten persönlich ein, testet ihn mit Ihnen und
+            bleibt Ihr Ansprechpartner. Ohne Verpflichtung.
           </p>
+          <div className="person">
+            <span className="person-zeichen" aria-hidden="true">GS</span>
+            <span>
+              <b>{FIRMA.inhaber}</b>
+              <span>Inhaber, {FIRMA.name}, {FIRMA.ort}</span>
+            </span>
+          </div>
         </div>
         <div className="wege reveal verzoegert-1">
-          <a className="weg" href="mailto:stuecheli.it@bluewin.ch">
+          <AnfrageKnopf className="weg weg-haupt" kontext={kontaktAnfrage(branche)}>
+            <div className="ico24"><Chat /></div>
+            <div>
+              <b>Einrichtung besprechen</b>
+              <span>Kontaktdaten hinterlassen, wir melden uns innert eines Arbeitstages persönlich.</span>
+            </div>
+            <span className="pfeil"><Pfeil /></span>
+          </AnfrageKnopf>
+          <a className="weg" href={`mailto:${FIRMA.email}`}>
             <div className="ico24"><Mail /></div>
-            <div><b>stuecheli.it@bluewin.ch</b><span>Wir antworten innert eines Arbeitstages.</span></div>
+            <div><b>{FIRMA.email}</b><span>Lieber per E-Mail? Antwort innert eines Arbeitstages.</span></div>
             <span className="pfeil"><Pfeil /></span>
           </a>
           <LiveDemoKnopf className="weg" branche={branche}>
             <div className="ico24"><Globus /></div>
-            <div><b>Demo mit Ihrer Website</b><span>Eigener Assistent in rund 30 Sekunden, kostenlos.</span></div>
+            <div><b>Anruf-Demo mit Ihrer Website</b><span>fonio ruft Sie an, Sie hören Ihren Assistenten. Kostenlos.</span></div>
             <span className="pfeil"><Pfeil /></span>
           </LiveDemoKnopf>
-          <ChatKnopf className="weg" branche={branche}>
-            <div className="ico24"><ChatStrich /></div>
-            <div><b>Im Chat ausprobieren</b><span>Sofort im Fenster, ohne Anmeldung.</span></div>
-            <span className="pfeil"><Pfeil /></span>
-          </ChatKnopf>
         </div>
       </div>
     </section>
@@ -172,11 +136,13 @@ export function Kontakt({ branche }: { branche?: BrancheId } = {}) {
 
 export function Fuss() {
   return (
-    <footer className="fuss">
+    <footer className="fuss" data-ohne-chatknopf>
       <div className="wrap">
         <div>
-          <div className="name">Stücheli IT Consulting</div>
-          <div className="zusatz">KI-Telefonassistenten für KMU in der Deutschschweiz · © 2026</div>
+          <div className="name">{FIRMA.name}</div>
+          <div className="zusatz">
+            KI-Telefonassistenten für KMU in der Ostschweiz · {FIRMA.ort} · © 2026
+          </div>
           <nav className="fuss-branchen" aria-label="Branchen">
             {BRANCHENSEITEN.map((b) => (
               <a key={b.slug} href={`/branchen/${b.slug}/`}>{b.kurz}</a>

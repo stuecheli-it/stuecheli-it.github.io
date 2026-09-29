@@ -3,12 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 import type { BrancheId } from "@/lib/branchen";
 import { BRANCHENSEITEN } from "@/lib/branchenseiten";
+import { kopfAnfrage } from "@/lib/fonio";
+import { gewaehlteBranche } from "@/lib/gewaehlteBranche";
 import { MENUE_PUNKTE } from "@/lib/navigation";
 import AnfrageChat from "./AnfrageChat";
 import { BrancheIcon } from "./BranchenGrafik";
 import DemoChat from "./DemoChat";
-import { Chat, Kreuz, Menue, Pfeil } from "./Icons";
-import { kopfAnfrage } from "./KopfAktionen";
+import { Chat, Globus, Kreuz, Menue, Pfeil } from "./Icons";
+import { LiveDemoFenster } from "./LiveDemoFenster";
 
 /**
  * Menü für schmale Bildschirme (bis 940 px sind die Textlinks in der Kopfzeile ausgeblendet).
@@ -18,7 +20,7 @@ import { kopfAnfrage } from "./KopfAktionen";
 export default function HandyMenue({ branche }: { branche?: BrancheId }) {
   const [offen, setOffen] = useState(false);
   // Chat-Fenster ausserhalb des Panels, damit sie beim Schliessen des Menüs offen bleiben
-  const [chat, setChat] = useState<"anfrage" | "demo" | null>(null);
+  const [chat, setChat] = useState<"anfrage" | "demo" | "live" | null>(null);
   const chatZu = useRef(() => setChat(null)).current;
   const knopfRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -40,10 +42,13 @@ export default function HandyMenue({ branche }: { branche?: BrancheId }) {
     document.addEventListener("keydown", taste);
     document.addEventListener("click", klick);
     breit.addEventListener("change", wechsel);
+    // Das Panel füllt den Bildschirm; die Seite dahinter scrollt solange nicht
+    document.body.classList.add("menue-offen");
     return () => {
       document.removeEventListener("keydown", taste);
       document.removeEventListener("click", klick);
       breit.removeEventListener("change", wechsel);
+      document.body.classList.remove("menue-offen");
     };
   }, [offen]);
 
@@ -77,17 +82,30 @@ export default function HandyMenue({ branche }: { branche?: BrancheId }) {
               >
                 Unverbindlich anfragen
               </button>
-              <button
-                type="button"
-                className="btn btn-linie"
-                onClick={() => {
-                  zu();
-                  setChat("demo");
-                }}
-              >
-                <Chat />
-                Im Chat testen
-              </button>
+              <div className="menue-aktionen-zwei">
+                <button
+                  type="button"
+                  className="btn btn-linie"
+                  onClick={() => {
+                    zu();
+                    setChat("live");
+                  }}
+                >
+                  <Globus />
+                  Anruf-Demo
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-linie"
+                  onClick={() => {
+                    zu();
+                    setChat("demo");
+                  }}
+                >
+                  <Chat />
+                  Beispiel-Chat
+                </button>
+              </div>
             </div>
             {/* Die Branchen zuerst: danach suchen die meisten Besucher */}
             <div className="menue-titel">Ihre Branche</div>
@@ -124,7 +142,8 @@ export default function HandyMenue({ branche }: { branche?: BrancheId }) {
       )}
 
       {chat === "anfrage" && <AnfrageChat kontext={kopfAnfrage(branche)} schliessen={chatZu} />}
-      {chat === "demo" && <DemoChat branche={branche} schliessen={chatZu} />}
+      {chat === "demo" && <DemoChat branche={branche ?? gewaehlteBranche()} schliessen={chatZu} />}
+      {chat === "live" && <LiveDemoFenster branche={branche} schliessen={chatZu} />}
     </>
   );
 }

@@ -22,7 +22,6 @@ import {
   Funken,
   Haken,
   Info,
-  Kreislauf,
   Kreuz,
   Pfeil,
   Plus,
@@ -45,6 +44,52 @@ function Betrag({ plan, abrechnung }: { plan: Plan; abrechnung: Abrechnung }) {
     <>
       {proMonatImJahresabo(plan)} <span className="spare-marke">Spare {ersparnisProMonat(plan)}</span>
     </>
+  );
+}
+
+/** Kontext für den Anfrage-Chat: welcher Plan, wie abgerechnet, von wo aus angefragt */
+function planAnfrage(produkt: Produkt, plan: Plan, abrechnung: Abrechnung, quelle: string): AnfrageKontext {
+  return {
+    thema: `${produkt.label} ${plan.name}`,
+    produkt: produkt.label,
+    plan: plan.name,
+    abrechnung: abrechnung === "jahr" ? "jährlich" : "monatlich",
+    preis:
+      abrechnung === "jahr"
+        ? `${proMonatImJahresabo(plan)} pro Monat, jährlich abgerechnet (${chf(plan.jahr)} pro Jahr)`
+        : `${chf(plan.monat)} pro Monat`,
+    quelle,
+  };
+}
+
+/** Umschalter als Knopfgruppe (aria-pressed), gleich wie im Plan-Fenster */
+function Umschalter<T extends string>({
+  label,
+  wert,
+  setWert,
+  optionen,
+  className,
+}: {
+  label: string;
+  wert: T;
+  setWert: (w: T) => void;
+  optionen: Array<{ id: T; text: React.ReactNode }>;
+  className?: string;
+}) {
+  return (
+    <div className={"gruppe" + (className ? " " + className : "")} role="group" aria-label={label}>
+      {optionen.map((o) => (
+        <button
+          key={o.id}
+          type="button"
+          aria-pressed={o.id === wert}
+          className={o.id === wert ? "aktiv" : ""}
+          onClick={() => setWert(o.id)}
+        >
+          {o.text}
+        </button>
+      ))}
+    </div>
   );
 }
 
@@ -115,24 +160,16 @@ function DetailFenster({
               <div className="plan-betrag" aria-live="polite">
                 <Betrag plan={plan} abrechnung={abrechnung} />
               </div>
-              <div className="gruppe plan-abrechnung" role="group" aria-label="Abrechnung">
-                <button
-                  type="button"
-                  aria-pressed={abrechnung === "monat"}
-                  className={abrechnung === "monat" ? "aktiv" : ""}
-                  onClick={() => setAbrechnung("monat")}
-                >
-                  Monatlich
-                </button>
-                <button
-                  type="button"
-                  aria-pressed={abrechnung === "jahr"}
-                  className={abrechnung === "jahr" ? "aktiv" : ""}
-                  onClick={() => setAbrechnung("jahr")}
-                >
-                  Jährlich <span className="rabatt">−{rabattProzent(plan)} %</span>
-                </button>
-              </div>
+              <Umschalter
+                label="Abrechnung"
+                className="plan-abrechnung"
+                wert={abrechnung}
+                setWert={setAbrechnung}
+                optionen={[
+                  { id: "monat", text: "Monatlich" },
+                  { id: "jahr", text: <>Jährlich <span className="rabatt">−{rabattProzent(plan)} %</span></> },
+                ]}
+              />
             </div>
             {abrechnung === "jahr" && (
               <p className="plan-spare">
@@ -189,51 +226,35 @@ export default function Preise() {
       <div className="wrap">
         <div className="reveal">
           <div className="kicker">Preise</div>
-          <h2>Transparent und ohne Umwege.</h2>
+          <h2>Klare Preise, Abo und Einrichtung getrennt.</h2>
           <p className="sub">
             Ihr fonio-Abo aktivieren wir gemeinsam mit Ihnen. So ist Ihr Assistent vom ersten Tag an richtig eingerichtet.
-            Einrichtung, Schulung und Betreuung verrechnen wir separat.
+            Einrichtung, Schulung und Betreuung durch uns: offeriert auf Anfrage, passend zu Ihrem Betrieb.
           </p>
         </div>
 
         <div className="schalter reveal">
-          <div className="gruppe produkt-tabs" role="tablist" aria-label="Produkt">
-            {PRODUKTE.map((p) => (
-              <button
-                key={p.id}
-                type="button"
-                role="tab"
-                aria-selected={p.id === produktId}
-                className={p.id === produktId ? "aktiv" : ""}
-                onClick={() => setProduktId(p.id)}
-              >
-                {p.label}
-              </button>
-            ))}
-          </div>
-          <div className="gruppe abrechnung" role="tablist" aria-label="Abrechnung">
-            <button
-              type="button"
-              role="tab"
-              aria-selected={abrechnung === "monat"}
-              className={abrechnung === "monat" ? "aktiv" : ""}
-              onClick={() => setAbrechnung("monat")}
-            >
-              Monatlich
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected={abrechnung === "jahr"}
-              className={abrechnung === "jahr" ? "aktiv" : ""}
-              onClick={() => setAbrechnung("jahr")}
-            >
-              Jährlich <span className="rabatt">{rabattLabel(produkt)}</span>
-            </button>
-          </div>
+          <Umschalter
+            label="Produkt"
+            className="produkt-tabs"
+            wert={produktId}
+            setWert={setProduktId}
+            optionen={PRODUKTE.map((p) => ({ id: p.id, text: p.label }))}
+          />
+          <Umschalter
+            label="Abrechnung"
+            className="abrechnung"
+            wert={abrechnung}
+            setWert={setAbrechnung}
+            optionen={[
+              { id: "monat", text: "Monatlich" },
+              { id: "jahr", text: <>Jährlich <span className="rabatt">{rabattLabel(produkt)}</span></> },
+            ]}
+          />
         </div>
 
-        <div className="preise" key={produkt.id + abrechnung}>
+        {/* Hier blendet sich der Chat-Knopf unten rechts aus, damit er die Anfrage-Knöpfe nicht verdeckt */}
+        <div className="preise" key={produkt.id + abrechnung} data-ohne-chatknopf>
           {produkt.plaene.map((plan) => (
             <div key={plan.name} className={"preis" + (plan.beliebt ? " mitte" : "")}>
               {plan.beliebt && <span className="beliebt">Beliebt</span>}
@@ -241,25 +262,32 @@ export default function Preise() {
               <p className="fuer">{plan.fuer}</p>
               <div className="betrag"><Betrag plan={plan} abrechnung={abrechnung} /></div>
               {abrechnung === "jahr" && <JahresInfo plan={plan} />}
-              <p className="setup">{plan.setup}</p>
+              {/* Die Einrichtung steht einmal in der Einleitung oben und im Plan-Fenster, nicht auf jeder Karte */}
               <ul>
                 {plan.punkte.map((p) => (
                   <li key={p}><Haken />{p}</li>
                 ))}
               </ul>
-              <button
-                className={"btn " + (plan.beliebt ? "btn-primaer" : "btn-linie")}
-                type="button"
-                onClick={() => setOffen(plan)}
-              >
-                Alle Details
-              </button>
+              <div className="preis-aktionen">
+                <button
+                  className={"btn " + (plan.beliebt ? "btn-primaer" : "btn-linie")}
+                  type="button"
+                  onClick={() => setAnfrage(planAnfrage(produkt, plan, abrechnung, "Preise, Karte"))}
+                >
+                  Unverbindlich anfragen <Pfeil strich={2} />
+                </button>
+                <button className="preis-details" type="button" onClick={() => setOffen(plan)}>
+                  Alle Details zu {plan.name}
+                </button>
+              </div>
             </div>
           ))}
         </div>
         <p className="steuer">
           fonio-Listenpreise in CHF, Stand {PREISSTAND}, exkl. MWST. Abrechnung direkt durch fonio.ai. Für grössere
-          Volumen stellen wir Ihnen ein passendes Paket zusammen.
+          Volumen stellen wir Ihnen ein passendes Paket zusammen. Nach dem Livegang übernehmen wir Anpassungen und
+          Erweiterungen laufend, nach Aufwand und transparent offeriert; den technischen Support für das Produkt selbst
+          leistet fonio.ai direkt.
         </p>
 
         <div className="hinweise">
@@ -270,16 +298,6 @@ export default function Preise() {
               <p>
                 Einrichtung des KI-Telefonassistenten zum Vorzugspreis, weil wir Referenzen aus der
                 Region aufbauen. Im Gegenzug dürfen wir Sie namentlich als Referenz nennen.
-              </p>
-            </div>
-          </div>
-          <div className="hinweis reveal verzoegert-1">
-            <div className="ico24"><Kreislauf /></div>
-            <div>
-              <b>Nach dem Livegang</b>
-              <p>
-                Anpassungen und Erweiterungen übernehmen wir laufend, nach Aufwand und transparent offeriert. Den
-                technischen Support für das Produkt selbst leistet fonio.ai direkt.
               </p>
             </div>
           </div>
@@ -295,17 +313,7 @@ export default function Preise() {
           schliessen={schliessen}
           anfragen={() => {
             setOffen(null);
-            setAnfrage({
-              thema: `${produkt.label} ${offen.name}`,
-              produkt: produkt.label,
-              plan: offen.name,
-              abrechnung: abrechnung === "jahr" ? "jährlich" : "monatlich",
-              preis:
-                abrechnung === "jahr"
-                  ? `${proMonatImJahresabo(offen)} pro Monat, jährlich abgerechnet (${chf(offen.jahr)} pro Jahr)`
-                  : `${chf(offen.monat)} pro Monat`,
-              quelle: "Preise, Plan-Details",
-            });
+            setAnfrage(planAnfrage(produkt, offen, abrechnung, "Preise, Plan-Details"));
           }}
         />
       )}
