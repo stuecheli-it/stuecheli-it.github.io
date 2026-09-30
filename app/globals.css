@@ -552,9 +552,8 @@ body.menue-offen { overflow: hidden; }
 .fuss .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; padding-top: 44px; padding-bottom: 44px; }
 .fuss .name { color: var(--text); font-size: 16px; font-weight: 700; }
 .fuss .zusatz { font-size: 14px; }
-.fuss-branchen { display: flex; flex-wrap: wrap; gap: 0 18px; margin-top: 10px; }
-.fuss-branchen a, .fuss-recht a { display: inline-flex; align-items: center; min-height: 36px; font-size: 14px; color: var(--text-3); }
-.fuss-branchen a:hover, .fuss-recht a:hover { color: var(--text); }
+.fuss-recht a { display: inline-flex; align-items: center; min-height: 36px; font-size: 14px; color: var(--text-3); }
+.fuss-recht a:hover { color: var(--text); }
 .fuss-recht { display: flex; gap: 18px; }
 .lockup { display: flex; align-items: center; gap: 18px; }
 .fuss .marke-name { color: var(--text); }
@@ -750,7 +749,7 @@ body.fenster-offen .nachfassen { display: none; }
   .fuss .wrap { flex-direction: column; align-items: flex-start; }
   .fuss .wrap > div { max-width: 100%; min-width: 0; }
   .lockup { flex-wrap: wrap; row-gap: 14px; max-width: 100%; }
-  .fuss-branchen a, .fuss-recht a { min-height: 44px; }
+  .fuss-recht a { min-height: 44px; }
   .chat-starter { right: 14px; bottom: calc(14px + env(safe-area-inset-bottom)); width: 56px; padding: 0; }
   .chat-starter-text { display: none; }
   .nachfassen { left: 12px; right: 12px; width: auto; bottom: calc(12px + env(safe-area-inset-bottom)); }

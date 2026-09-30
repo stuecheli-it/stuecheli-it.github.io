@@ -181,11 +181,6 @@ export function Fuss() {
           <div className="zusatz">
             {FIRMA.zusatz} für KMU in der Ostschweiz · {FIRMA.ort} · © 2026
           </div>
-          <nav className="fuss-branchen" aria-label="Branchen">
-            {BRANCHENSEITEN.map((b) => (
-              <a key={b.slug} href={`/branchen/${b.slug}/`}>{b.kurz}</a>
-            ))}
-          </nav>
           <nav className="fuss-recht" aria-label="Rechtliches">
             <a href="/impressum/">Impressum</a>
             <a href="/datenschutz/">Datenschutz</a>
