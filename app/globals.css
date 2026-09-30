@@ -549,7 +549,7 @@ body.menue-offen { overflow: hidden; }
 
 /* ---------- Fusszeile ---------- */
 .fuss { background: rgba(10, 8, 18, 0.72); backdrop-filter: blur(16px); border-top: 1px solid var(--rand); color: var(--text-3); }
-.fuss .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; padding-top: 44px; padding-bottom: 44px; }
+.fuss .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px 24px; padding-top: 24px; padding-bottom: 24px; }
 .fuss .name { color: var(--text); font-size: 16px; font-weight: 700; }
 .fuss .zusatz { font-size: 14px; }
 .fuss-recht a { display: inline-flex; align-items: center; min-height: 36px; font-size: 14px; color: var(--text-3); }
