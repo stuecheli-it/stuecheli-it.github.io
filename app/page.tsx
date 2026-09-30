@@ -1,6 +1,5 @@
 import Kopf from "@/components/Kopf";
 import Hero from "@/components/Hero";
-import Laufband from "@/components/Laufband";
 import Branchen from "@/components/Branchen";
 import Preise from "@/components/Preise";
 import { Ablauf, Fragen, Fuss, Kontakt, Nutzen } from "@/components/Abschnitte";
@@ -17,7 +16,6 @@ export default function Startseite() {
       <Kopf />
       <main>
         <Hero />
-        <Laufband />
         <Nutzen />
         <Branchen />
         <Preise />

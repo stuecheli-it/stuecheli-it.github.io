@@ -279,15 +279,6 @@ body.menue-offen { overflow: hidden; }
 .auftrag-karte.fertig .auftrag-fuss { color: var(--mint); font-weight: 600; }
 .beispiel-marke { display: inline-block; margin-right: 7px; padding: 0 7px; border-radius: 999px; background: rgba(255, 255, 255, 0.12); font-family: var(--font-geist), sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; line-height: 19px; vertical-align: 2px; color: var(--text-2); }
 
-/* ---------- Laufband ---------- */
-.laufband { position: relative; z-index: 2; margin: 10px 0 0; padding: 0; transform: rotate(-2deg); width: 106%; margin-left: -3%; background: var(--glut); color: var(--glut-tief); overflow: hidden; box-shadow: 0 20px 60px -20px rgba(255, 107, 61, 0.7); }
-.laufband-spur { display: flex; width: max-content; animation: laufen 48s linear infinite; }
-.laufband:hover .laufband-spur { animation-play-state: paused; }
-.laufband-teil { display: flex; align-items: center; }
-.laufband-wort, .laufband-satz { display: inline-flex; align-items: center; gap: 28px; padding: 18px 0 18px 28px; font-family: var(--anzeige); font-size: clamp(28px, 3.6vw, 52px); font-weight: 800; letter-spacing: -0.03em; line-height: 1; white-space: nowrap; }
-.laufband-satz { color: transparent; -webkit-text-stroke: 1.5px var(--glut-tief); font-weight: 700; }
-.laufband i { width: 14px; height: 14px; border-radius: 50%; background: var(--glut-tief); }
-@keyframes laufen { to { transform: translateX(-50%); } }
 
 /* ---------- Abschnitte ---------- */
 .abschnitt { position: relative; padding: 128px 0; }
@@ -714,7 +705,6 @@ body.fenster-offen .nachfassen { display: none; }
   .stimme-chip { flex: 0 0 auto; }
   .stimme-zeile { font-size: 15px; }
   .auftrag-feld { grid-template-columns: 84px 1fr; }
-  .laufband-wort, .laufband-satz { padding: 14px 0 14px 20px; gap: 20px; }
   .abschnitt { padding: 88px 0; }
   .abschnitt h2 { font-size: clamp(34px, 10vw, 48px); }
   .abschnitt .sub, .kontakt .sub { font-size: 17px; }
@@ -792,7 +782,7 @@ body.fenster-offen .nachfassen { display: none; }
   *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; transition-delay: 0s !important; }
   .reveal { opacity: 1; transform: none; filter: none; }
   .schritt .strich { transform: none; }
-  .platzhalter, .laufband-spur, .hero .demo::before { animation: none; }
+  .platzhalter, .hero .demo::before { animation: none; }
 }
 
 /* =====================================================================
@@ -826,10 +816,6 @@ a:hover { color: #ffffff; }
 .menue-branchen a.aktiv { box-shadow: inset 0 0 0 1.5px var(--violett); color: var(--violett-hell); }
 .menue-liste a::after { color: var(--violett-hell); }
 
-/* Laufband: ruhiges Glasband statt oranger Fläche */
-.laufband { background: rgba(255, 255, 255, 0.04); color: var(--text); border-top: 1px solid var(--rand); border-bottom: 1px solid var(--rand); box-shadow: none; backdrop-filter: blur(10px); }
-.laufband-satz { -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.45); }
-.laufband i { width: 10px; height: 10px; background: var(--violett); box-shadow: 0 0 14px var(--violett); }
 
 /* Anrufer-Blasen getönt statt voll orange */
 .blase.anrufer, .bs-zitat { background: rgba(255, 107, 61, 0.14); color: var(--text); box-shadow: inset 0 0 0 1px rgba(255, 107, 61, 0.4); }
@@ -921,8 +907,6 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
 .auftrag-fuss, .gut-zu-wissen li { font-size: 13.5px; }
 .live-demo-fakten { font-size: 14.5px; color: var(--text-2); }
 .dialog .wer, .stimme-wer { letter-spacing: 0.04em; }
-/* Konturschrift im Laufband war schwer lesbar: jetzt gefüllt in gedämpfter Farbe */
-.laufband-satz { color: var(--text-3); -webkit-text-stroke: 0; font-weight: 600; }
 /* Keine 3D-Neigung und kein Weichzeichnen, das Text unscharf rendert */
 .kipp { transform: none !important; transform-style: flat; will-change: auto; }
 .reveal { filter: none; }
@@ -957,15 +941,6 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
   .schritt h3 { margin-top: 8px; font-size: 22px; }
 }
 
-/* Laufband schmaler und leiser im Verhältnis zum Hero */
-.laufband { transform: rotate(-1.2deg); }
-.laufband-wort, .laufband-satz { gap: 20px; padding: 11px 0 11px 20px; font-size: clamp(18px, 1.8vw, 26px); letter-spacing: -0.015em; }
-.laufband-wort { font-weight: 700; }
-.laufband-satz { font-weight: 500; }
-.laufband i { width: 7px; height: 7px; }
-@media (max-width: 720px) {
-  .laufband-wort, .laufband-satz { gap: 16px; padding: 9px 0 9px 16px; font-size: 18px; }
-}
 
 /* Engere Abstände zwischen den Themen (30.09.2026) */
 .abschnitt { padding: 60px 0; }
@@ -1075,20 +1050,3 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
   .plan-betrag { font-size: 34px; }
 }
 
-/* Laufband «Das sagen Anrufer» (30.09.2026): Sprechblasen der anrufenden Person statt Branchen und Schlagworte.
-   Ruhige Textschrift, langsamer Lauf, leichte Schräge wie bisher. */
-.laufband-spur { animation-duration: 70s; }
-.laufband-teil { gap: 14px; padding: 14px 7px; }
-.anruf-blase {
-  display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px 10px 12px; white-space: nowrap;
-  border-radius: 18px 18px 6px 18px; background: var(--glut); color: var(--glut-tief);
-  font-size: 16px; font-weight: 500; line-height: 1.3;
-}
-.anruf-blase small {
-  padding: 2px 8px; border-radius: 999px; background: rgba(42, 19, 12, 0.14);
-  font-size: 12px; font-weight: 700; letter-spacing: 0.02em;
-}
-@media (max-width: 720px) {
-  .laufband-teil { gap: 10px; padding: 10px 5px; }
-  .anruf-blase { padding: 8px 13px 8px 10px; font-size: 14.5px; }
-}
