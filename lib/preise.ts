@@ -1,6 +1,6 @@
 // Abopreise und Paketinhalte laut fonio.ai/de/preise in CHF, abgeglichen am 28.09.2026.
 // Jahrespreise sind Beträge pro Jahr (nicht pro Monat).
-// Die Einrichtung durch Stücheli IT Consulting wird auf Anfrage offeriert (keine Beträge auf der Website).
+// Die Einrichtung durch Etivo wird auf Anfrage offeriert (keine Beträge auf der Website).
 
 export type ProduktId = "telefon" | "whatsapp" | "webchat";
 

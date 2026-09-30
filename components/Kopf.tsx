@@ -13,12 +13,12 @@ export default function Kopf({ branche }: { branche?: BrancheId } = {}) {
     <header className="kopf">
       <div className="wrap">
         {/* Logo als Bildmarke plus echte Schrift (nach Logo-Richtlinien: Geist Bold / Geist Regular in Versalien) */}
-        <a className="logo marke" href="/" aria-label="Stücheli IT Consulting, zur Startseite">
+        <a className="logo marke" href="/" aria-label="Etivo – KI-Assistenten und Beratung, zur Startseite">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img className="marke-orb" src="/assets/stuecheli-favicon.svg" alt="" />
           <span className="marke-text" aria-hidden="true">
-            <span className="marke-name">Stücheli</span>
-            <span className="marke-zusatz">IT Consulting</span>
+            <span className="marke-name">Etivo</span>
+            <span className="marke-zusatz">KI-Assistenten und Beratung</span>
           </span>
         </a>
         <nav className="nav" aria-label="Hauptnavigation">

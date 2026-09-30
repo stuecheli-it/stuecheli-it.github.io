@@ -3,8 +3,8 @@ import RechtsSeite from "@/components/RechtsSeite";
 import { FIRMA, RECHTSTEXTE_STAND } from "@/lib/firma";
 
 export const metadata: Metadata = {
-  title: "Impressum | Stücheli IT Consulting",
-  description: "Impressum von Stücheli IT Consulting, St. Gallen: Anbieter, Kontakt und rechtliche Hinweise.",
+  title: "Impressum | Etivo – KI-Assistenten und Beratung",
+  description: "Impressum von Etivo, Stücheli, St. Gallen: Anbieter, Kontakt und rechtliche Hinweise.",
   alternates: { canonical: "/impressum/" },
 };
 

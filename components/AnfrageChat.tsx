@@ -19,7 +19,7 @@ export default function AnfrageChat({ kontext, schliessen }: { kontext: AnfrageK
       }
       hinweis={<a href={`mailto:${FIRMA.email}?subject=${encodeURIComponent(`Anfrage: ${thema}`)}`}>Lieber per E-Mail?</a>}
       adresse={anfrageChatAdresse(kontext)}
-      rahmenTitel="Anfrage-Chat von Stücheli IT Consulting"
+      rahmenTitel="Anfrage-Chat von Etivo"
       ladeText="Einen Moment, der Anfrage-Assistent startet …"
       betreff={`Anfrage: ${thema}`}
       schliessen={schliessen}

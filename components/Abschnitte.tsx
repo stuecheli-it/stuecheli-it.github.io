@@ -141,7 +141,7 @@ export function Kontakt({ branche }: { branche?: BrancheId } = {}) {
             <span className="person-zeichen" aria-hidden="true">GS</span>
             <span>
               <b>{FIRMA.inhaber}</b>
-              <span>Inhaber, {FIRMA.name}, {FIRMA.ort}</span>
+              <span>Inhaber von {FIRMA.marke}, {FIRMA.ort}</span>
             </span>
           </div>
         </div>
@@ -193,12 +193,12 @@ export function Fuss() {
         </div>
         <div className="lockup">
           {/* Gleiches Logo wie in der Kopfzeile: Bildmarke plus echte Schrift, hier in der Variante für dunklen Grund */}
-          <span className="marke" role="img" aria-label="Stücheli IT Consulting">
+          <span className="marke" role="img" aria-label="Etivo – KI-Assistenten und Beratung">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="marke-orb" src="/assets/stuecheli-favicon.svg" alt="" />
             <span className="marke-text" aria-hidden="true">
-              <span className="marke-name">Stücheli</span>
-              <span className="marke-zusatz">IT Consulting</span>
+              <span className="marke-name">Etivo</span>
+              <span className="marke-zusatz">KI-Assistenten und Beratung</span>
             </span>
           </span>
           <div className="trenner" />

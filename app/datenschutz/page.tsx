@@ -3,9 +3,9 @@ import RechtsSeite from "@/components/RechtsSeite";
 import { FIRMA, RECHTSTEXTE_STAND } from "@/lib/firma";
 
 export const metadata: Metadata = {
-  title: "Datenschutzerklärung | Stücheli IT Consulting",
+  title: "Datenschutzerklärung | Etivo – KI-Assistenten und Beratung",
   description:
-    "Wie Stücheli IT Consulting Personendaten auf dieser Website, im KI-Web-Chat und bei der Live-Demo bearbeitet.",
+    "Wie Etivo, Stücheli Personendaten auf dieser Website, im KI-Web-Chat und bei der Live-Demo bearbeitet.",
   alternates: { canonical: "/datenschutz/" },
 };
 

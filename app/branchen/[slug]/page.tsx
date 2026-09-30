@@ -29,7 +29,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const s = seiteFuer((await params).slug);
   if (!s) return {};
-  const titel = `${s.metaTitel} | Stücheli IT Consulting`;
+  const titel = `${s.metaTitel} | Etivo – KI-Assistenten und Beratung`;
   const pfad = `/branchen/${s.slug}/`;
   return {
     title: titel,

@@ -7,7 +7,7 @@ import "./globals.css";
 const anzeige = Bricolage_Grotesque({ subsets: ["latin"], weight: ["500", "600", "700", "800"], display: "swap", variable: "--font-anzeige" });
 const geist = Geist({ subsets: ["latin"], weight: ["400", "500", "600", "700"], display: "swap", variable: "--font-geist" });
 
-const TITEL = "Stücheli IT Consulting | Ihr Telefon nimmt jetzt immer ab";
+const TITEL = "Etivo – KI-Assistenten und Beratung | Ihr Telefon nimmt jetzt immer ab";
 const BESCHREIBUNG =
   "KI-Telefonassistenten für KMU in der Ostschweiz: nimmt jeden Anruf entgegen, gibt Auskunft und meldet Ihnen, was wirklich zu Ihnen muss. Persönlich eingerichtet und betreut aus St. Gallen, fonio.ai-Partner.";
 

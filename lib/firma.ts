@@ -1,8 +1,12 @@
 // Firmenangaben für Impressum, Datenschutzerklärung und Fusszeile.
-// Vom Inhaber am 27.09.2026 bestätigt. Strasse wird veröffentlicht (vollständige Kontaktadresse nach UWG).
+// Vom Inhaber am 27.09.2026 bestätigt, Firmenname seit 30.09.2026 «Etivo, Stücheli» (Marke «Etivo – KI-Assistenten und Beratung»). Strasse wird veröffentlicht (vollständige Kontaktadresse nach UWG).
 
 export const FIRMA = {
-  name: "Stücheli IT Consulting",
+  /** Rechtlicher Firmenname (Einzelunternehmen, enthält den Familiennamen) */
+  name: "Etivo, Stücheli",
+  /** Marke im Logo und in Seitentiteln */
+  marke: "Etivo",
+  zusatz: "KI-Assistenten und Beratung",
   inhaber: "Gilbert Stücheli",
   rechtsform: "Einzelunternehmen",
   strasse: "Fellenbergstrasse 65",
