@@ -148,7 +148,6 @@ function DetailFenster({
 
         <div className="plan-scroll">
           <header className="plan-kopf">
-            <div className="plan-glow" aria-hidden />
             <div className="plan-marken">
               <span className="plan-produkt">{PRODUKT_ICON[produkt.id]()}{produkt.label}</span>
               {plan.beliebt && <span className="plan-beliebt">Beliebt</span>}
@@ -225,7 +224,6 @@ export default function Preise() {
     <section className="abschnitt weiss" id="preise">
       <div className="wrap">
         <div className="reveal">
-          <div className="kicker">Preise</div>
           <h2>Klare Preise, Abo und Einrichtung getrennt.</h2>
           <p className="sub">
             Ihr fonio-Abo aktivieren wir gemeinsam mit Ihnen. So ist Ihr Assistent vom ersten Tag an richtig eingerichtet.
@@ -233,7 +231,15 @@ export default function Preise() {
           </p>
         </div>
 
-        <div className="schalter reveal">
+        {/* Das Pilotangebot vor den Karten: der wichtigste Punkt zur Einrichtung, bevor man Beträge vergleicht */}
+        <p className="pilot-zeile reveal">
+          <span className="pilot-ico"><Stern /></span>
+          <span>
+            <b>Pilotangebot für die ersten zehn Betriebe:</b> Einrichtung zum Vorzugspreis, weil wir Referenzen aus der
+            Region aufbauen. Im Gegenzug dürfen wir Sie namentlich als Referenz nennen.
+          </span>
+        </p>
+        <div className="schalter reveal" data-ohne-chatknopf>
           <Umschalter
             label="Produkt"
             className="produkt-tabs"
@@ -254,13 +260,14 @@ export default function Preise() {
         </div>
 
         {/* Hier blendet sich der Chat-Knopf unten rechts aus, damit er die Anfrage-Knöpfe nicht verdeckt */}
-        <div className="preise" key={produkt.id + abrechnung} data-ohne-chatknopf>
+        <div className="preise" key={produkt.id} data-ohne-chatknopf>
           {produkt.plaene.map((plan) => (
-            <div key={plan.name} className={"preis" + (plan.beliebt ? " mitte" : "")}>
+            <div key={plan.name} className={"preis spot" + (plan.beliebt ? " mitte" : "")}>
               {plan.beliebt && <span className="beliebt">Beliebt</span>}
               <h3>{plan.name}</h3>
               <p className="fuer">{plan.fuer}</p>
-              <div className="betrag"><Betrag plan={plan} abrechnung={abrechnung} /></div>
+              {/* Nur der Betrag wechselt sichtbar, wenn Monat/Jahr umgeschaltet wird; die Karte bleibt stehen */}
+              <div className="betrag" key={abrechnung}><Betrag plan={plan} abrechnung={abrechnung} /></div>
               {abrechnung === "jahr" && <JahresInfo plan={plan} />}
               {/* Die Einrichtung steht einmal in der Einleitung oben und im Plan-Fenster, nicht auf jeder Karte */}
               <ul>
@@ -283,27 +290,12 @@ export default function Preise() {
             </div>
           ))}
         </div>
-        <p className="steuer">
-          fonio-Listenpreise in CHF, Stand {PREISSTAND}, exkl. MWST. Abrechnung direkt durch fonio.ai. Für grössere
-          Volumen stellen wir Ihnen ein passendes Paket zusammen. Nach dem Livegang übernehmen wir Anpassungen und
-          Erweiterungen laufend, nach Aufwand und transparent offeriert; den technischen Support für das Produkt selbst
-          leistet fonio.ai direkt.
-        </p>
-
-        <div className="hinweise">
-          <div className="hinweis pilot reveal">
-            <div className="ico24"><Stern /></div>
-            <div>
-              <b>Pilotangebot für die ersten zehn Betriebe</b>
-              <p>
-                Einrichtung des KI-Telefonassistenten zum Vorzugspreis, weil wir Referenzen aus der
-                Region aufbauen. Im Gegenzug dürfen wir Sie namentlich als Referenz nennen.
-              </p>
-            </div>
-          </div>
-        </div>
+        <ul className="gut-zu-wissen" aria-label="Gut zu wissen">
+          <li>fonio-Listenpreise in CHF, exkl. MWST, Stand {PREISSTAND}. Das Abo rechnet fonio.ai direkt mit Ihnen ab.</li>
+          <li>Anpassungen nach dem Livegang übernehmen wir laufend, nach Aufwand und transparent offeriert.</li>
+          <li>Technischer Support für das Produkt: fonio.ai. Für grössere Volumen stellen wir ein passendes Paket zusammen.</li>
+        </ul>
       </div>
-
       {offen && (
         <DetailFenster
           produkt={produkt}

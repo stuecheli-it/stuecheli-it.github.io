@@ -12,8 +12,8 @@ import {
 } from "@/lib/livedemo";
 import { Globus, Pfeil } from "./Icons";
 
-/** So läuft die Anruf-Demo bei fonio, in drei kurzen Schritten unter dem Feld */
-const SCHRITTE = ["Website eingeben", "In rund 30 Sekunden bereit", "fonio ruft Sie an, Sie hören Ihren Assistenten"];
+/** Was man vor dem Klick wissen muss, als eine ruhige Zeile unter dem Feld */
+const FAKTEN = ["Kostenlos bei fonio.ai", "in rund 30 Sekunden bereit", "neuer Tab, fragt nach Ihrer Nummer"];
 
 /**
  * Feld «Ihre Website» plus «Eigene Demo erstellen»: leitet die Adresse an unseren fonio-Partner-Link weiter.
@@ -25,18 +25,22 @@ export default function LiveDemoFormular({
   hell = false,
   branche,
   gesendet,
+  zusatz,
 }: {
   /** Auf hellem Grund (im Fenster) statt im dunklen Hero */
   hell?: boolean;
   /** Auf Branchenseiten: passende Beispiel-Adresse im Feld */
   branche?: BrancheId;
   gesendet?: () => void;
+  /** Weiterer Weg in derselben Zeile wie «Demo ohne Website», z.B. der Beispiel-Chat im Hero */
+  zusatz?: React.ReactNode;
 }) {
   const id = useId();
   const eingabeRef = useRef<HTMLInputElement>(null);
   /** «leer»: nichts eingegeben, «ungueltig»: Eingabe ist keine Website-Adresse */
   const [fehler, setFehler] = useState<"leer" | "ungueltig" | null>(null);
-  const beispiel = branche ? LIVE_DEMO_PLATZHALTER[branche] : "garage-muster.ch";
+  // Beispiel in der Fehlermeldung = Platzhalter im Feld, damit beides zusammenpasst
+  const beispiel = branche ? LIVE_DEMO_PLATZHALTER[branche] : "ihre-website.ch";
 
   const fertig = () => {
     if (gesendet) window.setTimeout(gesendet, 0);
@@ -47,6 +51,8 @@ export default function LiveDemoFormular({
     if (!website || !eingabeRef.current) {
       e.preventDefault();
       setFehler(eingabeRef.current?.value.trim() ? "ungueltig" : "leer");
+      // Zurück ins Feld, damit man die Adresse gleich korrigieren kann
+      eingabeRef.current?.focus();
       return;
     }
     setFehler(null);
@@ -80,12 +86,12 @@ export default function LiveDemoFormular({
             autoCapitalize="off"
             autoCorrect="off"
             spellCheck={false}
-            placeholder={branche ? LIVE_DEMO_PLATZHALTER[branche] : "ihre-website.ch"}
+            placeholder={beispiel}
             aria-invalid={fehler !== null}
             aria-describedby={fehler ? `${id}-fehler` : `${id}-hinweis`}
             onChange={() => fehler && setFehler(null)}
           />
-          <button type="submit" className="btn btn-primaer">
+          <button type="submit" className="btn btn-primaer magnet">
             Anruf-Demo starten <Pfeil strich={2} />
           </button>
         </div>
@@ -97,18 +103,16 @@ export default function LiveDemoFormular({
             : `Das sieht nicht nach einer Website-Adresse aus. Bitte so eingeben: ${beispiel}.`}
         </p>
       )}
-      <ol className="live-demo-schritte" aria-label="So läuft die Anruf-Demo">
-        {SCHRITTE.map((s, i) => (
-          <li key={s}>
-            <span className="live-demo-nr" aria-hidden="true">{i + 1}</span>
-            {s}
-          </li>
+      {/* Eine Zeile statt Schritte und Hinweis: kostenlos, schnell, neuer Tab mit Telefonnummer */}
+      <ul id={`${id}-hinweis`} className="live-demo-fakten" aria-label="Zur Anruf-Demo">
+        {FAKTEN.map((f) => (
+          <li key={f}>{f}</li>
         ))}
-      </ol>
-      <p id={`${id}-hinweis`} className="live-demo-hinweis">
-        Kostenlos bei fonio.ai, dem Anbieter der Technik. Die Seite öffnet sich in einem neuen Tab und fragt nach Ihrer
-        Telefonnummer für den Demo-Anruf.{" "}
+      </ul>
+      {/* Die anderen Wege in einer Zeile, jeder mit genug Fläche zum Tippen */}
+      <div className="live-demo-wege">
         <a
+          className="live-demo-ohne"
           href={liveDemoLink()}
           target="_blank"
           rel="noopener"
@@ -117,9 +121,10 @@ export default function LiveDemoFormular({
             fertig();
           }}
         >
-          Keine Website? Ohne Website starten
+          Ohne Website starten <Pfeil strich={2} />
         </a>
-      </p>
+        {zusatz}
+      </div>
     </div>
   );
 }

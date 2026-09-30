@@ -3,10 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import type { BrancheId } from "@/lib/branchen";
 import { BRANCHENSEITEN } from "@/lib/branchenseiten";
-import { kopfAnfrage } from "@/lib/fonio";
 import { gewaehlteBranche } from "@/lib/gewaehlteBranche";
 import { MENUE_PUNKTE } from "@/lib/navigation";
-import AnfrageChat from "./AnfrageChat";
 import { BrancheIcon } from "./BranchenGrafik";
 import DemoChat from "./DemoChat";
 import { Chat, Globus, Kreuz, Menue, Pfeil } from "./Icons";
@@ -20,7 +18,7 @@ import { LiveDemoFenster } from "./LiveDemoFenster";
 export default function HandyMenue({ branche }: { branche?: BrancheId }) {
   const [offen, setOffen] = useState(false);
   // Chat-Fenster ausserhalb des Panels, damit sie beim Schliessen des Menüs offen bleiben
-  const [chat, setChat] = useState<"anfrage" | "demo" | "live" | null>(null);
+  const [chat, setChat] = useState<"demo" | "live" | null>(null);
   const chatZu = useRef(() => setChat(null)).current;
   const knopfRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -71,41 +69,30 @@ export default function HandyMenue({ branche }: { branche?: BrancheId }) {
       {offen && (
         <div ref={panelRef} id="handy-menue" className="menue-panel">
           <nav aria-label="Menü">
+            {/* Selbst erleben vor Anfragen: die Anfrage steht schon in der Kopfzeile, hier zuerst die Demos */}
             <div className="menue-aktionen">
               <button
                 type="button"
                 className="btn btn-primaer"
                 onClick={() => {
                   zu();
-                  setChat("anfrage");
+                  setChat("live");
                 }}
               >
-                Unverbindlich anfragen
+                <Globus />
+                Anruf-Demo mit Ihrer Website
               </button>
-              <div className="menue-aktionen-zwei">
-                <button
-                  type="button"
-                  className="btn btn-linie"
-                  onClick={() => {
-                    zu();
-                    setChat("live");
-                  }}
-                >
-                  <Globus />
-                  Anruf-Demo
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-linie"
-                  onClick={() => {
-                    zu();
-                    setChat("demo");
-                  }}
-                >
-                  <Chat />
-                  Beispiel-Chat
-                </button>
-              </div>
+              <button
+                type="button"
+                className="btn btn-linie"
+                onClick={() => {
+                  zu();
+                  setChat("demo");
+                }}
+              >
+                <Chat />
+                Beispiel-Chat
+              </button>
             </div>
             {/* Die Branchen zuerst: danach suchen die meisten Besucher */}
             <div className="menue-titel">Ihre Branche</div>
@@ -140,8 +127,6 @@ export default function HandyMenue({ branche }: { branche?: BrancheId }) {
           </nav>
         </div>
       )}
-
-      {chat === "anfrage" && <AnfrageChat kontext={kopfAnfrage(branche)} schliessen={chatZu} />}
       {chat === "demo" && <DemoChat branche={branche ?? gewaehlteBranche()} schliessen={chatZu} />}
       {chat === "live" && <LiveDemoFenster branche={branche} schliessen={chatZu} />}
     </>

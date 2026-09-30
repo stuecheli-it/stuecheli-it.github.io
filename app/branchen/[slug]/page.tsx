@@ -8,11 +8,14 @@ import LiveDemoFormular from "@/components/LiveDemoFormular";
 import AnfrageKnopf from "@/components/AnfrageKnopf";
 import ChatStarter from "@/components/ChatStarter";
 import Reveal from "@/components/Reveal";
+import Klangbuehne from "@/components/Klangbuehne";
+import Effekte from "@/components/Effekte";
 import { Fuss, Kontakt, Nutzen, SCHRITTE } from "@/components/Abschnitte";
 import { BrancheIcon, Illustration } from "@/components/BranchenGrafik";
 import { Chat, Haken, Pfeil } from "@/components/Icons";
 import { BRANCHEN } from "@/lib/branchen";
 import { BRANCHENSEITEN, seiteFuer, type BranchenSeite, type Frage } from "@/lib/branchenseiten";
+import { FRAGE_KI, FRAGE_NUMMER, frageKosten } from "@/lib/fragen";
 import { PREISSTAND, PRODUKTE, chf } from "@/lib/preise";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -38,24 +41,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 const SOLO = PRODUKTE.find((p) => p.id === "telefon")!.plaene.find((p) => p.name === "Solo")!;
 
-/** Fragen, die in jeder Branche gleich beantwortet werden */
+/** Fragen, die in jeder Branche gleich beantwortet werden (gemeinsam mit der Startseite, lib/fragen.ts) */
 function allgemeineFragen(s: BranchenSeite): Frage[] {
-  return [
-    {
-      frage: "Bleibt meine Telefonnummer?",
-      antwort:
-        "Ja. Sie leiten Anrufe auf den Assistenten um, zum Beispiel nur wenn besetzt ist oder ausserhalb der Öffnungszeiten. Ihre Kundschaft wählt weiterhin Ihre Nummer.",
-    },
-    {
-      frage: "Merkt man, dass es eine KI ist?",
-      antwort:
-        "Der Assistent spricht natürlich und im Namen Ihres Betriebs. Wir empfehlen, dass er sich offen als digitaler Assistent vorstellt. Das schafft Vertrauen.",
-    },
-    {
-      frage: `Was kostet das für ${s.mehrzahl === "Restaurants" ? "ein Restaurant" : "meinen Betrieb"}?`,
-      antwort: `Das Abo Telefon KI Solo kostet ${chf(SOLO.monat)} pro Monat (fonio-Listenpreis, exkl. MWST). Dazu kommt die einmalige Einrichtung durch uns. Diese offerieren wir auf Anfrage, passend zu Ihrem Betrieb; für die ersten zehn Betriebe gibt es ein Pilotangebot.`,
-    },
-  ];
+  return [FRAGE_NUMMER, FRAGE_KI, frageKosten(s.mehrzahl === "Restaurants" ? "ein Restaurant" : "meinen Betrieb")];
 }
 
 export default async function Branchenseite({ params }: Props) {
@@ -91,11 +79,11 @@ export default async function Branchenseite({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <Klangbuehne />
       <Kopf branche={s.id} />
       <main>
         {/* ---------- Hero ---------- */}
         <section className="hero bs-hero" data-ohne-chatknopf>
-          <div className="hero-glow" />
           <div className="wrap">
             {/* Übersicht wie im Hero der Startseite: zurück zur Startseite oder direkt zu einer anderen Branche */}
             <nav className="bs-leiste" aria-label="Branchen">
@@ -120,22 +108,22 @@ export default async function Branchenseite({ params }: Props) {
               </div>
             </nav>
             <div>
-              <div className="augenbraue">
-                <span className="punkt" />
-                KI-Telefonassistent für {s.mehrzahl}
-              </div>
               <h1>
                 {s.titel}
                 <br />
-                <span className="glanz">Ihr Telefon nimmt ab.</span>
+                <span className="glanz">Ihr Telefon nimmt&nbsp;ab.</span>
               </h1>
               <p className="lead">{s.lead}</p>
               {/* Live-Demo mit der eigenen Website, daneben der Demo-Chat der Beispiel-Firma dieser Branche */}
-              <LiveDemoFormular branche={s.id} />
-              <ChatKnopf className="hero-chat" branche={s.id}>
-                <Chat />
-                Lieber schreiben? Beispiel-Chat öffnen
-              </ChatKnopf>
+              <LiveDemoFormular
+                branche={s.id}
+                zusatz={
+                  <ChatKnopf className="hero-chat" branche={s.id}>
+                    <Chat />
+                    Beispiel-Chat
+                  </ChatKnopf>
+                }
+              />
             </div>
             <div className="demo">
               <StimmeAuftrag branche={s.id} />
@@ -149,13 +137,11 @@ export default async function Branchenseite({ params }: Props) {
         <section className="abschnitt">
           <div className="wrap">
             <div className="reveal">
-              <div className="kicker">Der Alltag {s.beiEiner}</div>
               <h2>Das Telefon klingelt immer im falschen Moment.</h2>
             </div>
             <div className="karten">
               {s.situationen.map((x, i) => (
-                <div key={x.titel} className={"karte bs-situation reveal" + (i ? ` verzoegert-${i}` : "")}>
-                  <span className="bs-nr">{String(i + 1).padStart(2, "0")}</span>
+                <div key={x.titel} className={"karte bs-situation spot reveal" + (i ? ` verzoegert-${i}` : "")}>
                   <h3>{x.titel}</h3>
                   <p>{x.text}</p>
                 </div>
@@ -168,7 +154,6 @@ export default async function Branchenseite({ params }: Props) {
         <section className="abschnitt weiss">
           <div className="wrap">
             <div className="reveal">
-              <div className="kicker">Das übernimmt er</div>
               <h2>Typische Anrufe {s.beiEiner}.</h2>
               <p className="sub">
                 Wir richten den Assistenten auf Ihr Angebot, Ihre Zeiten und Ihre Abläufe ein. Diese Anrufe erledigt er
@@ -194,11 +179,10 @@ export default async function Branchenseite({ params }: Props) {
         <section className="abschnitt">
           <div className="wrap">
             <div className="reveal">
-              <div className="kicker">Beispiel</div>
               <h2>So klingt das {s.beiEiner}.</h2>
             </div>
             <div className="branche reveal">
-              <div className="dialog">
+              <div className="dialog spot">
                 <div className="wer">Beispielgespräch · {b.titel}</div>
                 {b.gespraech.map((z, i) => (
                   <div key={i} className={"blase " + z.wer}>{z.text}</div>
@@ -208,7 +192,7 @@ export default async function Branchenseite({ params }: Props) {
                 <Illustration b={b} />
                 {b.vorteile.map((v) => (
                   <div key={v.fett} className="vorteil">
-                    <div className="hak"><Haken strich={3} farbe="#06121f" /></div>
+                    <div className="hak"><Haken strich={3} farbe="#ffffff" /></div>
                     <p><b>{v.fett}</b>{v.rest}</p>
                   </div>
                 ))}
@@ -221,7 +205,6 @@ export default async function Branchenseite({ params }: Props) {
         <section className="abschnitt weiss">
           <div className="wrap bs-start">
             <div className="reveal">
-              <div className="kicker">Einstieg</div>
               <h2>In drei Schritten startklar.</h2>
               <ol className="bs-schritte">
                 {SCHRITTE.map((x, i) => (
@@ -235,7 +218,7 @@ export default async function Branchenseite({ params }: Props) {
                 ))}
               </ol>
             </div>
-            <div className="preis mitte bs-preis reveal verzoegert-1">
+            <div className="preis mitte bs-preis spot reveal verzoegert-1">
               <span className="beliebt">Beliebt</span>
               <h3>Telefon KI {SOLO.name}</h3>
               <p className="fuer">{SOLO.fuer}</p>
@@ -275,12 +258,11 @@ export default async function Branchenseite({ params }: Props) {
         <section className="abschnitt">
           <div className="wrap bs-fragen-wrap">
             <div className="reveal">
-              <div className="kicker">Häufige Fragen</div>
               <h2>Was {s.mehrzahl} uns fragen.</h2>
             </div>
             <div className="bs-fragen reveal verzoegert-1">
               {fragen.map((f) => (
-                <details key={f.frage} className="bs-frage">
+                <details key={f.frage} className="bs-frage" name="haeufige-fragen">
                   <summary>
                     {f.frage}
                     <span className="bs-plus" aria-hidden="true" />
@@ -296,7 +278,6 @@ export default async function Branchenseite({ params }: Props) {
         <section className="abschnitt weiss bs-weitere">
           <div className="wrap">
             <div className="reveal">
-              <div className="kicker">Weitere Branchen</div>
               <h2>Auch für diese Betriebe.</h2>
             </div>
             <div className="bs-andere">
@@ -326,6 +307,7 @@ export default async function Branchenseite({ params }: Props) {
       <Fuss />
       <ChatStarter branche={s.id} />
       <Reveal />
+      <Effekte />
     </>
   );
 }

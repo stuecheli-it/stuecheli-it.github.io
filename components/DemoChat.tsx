@@ -66,6 +66,8 @@ export default function DemoChat({ branche, schliessen }: { branche?: BrancheId;
       beispiele={demo.beispiele}
       hinweis="Demo ohne Anmeldung"
       adresse={demoChatAdresse(demo)}
+      ladeText={`Einen Moment, der Assistent der ${demo.firma} startet …`}
+      betreff={`Frage zum Beispiel-Chat ${demo.firma}`}
       rahmenTitel={`Demo-Chat ${demo.firma}`}
       schliessen={schliessen}
     />

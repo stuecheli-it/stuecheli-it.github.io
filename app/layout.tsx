@@ -1,8 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Bricolage_Grotesque, Geist } from "next/font/google";
 import "./globals.css";
 
-// Geist wird beim Build heruntergeladen und von der eigenen Seite ausgeliefert (kein Aufruf zu Google im Browser).
+// Schriften werden beim Build heruntergeladen und von der eigenen Seite ausgeliefert (kein Aufruf zu Google im Browser).
+// Bricolage Grotesque für grosse Titel (eigenwillig, warm), Geist für Text und die Wortmarke im Logo.
+const anzeige = Bricolage_Grotesque({ subsets: ["latin"], weight: ["500", "600", "700", "800"], display: "swap", variable: "--font-anzeige" });
 const geist = Geist({ subsets: ["latin"], weight: ["400", "500", "600", "700"], display: "swap", variable: "--font-geist" });
 
 const TITEL = "Stücheli IT Consulting | Ihr Telefon nimmt jetzt immer ab";
@@ -31,16 +33,16 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#ffffff",
+  themeColor: "#0f0c1b",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de-CH" className={geist.variable}>
+    <html lang="de-CH" className={`${anzeige.variable} ${geist.variable}`}>
       <body>
-        {/* Ohne JavaScript alles sofort sichtbar */}
+        {/* Ohne JavaScript: Ablauf-Linie gleich vollständig zeigen */}
         <noscript>
-          <style>{".reveal{opacity:1!important;transform:none!important}"}</style>
+          <style>{".schritt .strich{transform:none!important}.reveal{opacity:1!important;transform:none!important;clip-path:none!important}"}</style>
         </noscript>
         {children}
       </body>

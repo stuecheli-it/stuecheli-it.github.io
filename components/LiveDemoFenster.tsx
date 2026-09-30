@@ -26,7 +26,6 @@ export function LiveDemoFenster({ branche, schliessen }: { branche?: BrancheId; 
           <Kreuz />
         </button>
         <header className="plan-kopf chat-kopf">
-          <div className="plan-glow" aria-hidden />
           <div className="plan-marken">
             <span className="plan-produkt"><Globus />Anruf-Demo</span>
           </div>

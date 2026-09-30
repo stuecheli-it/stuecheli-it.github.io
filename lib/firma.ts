@@ -7,7 +7,7 @@ export const FIRMA = {
   rechtsform: "Einzelunternehmen",
   strasse: "Fellenbergstrasse 65",
   plz: "9000",
-  ort: "St. Gallen",
+  ort: "St. Gallen",
   land: "Schweiz",
   email: "stuecheli.it@bluewin.ch",
   website: "https://stuecheli-it.github.io",

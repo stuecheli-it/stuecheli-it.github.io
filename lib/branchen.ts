@@ -23,10 +23,11 @@ export const BRANCHEN: Branche[] = [
     tab: "Garage",
     titel: "Garage",
     gespraech: [
-      { wer: "anrufer", text: "Grüezi, ich bräuchte einen Termin für den Reifenwechsel. Geht das nächste Woche?" },
-      { wer: "ki", text: "Gerne. Für welches Fahrzeug, und passt Ihnen eher Vormittag oder Nachmittag?" },
-      { wer: "anrufer", text: "Ein VW Golf, Vormittag wäre gut." },
-      { wer: "ki", text: "Ich habe Sie für Dienstag um 8.30 Uhr eingetragen. Sie erhalten eine Bestätigung per SMS." },
+      // Anderes Beispiel als im Hero (dort der Reifenwechsel): hier eine Panne, die sofort weitergeht
+      { wer: "anrufer", text: "Grüezi, mein Auto springt nicht mehr an. Ich stehe beim Bahnhof Gossau." },
+      { wer: "ki", text: "Das tut mir leid. Steht das Auto sicher, oder blockiert es die Strasse?" },
+      { wer: "anrufer", text: "Es steht auf dem Parkplatz. Aber ich brauche morgen ein Auto." },
+      { wer: "ki", text: "Ich melde die Panne sofort der Werkstatt, man ruft Sie gleich zurück. Den Ersatzwagen für morgen habe ich notiert." },
     ],
     vorteile: [
       { fett: "Termine für Service und Reifenwechsel", rest: " direkt entgegennehmen, auch wenn alle in der Werkstatt sind." },
@@ -48,7 +49,7 @@ export const BRANCHEN: Branche[] = [
     gespraech: [
       { wer: "anrufer", text: "Bei uns tropft es aus der Decke. Können Sie heute noch jemanden schicken?" },
       { wer: "ki", text: "Das klingt dringend, ich gebe das sofort weiter. Wo befindet sich die Liegenschaft?" },
-      { wer: "anrufer", text: "Teufener Strasse 40 in St. Gallen." },
+      { wer: "anrufer", text: "Teufener Strasse 40 in St. Gallen." },
       { wer: "ki", text: "Notiert. Das Team ruft Sie in den nächsten Minuten zurück." },
     ],
     vorteile: [

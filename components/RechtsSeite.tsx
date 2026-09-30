@@ -1,33 +1,33 @@
 // Gemeinsamer Rahmen für Impressum und Datenschutzerklärung:
-// dunkler Kopf wie im Hero, darunter gut lesbarer Fliesstext.
+// Kopf mit grossem Titel, darunter gut lesbarer Fliesstext auf einer ruhigen Fläche.
 import Kopf from "./Kopf";
 import ChatStarter from "./ChatStarter";
 import { Fuss } from "./Abschnitte";
 import { Pfeil } from "./Icons";
+import Klangbuehne from "./Klangbuehne";
 
 export default function RechtsSeite({
-  kicker,
   titel,
   stand,
   children,
 }: {
-  kicker: string;
+  /** Früher Kicker über dem Titel; nicht mehr angezeigt */
+  kicker?: string;
   titel: string;
   stand?: string;
   children: React.ReactNode;
 }) {
   return (
     <>
+      <Klangbuehne />
       <Kopf />
       <main>
         <section className="recht-kopf">
-          <div className="hero-glow" />
           <div className="wrap">
             <a className="bs-leiste-start" href="/">
               <Pfeil strich={2} />
               Startseite
             </a>
-            <div className="kicker">{kicker}</div>
             <h1>{titel}</h1>
             {stand && <p className="recht-stand">Stand {stand}</p>}
           </div>

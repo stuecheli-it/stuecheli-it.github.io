@@ -44,6 +44,8 @@
       var skript = document.createElement("script");
       skript.type = "module";
       skript.src = "https://widget.fonio.ai/webchat-widget.js";
+      // Blockiert (Werbeblocker, Firmen-Firewall) oder offline: die Website zeigt dann einen Ausweg per E-Mail
+      skript.onerror = function () { melden("fehler"); };
       skript.setAttribute("data-fonio-webchat-widget-id", WIDGETS[schluessel]);
       skript.setAttribute("data-fonio-webchat-widget-mode", "floating");
       document.body.appendChild(skript);
@@ -90,6 +92,7 @@
         var root = document.querySelector("fonio-webchat-widget-root");
         if (!wc || !wc.open || !root) {
           if (++versuche < 150) setTimeout(starten, 100);
+          else melden("fehler");
           return;
         }
         new MutationObserver(function () { pruefen(root); }).observe(root, { attributes: true, attributeFilter: [OFFEN] });
@@ -97,6 +100,11 @@
         wc.open();
         pruefen(root);
       }
+      // Liegt der Fokus im Chat, kommt Esc nicht bei der Website an: darum hier abfangen und weitergeben.
+      // capture, damit auch Tasten aus dem fonio-Widget (Shadow DOM) ankommen.
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") melden("esc");
+      }, true);
       starten();
     })();
   </script>

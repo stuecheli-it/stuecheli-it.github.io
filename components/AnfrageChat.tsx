@@ -1,5 +1,6 @@
 "use client";
 
+import { FIRMA } from "@/lib/firma";
 import { anfrageChatAdresse, type AnfrageKontext } from "@/lib/fonio";
 import ChatFenster from "./ChatFenster";
 
@@ -16,9 +17,11 @@ export default function AnfrageChat({ kontext, schliessen }: { kontext: AnfrageK
           Ihnen und beantwortet Ihre Fragen.
         </>
       }
-      hinweis="Lieber per E-Mail oder Telefon?"
+      hinweis={<a href={`mailto:${FIRMA.email}?subject=${encodeURIComponent(`Anfrage: ${thema}`)}`}>Lieber per E-Mail?</a>}
       adresse={anfrageChatAdresse(kontext)}
       rahmenTitel="Anfrage-Chat von Stücheli IT Consulting"
+      ladeText="Einen Moment, der Anfrage-Assistent startet …"
+      betreff={`Anfrage: ${thema}`}
       schliessen={schliessen}
     />
   );

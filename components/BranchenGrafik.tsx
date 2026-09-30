@@ -22,24 +22,12 @@ function MotivForm({ m }: { m: Motiv }) {
   return <path className="motiv" d={m.d} />;
 }
 
-/** Branchen-Illustration im Orb-Stil: Verlaufsscheibe mit weissem Linienmotiv. */
+/** Branchen-Illustration: glühendes Feld (Farbe aus globals.css) mit hellem Linienmotiv. */
 export function Illustration({ b, klasse = "illu" }: { b: Branche; klasse?: string }) {
   return (
     <div className={klasse}>
       <svg viewBox="0 0 120 120" aria-hidden="true">
-        <defs>
-          <radialGradient id={`ig-${klasse}-${b.id}`} cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0.72" stopColor="#3fc8ff" stopOpacity="0.45" />
-            <stop offset="1" stopColor="#3fa0ff" stopOpacity="0" />
-          </radialGradient>
-          <linearGradient id={`ib-${klasse}-${b.id}`} x1="0.1" y1="0.05" x2="0.9" y2="0.95">
-            <stop offset="0" stopColor="#3ff0c9" />
-            <stop offset="0.48" stopColor="#3a8cff" />
-            <stop offset="1" stopColor="#6b45ff" />
-          </linearGradient>
-        </defs>
-        <circle cx="60" cy="60" r="60" fill={`url(#ig-${klasse}-${b.id})`} />
-        <circle cx="60" cy="60" r="46" fill={`url(#ib-${klasse}-${b.id})`} />
+        <rect className="illu-feld" x="8" y="8" width="104" height="104" rx="28" />
         {b.motiv.map((m, i) => (
           <MotivForm key={i} m={m} />
         ))}

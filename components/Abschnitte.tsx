@@ -3,6 +3,7 @@ import type { BrancheId } from "@/lib/branchen";
 import { BRANCHENSEITEN } from "@/lib/branchenseiten";
 import { FIRMA } from "@/lib/firma";
 import type { AnfrageKontext } from "@/lib/fonio";
+import { STARTSEITE_FRAGEN } from "@/lib/fragen";
 import AnfrageKnopf from "./AnfrageKnopf";
 import { Chat, ChatPunkte, ChatStrich, Globus, Klemmbrett, Mail, Pfeil, Uhr } from "./Icons";
 import LiveDemoKnopf from "./LiveDemoFenster";
@@ -15,27 +16,30 @@ const NUTZEN = [
   { icon: <Uhr />, titel: "Immer erreichbar", text: "Auch abends, am Wochenende und wenn alle im Einsatz sind." },
   { icon: <ChatStrich />, titel: "Gibt Auskunft", text: "Öffnungszeiten, Anfahrt, Ablauf und Zuständigkeiten." },
   { icon: <Klemmbrett />, titel: "Nimmt auf, was zählt", text: "Anliegen, Termine und Rückrufwünsche." },
-  { icon: <Mail />, titel: "Zusammenfassung per Mail", text: "Sie lesen jedes Gespräch nach, wann es Ihnen passt." },
+  { icon: <Mail />, titel: "Zusammen­fassung per Mail", text: "Sie lesen jedes Gespräch nach, wann es Ihnen passt." },
 ];
 
 export function Nutzen() {
+  // Eine Glasfläche mit vier Spalten statt einzelner Karten: kompakt, ohne Leerraum
   return (
-    <section className="nutzen">
+    <section className="nutzen abschnitt">
       <div className="wrap">
-        {NUTZEN.map((n, i) => (
-          <div key={n.titel} className={"nutz reveal" + verzoegert(i)}>
-            <div className="ico24">{n.icon}</div>
-            <div>
+        <div className="reveal">
+          <h2>Das übernimmt der Assistent.</h2>
+        </div>
+        <ul className="nutzen-raster reveal">
+          {NUTZEN.map((n) => (
+            <li key={n.titel} className="nutz spot">
+              <span className="zeichen" aria-hidden="true">{n.icon}</span>
               <b>{n.titel}</b>
-              <span>{n.text}</span>
-            </div>
-          </div>
-        ))}
+              <span className="nutz-text">{n.text}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );
 }
-
 // ---------- Ablauf: so richten wir ihn ein ----------
 
 export const SCHRITTE = [
@@ -52,14 +56,13 @@ export function Ablauf() {
     <section className="abschnitt" id="ablauf">
       <div className="wrap">
         <div className="reveal">
-          <div className="kicker">Wie es funktioniert</div>
           <h2>Keine IT-Kenntnisse, keine neue Telefonanlage.</h2>
           <p className="sub">Ihre Nummer bleibt. Sie erzählen, wir richten ein und bleiben dran, ohne Fachbegriffe.</p>
         </div>
         <ol className="schritte">
           {SCHRITTE.map((s, i) => (
             <li key={s.titel} className={"schritt reveal" + verzoegert(i)}>
-              <div className="nr" aria-hidden="true">{i + 1}</div>
+              <div className="nr" aria-hidden="true">{String(i + 1).padStart(2, "0")}</div>
               {i < SCHRITTE.length - 1 && <div className="strich" />}
               <h3>{s.titel}</h3>
               <p>{s.text}</p>
@@ -78,6 +81,43 @@ export function Ablauf() {
   );
 }
 
+// ---------- Häufige Fragen ----------
+
+export function Fragen() {
+  // Strukturierte Daten für Suchmaschinen, wie auf den Branchenseiten
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: STARTSEITE_FRAGEN.map((f) => ({
+      "@type": "Question",
+      name: f.frage,
+      acceptedAnswer: { "@type": "Answer", text: f.antwort },
+    })),
+  };
+  return (
+    <section className="abschnitt weiss" id="fragen" data-ohne-chatknopf>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <div className="wrap bs-fragen-wrap">
+        <div className="reveal">
+          <h2>Was Betriebe uns vor dem Start fragen.</h2>
+          <p className="sub">Ihre Frage ist nicht dabei? Stellen Sie sie im Anfrage-Chat, wir antworten persönlich.</p>
+        </div>
+        <div className="bs-fragen reveal verzoegert-1">
+          {STARTSEITE_FRAGEN.map((f) => (
+            <details key={f.frage} className="bs-frage" name="haeufige-fragen">
+              <summary>
+                {f.frage}
+                <span className="bs-plus" aria-hidden="true" />
+              </summary>
+              <p>{f.antwort}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ---------- Kontakt ----------
 
 function kontaktAnfrage(branche?: BrancheId): AnfrageKontext {
@@ -90,10 +130,8 @@ function kontaktAnfrage(branche?: BrancheId): AnfrageKontext {
 export function Kontakt({ branche }: { branche?: BrancheId } = {}) {
   return (
     <section className="kontakt" id="kontakt" data-ohne-chatknopf>
-      <div className="glow" />
       <div className="wrap">
         <div className="reveal">
-          <div className="kicker">Kontakt</div>
           <h2>Neugierig, wie das für Ihren Betrieb klingen würde?</h2>
           <p className="sub">
             Sie sprechen direkt mit dem Inhaber. Er richtet Ihren Assistenten persönlich ein, testet ihn mit Ihnen und
@@ -108,20 +146,20 @@ export function Kontakt({ branche }: { branche?: BrancheId } = {}) {
           </div>
         </div>
         <div className="wege reveal verzoegert-1">
-          <AnfrageKnopf className="weg weg-haupt" kontext={kontaktAnfrage(branche)}>
+          <AnfrageKnopf className="weg spot" kontext={kontaktAnfrage(branche)}>
             <div className="ico24"><Chat /></div>
             <div>
-              <b>Einrichtung besprechen</b>
-              <span>Kontaktdaten hinterlassen, wir melden uns innert eines Arbeitstages persönlich.</span>
+              <b>Unverbindlich anfragen</b>
+              <span>Einrichtung besprechen: Kontaktdaten hinterlassen, wir melden uns innert eines Arbeitstages persönlich.</span>
             </div>
             <span className="pfeil"><Pfeil /></span>
           </AnfrageKnopf>
-          <a className="weg" href={`mailto:${FIRMA.email}`}>
+          <a className="weg spot" href={`mailto:${FIRMA.email}`}>
             <div className="ico24"><Mail /></div>
             <div><b>{FIRMA.email}</b><span>Lieber per E-Mail? Antwort innert eines Arbeitstages.</span></div>
             <span className="pfeil"><Pfeil /></span>
           </a>
-          <LiveDemoKnopf className="weg" branche={branche}>
+          <LiveDemoKnopf className="weg spot" branche={branche}>
             <div className="ico24"><Globus /></div>
             <div><b>Anruf-Demo mit Ihrer Website</b><span>fonio ruft Sie an, Sie hören Ihren Assistenten. Kostenlos.</span></div>
             <span className="pfeil"><Pfeil /></span>
