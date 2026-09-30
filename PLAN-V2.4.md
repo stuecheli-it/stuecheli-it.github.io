@@ -1,11 +1,12 @@
-# Website V2.3: Arbeitsplan
+# Website V2.4: Arbeitsplan (bis 30.09.2026 «V2.3»)
 
 Ausgangslage: V2.2 ist live und abgeschlossen (Git-Marke `v2.2.3`, Commit e5b6c1e, Stand 29.09.2026).
 Neu in V2.2: Live-Demo mit der eigenen Website über den fonio-Partner-Link (statt Demo-Nummer), Nachfassen beim
 Zurückkommen, drei Schritte und Beispiel-Adresse pro Branche, Preise mit fonio abgeglichen (Web-Chat korrigiert,
 Zusatzkosten in CHF, Jahresabo wie auf fonio.ai), Einrichtung «offeriert auf Anfrage, passend zu Ihrem Betrieb».
 
-Gearbeitet wird im Zweig `v2.3`. Die Live-Seite ändert sich erst, wenn `v2.3` in `main` übernommen wird,
+Gearbeitet wird seit 01.10.2026 im Zweig `v2.4` (Stand fdb9f94 und neuer). Der Zweig `v2.3` auf GitHub bleibt absichtlich
+auf dem älteren Stand cc8c894. Die Live-Seite ändert sich erst, wenn `v2.4` in `main` übernommen wird,
 denn nur ein Push auf `main` veröffentlicht (Workflow «Website veröffentlichen»).
 
 ## Erledigt: Gesamtbeurteilung umgesetzt (30.09.2026 abends, noch nicht veröffentlicht)
