@@ -1,6 +1,7 @@
 "use client";
 
 import { type ReactElement, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   PREISSTAND,
   PRODUKTE,
@@ -139,7 +140,8 @@ function DetailFenster({
   const kacheln = plan.details.filter((d) => !LEISE.includes(d.titel));
   const hinweise = plan.details.filter((d) => LEISE.includes(d.titel));
 
-  return (
+  // Direkt an body: sonst rechnet position:fixed ab einem Elternteil mit transform oder backdrop-filter
+  return createPortal(
     <div className="plan-hintergrund" onClick={(e) => e.target === e.currentTarget && schliessen()}>
       <div ref={fensterRef} className="plan-fenster" role="dialog" aria-modal="true" aria-labelledby="planTitel">
         <button ref={zuRef} className="plan-zu" type="button" aria-label="Schliessen" onClick={schliessen}>
@@ -207,7 +209,8 @@ function DetailFenster({
           </button>
         </footer>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

@@ -46,7 +46,7 @@ export const SCHRITTE = [
   { titel: "Zuhören", text: "Sie erzählen, wie bei Ihnen telefoniert wird und was Anrufende wollen." },
   {
     titel: "Einrichten",
-    text: "Wir füttern den Assistenten mit Ihrem Wissen, testen mit Ihnen und passen an, bis er klingt wie Ihr Betrieb.",
+    text: "Wir geben dem Assistenten Ihr Wissen mit, testen mit Ihnen und passen an, bis er klingt wie Ihr Betrieb.",
   },
   { titel: "Dranbleiben", text: "Ändert sich bei Ihnen etwas, ändern wir den Assistenten mit." },
 ];
@@ -56,7 +56,7 @@ export function Ablauf() {
     <section className="abschnitt" id="ablauf">
       <div className="wrap">
         <div className="reveal">
-          <h2>Keine IT-Kenntnisse, keine neue Telefonanlage.</h2>
+          <h2>Keine IT‑Kenntnisse, keine neue Telefonanlage.</h2>
           <p className="sub">Ihre Nummer bleibt. Sie erzählen, wir richten ein und bleiben dran, ohne Fachbegriffe.</p>
         </div>
         <ol className="schritte">
@@ -179,7 +179,7 @@ export function Fuss() {
         <div>
           <div className="name">{FIRMA.name}</div>
           <div className="zusatz">
-            KI-Telefonassistenten für KMU in der Ostschweiz · {FIRMA.ort} · © 2026
+            {FIRMA.zusatz} für KMU in der Ostschweiz · {FIRMA.ort} · © 2026
           </div>
           <nav className="fuss-branchen" aria-label="Branchen">
             {BRANCHENSEITEN.map((b) => (

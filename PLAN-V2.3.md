@@ -8,6 +8,25 @@ Zusatzkosten in CHF, Jahresabo wie auf fonio.ai), Einrichtung «offeriert auf An
 Gearbeitet wird im Zweig `v2.3`. Die Live-Seite ändert sich erst, wenn `v2.3` in `main` übernommen wird,
 denn nur ein Push auf `main` veröffentlicht (Workflow «Website veröffentlichen»).
 
+## Erledigt: Kritik «Klangkörper» umgesetzt (30.09.2026, noch nicht veröffentlicht)
+
+Vierte Kritik (neues Layout): 23/36 (64 %, Bericht in `../.impeccable/critique/2026-09-30T19-22-30Z…`). Wunsch des Inhabers:
+alle 5 Punkte, Klangkörper bleibt, aber ruhiger. Umgesetzt:
+
+- [x] **Fenster am body (P0):** Beispiel-Chat, Anfrage, Anruf-Demo und Plan-Details per `createPortal` an `document.body`.
+      Vorher sass der Beispiel-Chat aus dem Hero verrutscht (Schliessen-Knopf auf dem Handy unter der Kopfzeile).
+- [x] **Weichzeichner in Chromium (P1):** `-webkit-backdrop-filter` aus dem CSS entfernt; der Build ergänzt das Präfix
+      selbst und behält jetzt beide Formen (vorher nur die Präfix-Form, Chrome/Edge/Android ohne Glas).
+- [x] **Handy kürzer (P1):** Einleitung auf dem Handy ohne Mittelteil (4 statt 6 Zeilen), Kugel kleiner (Auftragskarte
+      bei 939 statt 1099 px), Preiskarten mit 2 Punkten, Hero-Chips 44 px, Logo-Zusatz unter 520 px ausgeblendet. 10,2 → 9,8 Bildschirme.
+- [x] **Ruhigere Farben (P2):** Orange nur für Handlungen und die anrufende Person; Nutzen-Kacheln, Avatar «GS»,
+      Schrittziffern und Lesefortschritt in Violett; keine farbigen Leuchtschatten; «Beispielgespräch …» ohne Versalien.
+- [x] **Texte (P2):** Anfrage-Fenster ohne «Ihre Anfrage zu «Allgemeine Anfrage»», «füttern» ersetzt, «IT‑Kenntnisse»
+      ohne Umbruch, Fusszeile mit «KI-Assistenten und Beratung», Faktenzeile einheitlich gross.
+- [ ] **Für den Inhaber in fonio:** Anzeigename des Widgets «Webseite - Anfragen» von «Stücheli IT Consulting» auf «Etivo».
+- [ ] Offen aus der Kritik: Hero-Chips brechen am Desktop 4 + 2, WebGL-Sternenhimmel auf dem Handy (Akku, 544 KB),
+      Seite auf dem Handy weiterhin rund 10 Bildschirme, Kontakt ohne klare Handlungsspitze, Gesicht statt «GS».
+
 ## Erledigt: Neues Design «Der Klangkörper» (30.09.2026, noch nicht veröffentlicht)
 
 Wunsch des Inhabers: kräftig, modern, 3D, «richtig spektakulär». Ersetzt die Landeskarte vom selben Tag

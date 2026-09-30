@@ -118,7 +118,7 @@ html:not(.mit-3d) .hero .demo::before {
 .btn-klein { height: 44px; padding: 0 18px; font-size: 15px; }
 
 /* ---------- Kopfzeile ---------- */
-.kopf { position: sticky; top: 0; z-index: 50; background: rgba(15, 12, 27, 0.6); backdrop-filter: blur(18px) saturate(150%); -webkit-backdrop-filter: blur(18px) saturate(150%); border-bottom: 1px solid var(--rand); }
+.kopf { position: sticky; top: 0; z-index: 50; background: rgba(15, 12, 27, 0.6); backdrop-filter: blur(18px) saturate(150%); border-bottom: 1px solid var(--rand); }
 .kopf .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 76px; }
 .marke { display: flex; align-items: center; gap: 11px; flex: 0 0 auto; color: var(--text); }
 .marke:hover { color: var(--text); }
@@ -139,7 +139,7 @@ html:not(.mit-3d) .hero .demo::before {
 .nav-branchen.offen .nav-pfeil, .demo-menue.offen .nav-pfeil { transform: rotate(180deg); }
 .nav-dropdown {
   position: absolute; top: calc(100% + 14px); left: 50%; z-index: 40; width: 300px; margin-left: -150px; padding: 8px;
-  background: rgba(23, 19, 42, 0.92); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  background: rgba(23, 19, 42, 0.92); backdrop-filter: blur(20px);
   border: 1px solid var(--rand); border-radius: var(--radius); box-shadow: var(--schatten); animation: fenster-ein 0.3s var(--weich);
 }
 .nav-dropdown[hidden] { display: none; }
@@ -196,7 +196,7 @@ body.menue-offen { overflow: hidden; }
 
 /* Demo-Feld */
 .live-demo { margin-top: 34px; max-width: 600px; }
-.live-demo-feld { display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 18px; background: var(--glas); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--rand-2); border-radius: 999px; transition: box-shadow 0.25s, border-color 0.25s; }
+.live-demo-feld { display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 18px; background: var(--glas); backdrop-filter: blur(16px); border: 1px solid var(--rand-2); border-radius: 999px; transition: box-shadow 0.25s, border-color 0.25s; }
 .live-demo-feld:focus-within { border-color: var(--glut); box-shadow: 0 0 0 5px rgba(255, 107, 61, 0.18), var(--glow); }
 .live-demo-feld:has(input[aria-invalid="true"]) { border-color: #ff5f7a; }
 .live-demo-ico { display: flex; color: var(--text-3); }
@@ -222,14 +222,14 @@ body.menue-offen { overflow: hidden; }
 .stimme-wahl { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
 .stimme-chip {
   display: inline-flex; align-items: center; gap: 7px; height: 38px; padding: 0 14px; border: 0; border-radius: 999px; cursor: pointer;
-  background: rgba(255, 255, 255, 0.06); box-shadow: inset 0 0 0 1px var(--rand); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.06); box-shadow: inset 0 0 0 1px var(--rand); backdrop-filter: blur(10px);
   font: inherit; font-size: 14px; font-weight: 600; color: var(--text-2); transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.3s var(--feder);
 }
 .stimme-chip svg { width: 16px; height: 16px; stroke: currentColor; }
 .stimme-chip:hover { color: var(--text); background: rgba(255, 255, 255, 0.12); transform: translateY(-2px); }
 .stimme-chip.aktiv { background: var(--glut); color: var(--glut-tief); box-shadow: var(--glow); }
 .stimme-untertitel { align-self: flex-start; max-width: 380px; min-height: 96px; display: flex; align-items: flex-end; }
-.stimme-zeile { margin: 0; padding: 14px 18px; border-radius: 20px; font-size: 16px; line-height: 1.45; backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); animation: zeile-ein 0.5s var(--feder) both; }
+.stimme-zeile { margin: 0; padding: 14px 18px; border-radius: 20px; font-size: 16px; line-height: 1.45; backdrop-filter: blur(16px); animation: zeile-ein 0.5s var(--feder) both; }
 .stimme-anrufer { background: rgba(255, 107, 61, 0.16); box-shadow: inset 0 0 0 1px rgba(255, 107, 61, 0.45); border-bottom-left-radius: 6px; }
 .stimme-assistent { background: rgba(142, 125, 255, 0.18); box-shadow: inset 0 0 0 1px rgba(142, 125, 255, 0.5); border-bottom-left-radius: 6px; }
 .stimme-fertig { background: rgba(77, 227, 166, 0.14); box-shadow: inset 0 0 0 1px rgba(77, 227, 166, 0.45); }
@@ -247,7 +247,7 @@ body.menue-offen { overflow: hidden; }
 
 .auftrag-karte {
   align-self: flex-end; width: min(390px, 100%); padding: 18px 20px 14px; border-radius: 22px;
-  background: var(--glas); backdrop-filter: blur(22px) saturate(140%); -webkit-backdrop-filter: blur(22px) saturate(140%);
+  background: var(--glas); backdrop-filter: blur(22px) saturate(140%);
   border: 1px solid var(--rand-2); box-shadow: var(--schatten); transition: border-color 0.5s, box-shadow 0.5s;
 }
 .auftrag-karte.fertig { border-color: rgba(77, 227, 166, 0.6); box-shadow: 0 0 0 4px rgba(77, 227, 166, 0.12), 0 20px 60px -20px rgba(77, 227, 166, 0.45); }
@@ -299,7 +299,7 @@ body.menue-offen { overflow: hidden; }
 .nutzen-raster { list-style: none; margin: 56px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .nutz {
   display: flex; flex-direction: column; gap: 10px; min-height: 230px; padding: 30px; border-radius: 26px;
-  background: var(--glas); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid var(--rand); overflow: hidden;
+  background: var(--glas); backdrop-filter: blur(18px); border: 1px solid var(--rand); overflow: hidden;
 }
 .nutz:nth-child(1) { grid-column: span 2; }
 .nutz:nth-child(4) { grid-column: span 2; }
@@ -326,7 +326,7 @@ body.menue-offen { overflow: hidden; }
 .tab.aktiv { background: var(--text); color: var(--nacht); box-shadow: 0 10px 30px -10px rgba(255, 255, 255, 0.4); }
 .branche { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: 48px; margin-top: 30px; animation: aufblenden 0.4s ease; }
 @keyframes aufblenden { from { opacity: 0; } to { opacity: 1; } }
-.dialog { display: flex; flex-direction: column; gap: 10px; padding: 28px; border-radius: 26px; background: var(--glas); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--rand); }
+.dialog { display: flex; flex-direction: column; gap: 10px; padding: 28px; border-radius: 26px; background: var(--glas); backdrop-filter: blur(20px); border: 1px solid var(--rand); }
 .dialog .wer { margin-bottom: 6px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-3); }
 .blase { max-width: 84%; padding: 12px 16px; border-radius: 20px; font-size: 15.5px; line-height: 1.45; }
 .blase.ki { align-self: flex-start; background: rgba(142, 125, 255, 0.2); box-shadow: inset 0 0 0 1px rgba(142, 125, 255, 0.4); border-bottom-left-radius: 6px; }
@@ -364,7 +364,7 @@ body.menue-offen { overflow: hidden; }
 .preise { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; max-width: 960px; margin-top: 26px; align-items: stretch; }
 .preis {
   position: relative; display: flex; flex-direction: column; gap: 6px; padding: 32px 30px; border-radius: 28px;
-  background: var(--glas); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid var(--rand); animation: aufblenden 0.4s ease;
+  background: var(--glas); backdrop-filter: blur(20px); border: 1px solid var(--rand); animation: aufblenden 0.4s ease;
 }
 .preis.mitte {
   border: 1.5px solid transparent;
@@ -393,7 +393,7 @@ body.menue-offen { overflow: hidden; }
 .gut-zu-wissen li::before { content: ""; position: absolute; left: 1px; top: 0.6em; width: 6px; height: 6px; border-radius: 50%; background: var(--text-3); }
 
 /* Plan-Fenster und alle Chat- und Demo-Fenster */
-.plan-hintergrund { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(8, 6, 16, 0.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); animation: aufblenden 0.25s ease; }
+.plan-hintergrund { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(8, 6, 16, 0.7); backdrop-filter: blur(8px); animation: aufblenden 0.25s ease; }
 .plan-fenster { position: relative; width: 100%; max-width: 780px; max-height: min(88vh, 860px); display: flex; flex-direction: column; overflow: hidden; background: var(--nacht-2); border: 1px solid var(--rand-2); border-radius: 28px; box-shadow: 0 50px 120px -30px rgba(0, 0, 0, 0.8); animation: fenster-ein 0.5s var(--feder); }
 @keyframes fenster-ein { from { opacity: 0; transform: translateY(24px) scale(0.96); } to { opacity: 1; transform: none; } }
 .plan-scroll { flex: 1 1 auto; overflow-y: auto; overscroll-behavior: contain; }
@@ -509,7 +509,7 @@ body.menue-offen { overflow: hidden; }
 .bs-fragen-wrap > div:first-child { position: sticky; top: 110px; }
 .bs-fragen-wrap h2 { font-size: clamp(38px, 4vw, 58px); }
 .bs-fragen { display: flex; flex-direction: column; gap: 10px; max-width: 760px; }
-.bs-frage { border-radius: 20px; background: var(--glas); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--rand); transition: border-color 0.25s, background 0.25s; }
+.bs-frage { border-radius: 20px; background: var(--glas); backdrop-filter: blur(16px); border: 1px solid var(--rand); transition: border-color 0.25s, background 0.25s; }
 .bs-frage:hover { border-color: var(--rand-2); }
 .bs-frage[open] { border-color: rgba(255, 107, 61, 0.5); background: rgba(40, 26, 44, 0.7); }
 .bs-frage summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; padding: 16px 20px 16px 24px; font-size: 17.5px; font-weight: 600; }
@@ -537,7 +537,7 @@ body.menue-offen { overflow: hidden; }
 .wege { display: flex; flex-direction: column; gap: 12px; }
 .weg {
   display: flex; align-items: center; gap: 16px; width: 100%; padding: 18px 20px; border: 1px solid var(--rand); border-radius: 22px;
-  background: var(--glas); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); color: var(--text); font: inherit; text-align: left; cursor: pointer; overflow: hidden;
+  background: var(--glas); backdrop-filter: blur(18px); color: var(--text); font: inherit; text-align: left; cursor: pointer; overflow: hidden;
   transition: border-color 0.25s, transform 0.4s var(--feder);
 }
 .weg:hover { color: var(--text); border-color: var(--rand-2); transform: translateX(6px); }
@@ -548,7 +548,7 @@ body.menue-offen { overflow: hidden; }
 .weg .pfeil svg { width: 100%; height: 100%; }
 
 /* ---------- Fusszeile ---------- */
-.fuss { background: rgba(10, 8, 18, 0.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid var(--rand); color: var(--text-3); }
+.fuss { background: rgba(10, 8, 18, 0.72); backdrop-filter: blur(16px); border-top: 1px solid var(--rand); color: var(--text-3); }
 .fuss .wrap { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; padding-top: 44px; padding-bottom: 44px; }
 .fuss .name { color: var(--text); font-size: 16px; font-weight: 700; }
 .fuss .zusatz { font-size: 14px; }
@@ -574,7 +574,7 @@ body.menue-offen { overflow: hidden; }
 .chat-starter svg { width: 22px; height: 22px; flex: 0 0 auto; }
 .chat-starter.zurueck { opacity: 0; transform: translateY(20px) scale(0.9); pointer-events: none; }
 body.fenster-offen .chat-starter { display: none; }
-.nachfassen { position: fixed; left: 20px; bottom: calc(20px + env(safe-area-inset-bottom)); z-index: 70; width: min(390px, calc(100vw - 40px)); padding: 22px 22px 20px; background: rgba(23, 19, 42, 0.94); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); color: var(--text); border: 1px solid rgba(255, 107, 61, 0.5); border-radius: 24px; box-shadow: var(--schatten), 0 0 60px -20px rgba(255, 107, 61, 0.6); animation: fenster-ein 0.5s var(--feder); }
+.nachfassen { position: fixed; left: 20px; bottom: calc(20px + env(safe-area-inset-bottom)); z-index: 70; width: min(390px, calc(100vw - 40px)); padding: 22px 22px 20px; background: rgba(23, 19, 42, 0.94); backdrop-filter: blur(20px); color: var(--text); border: 1px solid rgba(255, 107, 61, 0.5); border-radius: 24px; box-shadow: var(--schatten), 0 0 60px -20px rgba(255, 107, 61, 0.6); animation: fenster-ein 0.5s var(--feder); }
 .nachfassen-zu { position: absolute; top: 10px; right: 10px; width: 36px; height: 36px; display: grid; place-items: center; border: 0; border-radius: 50%; background: transparent; color: var(--text-3); cursor: pointer; }
 .nachfassen-zu:hover { background: rgba(255, 255, 255, 0.1); color: var(--text); }
 .nachfassen-zu svg { width: 16px; height: 16px; }
@@ -609,7 +609,7 @@ body.fenster-offen .nachfassen { display: none; }
 .karte h3 { font-size: clamp(24px, 2.4vw, 34px); }
 .karte p { font-size: 17px; line-height: 1.6; color: var(--text-2); }
 .bs-anrufe { display: flex; flex-direction: column; gap: 10px; margin-top: 44px; }
-.bs-anruf { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.1fr) minmax(0, 1.1fr); gap: 24px; align-items: center; padding: 20px 24px; border-radius: 22px; background: var(--glas); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--rand); }
+.bs-anruf { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.1fr) minmax(0, 1.1fr); gap: 24px; align-items: center; padding: 20px 24px; border-radius: 22px; background: var(--glas); backdrop-filter: blur(16px); border: 1px solid var(--rand); }
 .bs-anruf b { font-family: var(--anzeige); font-size: 20px; letter-spacing: -0.02em; }
 .bs-zitat { align-self: center; justify-self: start; max-width: 100%; padding: 10px 15px; border-radius: 18px; border-bottom-right-radius: 6px; background: var(--glut); color: var(--glut-tief); font-size: 15px; font-weight: 500; line-height: 1.45; }
 .bs-loesung { display: flex; gap: 8px; font-size: 15px; line-height: 1.5; color: var(--text-2); }
@@ -625,7 +625,7 @@ body.fenster-offen .nachfassen { display: none; }
 .bs-alle-preise { display: flex; align-items: center; justify-content: center; min-height: 44px; margin-top: 6px; font-size: 15px; font-weight: 600; }
 .bs-steuer { margin-top: 4px; text-align: center; font-size: 13px; color: var(--text-3); }
 .bs-andere { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; margin-top: 44px; }
-.bs-andere-karte { display: flex; align-items: center; gap: 16px; padding: 14px 20px 14px 14px; border-radius: 22px; background: var(--glas); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--rand); color: var(--text); transition: border-color 0.25s, transform 0.4s var(--feder); }
+.bs-andere-karte { display: flex; align-items: center; gap: 16px; padding: 14px 20px 14px 14px; border-radius: 22px; background: var(--glas); backdrop-filter: blur(16px); border: 1px solid var(--rand); color: var(--text); transition: border-color 0.25s, transform 0.4s var(--feder); }
 .bs-andere-karte:hover { border-color: rgba(255, 107, 61, 0.6); color: var(--text); transform: translateY(-4px); }
 .bs-mini { width: 56px; height: 56px; flex: 0 0 auto; }
 .bs-andere-text { display: flex; flex-direction: column; gap: 2px; }
@@ -643,7 +643,7 @@ body.fenster-offen .nachfassen { display: none; }
 .recht-kopf h1 { font-size: clamp(48px, 6vw, 88px); letter-spacing: -0.045em; }
 .recht-stand { margin-top: 14px; font-size: 15px; color: var(--text-3); }
 .recht-abschnitt { padding: 24px 0 110px; }
-.recht { max-width: 820px; padding: 44px 48px; border-radius: 28px; background: rgba(23, 19, 42, 0.86); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid var(--rand); font-size: 17px; line-height: 1.7; color: var(--text-2); }
+.recht { max-width: 820px; padding: 44px 48px; border-radius: 28px; background: rgba(23, 19, 42, 0.86); backdrop-filter: blur(18px); border: 1px solid var(--rand); font-size: 17px; line-height: 1.7; color: var(--text-2); }
 .recht h2 { margin: 44px 0 12px; font-size: 26px; color: var(--text); scroll-margin-top: 100px; }
 .recht h2:first-child { margin-top: 0; }
 .recht p + p { margin-top: 12px; }
@@ -828,7 +828,7 @@ a:hover { color: #ffffff; }
 .menue-liste a::after { color: var(--violett-hell); }
 
 /* Laufband: ruhiges Glasband statt oranger Fläche */
-.laufband { background: rgba(255, 255, 255, 0.04); color: var(--text); border-top: 1px solid var(--rand); border-bottom: 1px solid var(--rand); box-shadow: none; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.laufband { background: rgba(255, 255, 255, 0.04); color: var(--text); border-top: 1px solid var(--rand); border-bottom: 1px solid var(--rand); box-shadow: none; backdrop-filter: blur(10px); }
 .laufband-satz { -webkit-text-stroke: 1.2px rgba(255, 255, 255, 0.45); }
 .laufband i { width: 10px; height: 10px; background: var(--violett); box-shadow: 0 0 14px var(--violett); }
 
@@ -877,9 +877,9 @@ a:hover { color: #ffffff; }
 .nutzen { padding-top: 104px; padding-bottom: 72px; }
 .nutzen-raster {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 32px; border-radius: 22px; overflow: hidden;
-  background: var(--glas); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border: 1px solid var(--rand);
+  background: var(--glas); backdrop-filter: blur(18px); border: 1px solid var(--rand);
 }
-.nutz, .nutz:nth-child(1), .nutz:nth-child(4) { grid-column: auto; min-height: 0; padding: 22px 22px 24px; border: 0; border-radius: 0; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.nutz, .nutz:nth-child(1), .nutz:nth-child(4) { grid-column: auto; min-height: 0; padding: 22px 22px 24px; border: 0; border-radius: 0; background: none; backdrop-filter: none; }
 .nutz + .nutz { border-left: 1px solid var(--rand); }
 .nutz b, .nutz:nth-child(1) b, .nutz:nth-child(4) b { margin-top: 14px; font-size: 19px; }
 .nutz-text { font-size: 14.5px; line-height: 1.5; }
@@ -990,7 +990,7 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
 /* Branchenseiten, Situationen: eine Glasfläche mit drei Spalten wie bei den Vorteilen */
 .karten {
   display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 32px; border: 1px solid var(--rand); border-radius: 22px; overflow: hidden;
-  background: var(--glas); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+  background: var(--glas); backdrop-filter: blur(18px);
 }
 .karte { display: flex; flex-direction: column; gap: 8px; padding: 24px 24px 26px; border: 0; border-radius: 0; background: none; }
 .karte:hover { background: rgba(255, 255, 255, 0.03); }
@@ -1029,4 +1029,34 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
   .kopf .marke-text { white-space: normal; }
   .kopf .marke-zusatz { max-width: 120px; font-size: 8.5px; letter-spacing: 0.06em; line-height: 1.3; }
   .kopf .wrap { gap: 10px; }
+}
+
+/* =====================================================================
+   Überarbeitung nach Design-Kritik vom 30.09.2026
+   Klangkörper bleibt, aber ruhiger: Orange nur für Handlungen und die anrufende Person,
+   Kacheln einheitlich violett, keine farbigen Leuchtschatten; Handy kürzer.
+   ===================================================================== */
+.lesefortschritt { background: var(--violett); }
+.zeichen, .nutz:nth-child(n) .zeichen { background: rgba(142, 125, 255, 0.16); box-shadow: inset 0 0 0 1px rgba(142, 125, 255, 0.3); }
+.zeichen svg { stroke: var(--violett-hell); }
+.person-zeichen, .bs-schritte .nr { background: rgba(142, 125, 255, 0.16); color: var(--violett-hell); box-shadow: inset 0 0 0 1px rgba(142, 125, 255, 0.3); }
+.schritt.sichtbar .nr { color: var(--violett-hell); -webkit-text-stroke-color: var(--violett-hell); }
+.vorteil .hak { box-shadow: none; }
+/* Kopfzeile des Beispielgesprächs als ruhige Zeile statt Versalien */
+.dialog .wer { text-transform: none; letter-spacing: 0; font-size: 13.5px; font-weight: 600; }
+.gut-zu-wissen li { max-width: 70ch; }
+
+@media (max-width: 720px) {
+  /* Einleitung kürzer, Beweis (Auftragskarte) früher: kleinere Kugel über dem Untertitel */
+  .lead-lang { display: none; }
+  .stimme-buehne { padding-top: 196px; }
+  /* Tippflächen mindestens 44 px */
+  .stimme-chip { height: 44px; }
+  .tab { min-height: 44px; }
+  /* Preiskarten: zwei Punkte, der Rest steht unter «Alle Details» */
+  .preis ul li:nth-child(n + 3) { display: none; }
+}
+@media (max-width: 520px) {
+  /* Der Zusatz im Logo war nur 8,5 px gross und zweizeilig: auf dem Handy nur «Etivo» */
+  .kopf .marke-zusatz { display: none; }
 }

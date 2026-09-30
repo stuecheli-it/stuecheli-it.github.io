@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import type { BrancheId } from "@/lib/branchen";
 import { Globus, Kreuz } from "./Icons";
 import LiveDemoFormular from "./LiveDemoFormular";
@@ -13,7 +14,8 @@ export function LiveDemoFenster({ branche, schliessen }: { branche?: BrancheId; 
   const feldRef = useRef<HTMLElement | null>(null);
   useFenster(fensterRef, feldRef, schliessen);
 
-  return (
+  // Direkt an body: sonst rechnet position:fixed ab einem Elternteil mit transform oder backdrop-filter
+  return createPortal(
     <div className="plan-hintergrund" onClick={(e) => e.target === e.currentTarget && schliessen()}>
       <div
         ref={fensterRef}
@@ -49,7 +51,8 @@ export function LiveDemoFenster({ branche, schliessen }: { branche?: BrancheId; 
           </p>
         </footer>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
 

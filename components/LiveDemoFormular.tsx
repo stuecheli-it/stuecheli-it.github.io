@@ -13,7 +13,7 @@ import {
 import { Globus, Pfeil } from "./Icons";
 
 /** Was man vor dem Klick wissen muss, als eine ruhige Zeile unter dem Feld */
-const FAKTEN = ["Kostenlos bei fonio.ai", "in rund 30 Sekunden bereit", "neuer Tab, fragt nach Ihrer Nummer"];
+const FAKTEN = ["Kostenlos bei fonio.ai", "In rund 30 Sekunden bereit", "Neuer Tab, fragt nach Ihrer Nummer"];
 
 /**
  * Feld «Ihre Website» plus «Eigene Demo erstellen»: leitet die Adresse an unseren fonio-Partner-Link weiter.

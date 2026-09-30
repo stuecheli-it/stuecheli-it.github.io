@@ -13,8 +13,8 @@ export default function AnfrageChat({ kontext, schliessen }: { kontext: AnfrageK
       titel="Unverbindlich anfragen"
       text={
         <>
-          Ihre Anfrage zu «{thema}». Hinterlassen Sie hier Ihre Kontaktdaten, Gilbert Stücheli meldet sich persönlich bei
-          Ihnen und beantwortet Ihre Fragen.
+          {thema === "Allgemeine Anfrage" ? "" : `Ihre Anfrage zu «${thema}». `}Hinterlassen Sie hier Ihre Kontaktdaten,
+          Gilbert Stücheli meldet sich persönlich bei Ihnen und beantwortet Ihre Fragen.
         </>
       }
       hinweis={<a href={`mailto:${FIRMA.email}?subject=${encodeURIComponent(`Anfrage: ${thema}`)}`}>Lieber per E-Mail?</a>}

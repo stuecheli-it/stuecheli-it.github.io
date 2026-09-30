@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { FIRMA } from "@/lib/firma";
 import { Chat, Kreuz, Mail, Pfeil } from "./Icons";
 import { useFenster } from "./useFenster";
@@ -115,7 +116,8 @@ export default function ChatFenster({
 
   const mail = `mailto:${FIRMA.email}${betreff ? `?subject=${encodeURIComponent(betreff)}` : ""}`;
 
-  return (
+  // Direkt an body: sonst rechnet position:fixed ab einem Elternteil mit transform oder backdrop-filter
+  return createPortal(
     <div className="plan-hintergrund" onClick={(e) => e.target === e.currentTarget && schliessen()}>
       <div
         ref={fensterRef}
@@ -186,6 +188,7 @@ export default function ChatFenster({
           </a>
         </footer>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }
