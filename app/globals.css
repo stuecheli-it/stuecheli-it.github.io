@@ -1074,3 +1074,21 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
   .preis .betrag { font-size: 40px; }
   .plan-betrag { font-size: 34px; }
 }
+
+/* Laufband «Das sagen Anrufer» (30.09.2026): Sprechblasen der anrufenden Person statt Branchen und Schlagworte.
+   Ruhige Textschrift, langsamer Lauf, leichte Schräge wie bisher. */
+.laufband-spur { animation-duration: 70s; }
+.laufband-teil { gap: 14px; padding: 14px 7px; }
+.anruf-blase {
+  display: inline-flex; align-items: center; gap: 10px; padding: 10px 16px 10px 12px; white-space: nowrap;
+  border-radius: 18px 18px 6px 18px; background: var(--glut); color: var(--glut-tief);
+  font-size: 16px; font-weight: 500; line-height: 1.3;
+}
+.anruf-blase small {
+  padding: 2px 8px; border-radius: 999px; background: rgba(42, 19, 12, 0.14);
+  font-size: 12px; font-weight: 700; letter-spacing: 0.02em;
+}
+@media (max-width: 720px) {
+  .laufband-teil { gap: 10px; padding: 10px 5px; }
+  .anruf-blase { padding: 8px 13px 8px 10px; font-size: 14.5px; }
+}
