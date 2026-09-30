@@ -1060,3 +1060,18 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
   /* Der Zusatz im Logo war nur 8,5 px gross und zweizeilig: auf dem Handy nur «Etivo» */
   .kopf .marke-zusatz { display: none; }
 }
+
+/* Preise im Massstab der übrigen Seite (30.09.2026): Paketname wie die anderen Zwischentitel,
+   Betrag kleiner als die Abschnittstitel und nicht extra fett, Währung als kleine Vorsilbe */
+.preis h3 { font-size: 24px; }
+.preis .betrag { margin-top: 14px; gap: 6px 8px; font-size: 44px; font-weight: 700; letter-spacing: -0.025em; }
+.plan-betrag { font-size: 40px; font-weight: 700; letter-spacing: -0.025em; }
+.waehrung {
+  align-self: flex-start; margin: 5px 2px 0 0; font-family: var(--font-geist), "Geist", sans-serif;
+  font-size: 15px; font-weight: 600; letter-spacing: 0.02em; color: var(--text-2);
+}
+.plan-betrag .waehrung { color: rgba(255, 255, 255, 0.85); }
+@media (max-width: 720px) {
+  .preis .betrag { font-size: 40px; }
+  .plan-betrag { font-size: 34px; }
+}

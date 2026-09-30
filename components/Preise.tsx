@@ -38,12 +38,25 @@ import { useFenster } from "./useFenster";
 type Abrechnung = "monat" | "jahr";
 
 /** Wie auf fonio.ai: im Jahresabo gross der Monatsbetrag mit «Spare CHF …» daneben */
+/** «CHF 119» mit kleiner Währung, damit die Zahl trägt und nicht das Kürzel */
+function Zahl({ text }: { text: string }) {
+  const [waehrung, ...rest] = text.split(" ");
+  return (
+    <>
+      <span className="waehrung">{waehrung}</span>
+      {rest.join(" ")}
+    </>
+  );
+}
+
 function Betrag({ plan, abrechnung }: { plan: Plan; abrechnung: Abrechnung }) {
   return abrechnung === "monat" ? (
-    <>{chf(plan.monat)} <small>/ Monat</small></>
+    <>
+      <Zahl text={chf(plan.monat)} /> <small>/ Monat</small>
+    </>
   ) : (
     <>
-      {proMonatImJahresabo(plan)} <span className="spare-marke">Spare {ersparnisProMonat(plan)}</span>
+      <Zahl text={proMonatImJahresabo(plan)} /> <span className="spare-marke">Spare {ersparnisProMonat(plan)}</span>
     </>
   );
 }
