@@ -14,8 +14,8 @@ const KNOPF_ZONE = 96;
  * Eigener Chat-Knopf unten rechts (ersetzt die fonio-Sprechblase).
  * Öffnet den Beispiel-Chat im gleichen Fenster wie im Hero: auf Branchenseiten die passende
  * Beispiel-Firma, sonst die zuletzt gewählte Branche oder die Auswahl.
- * Über Bereichen mit `data-ohne-chatknopf` (Preiskarten, Kontakt, Fusszeile) tritt er zurück,
- * damit er keine Knöpfe verdeckt.
+ * Über Bereichen mit `data-ohne-chatknopf` tritt er zurück: nur im Hero, dort steht der Beispiel-Chat schon als Link.
+ * Nach dem Hero bleibt er durchgehend sichtbar (Wunsch des Inhabers, 30.09.2026).
  */
 export default function ChatStarter({ branche }: { branche?: BrancheId }) {
   const [offen, setOffen] = useState(false);

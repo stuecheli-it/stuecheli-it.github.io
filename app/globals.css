@@ -1050,3 +1050,9 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
   .plan-betrag { font-size: 34px; }
 }
 
+
+/* Der Beispiel-Chat-Knopf bleibt nach dem Hero sichtbar (30.09.2026): am Seitenende soll er das Logo
+   in der Fusszeile nicht überdecken, darum rückt das Logo am Desktop um die Knopfbreite nach links */
+@media (min-width: 721px) {
+  .fuss .lockup { margin-right: 190px; }
+}

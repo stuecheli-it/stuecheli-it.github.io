@@ -95,7 +95,7 @@ export function Fragen() {
     })),
   };
   return (
-    <section className="abschnitt weiss" id="fragen" data-ohne-chatknopf>
+    <section className="abschnitt weiss" id="fragen">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <div className="wrap bs-fragen-wrap">
         <div className="reveal">
@@ -129,7 +129,7 @@ function kontaktAnfrage(branche?: BrancheId): AnfrageKontext {
 
 export function Kontakt({ branche }: { branche?: BrancheId } = {}) {
   return (
-    <section className="kontakt" id="kontakt" data-ohne-chatknopf>
+    <section className="kontakt" id="kontakt">
       <div className="wrap">
         <div className="reveal">
           <h2>Neugierig, wie das für Ihren Betrieb klingen würde?</h2>
@@ -174,7 +174,7 @@ export function Kontakt({ branche }: { branche?: BrancheId } = {}) {
 
 export function Fuss() {
   return (
-    <footer className="fuss" data-ohne-chatknopf>
+    <footer className="fuss">
       <div className="wrap">
         <div>
           <div className="name">{FIRMA.name}</div>

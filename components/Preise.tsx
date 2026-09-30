@@ -255,7 +255,7 @@ export default function Preise() {
             Region aufbauen. Im Gegenzug dürfen wir Sie namentlich als Referenz nennen.
           </span>
         </p>
-        <div className="schalter reveal" data-ohne-chatknopf>
+        <div className="schalter reveal">
           <Umschalter
             label="Produkt"
             className="produkt-tabs"
@@ -276,7 +276,7 @@ export default function Preise() {
         </div>
 
         {/* Hier blendet sich der Chat-Knopf unten rechts aus, damit er die Anfrage-Knöpfe nicht verdeckt */}
-        <div className="preise" key={produkt.id} data-ohne-chatknopf>
+        <div className="preise" key={produkt.id}>
           {produkt.plaene.map((plan) => (
             <div key={plan.name} className={"preis spot" + (plan.beliebt ? " mitte" : "")}>
               {plan.beliebt && <span className="beliebt">Beliebt</span>}
