@@ -27,7 +27,7 @@
   --weich: cubic-bezier(0.16, 1, 0.3, 1);
   --feder: cubic-bezier(0.22, 1, 0.36, 1);
   --schatten: 0 30px 80px -30px rgba(0, 0, 0, 0.7);
-  --glow: 0 12px 40px -12px rgba(255, 107, 61, 0.75);
+  --glow: 0 10px 24px -12px rgba(0, 0, 0, 0.65);
   --anzeige: var(--font-anzeige), "Bricolage Grotesque", "Segoe UI", sans-serif;
 }
 
@@ -86,17 +86,6 @@ html:not(.mit-3d) .hero .demo::before {
 .reveal.verzoegert-1 { transition-delay: 0.12s; }
 .reveal.verzoegert-2 { transition-delay: 0.24s; }
 .reveal.verzoegert-3 { transition-delay: 0.36s; }
-.kipp.sichtbar { transition: opacity 0.9s var(--weich), filter 0.9s, transform 0.25s ease-out; transition-delay: 0s; }
-.kipp { transform-style: preserve-3d; will-change: transform; }
-
-/* Lichtkegel, der der Maus folgt */
-.spot { position: relative; isolation: isolate; }
-.spot::after {
-  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
-  background: radial-gradient(380px circle at var(--mx, -999px) var(--my, -999px), rgba(255, 140, 90, 0.18), transparent 65%);
-  opacity: 0; transition: opacity 0.35s;
-}
-.spot:hover::after { opacity: 1; }
 
 /* ---------- Knöpfe ---------- */
 .btn {
@@ -109,7 +98,7 @@ html:not(.mit-3d) .hero .demo::before {
 .btn svg { width: 18px; height: 18px; flex: 0 0 auto; transition: transform 0.3s var(--feder); }
 .btn:hover svg { transform: translateX(4px); }
 .btn-primaer { background: var(--glut); color: var(--glut-tief); box-shadow: var(--glow); }
-.btn-primaer:hover { background: var(--glut-hell); color: var(--glut-tief); box-shadow: 0 16px 50px -10px rgba(255, 107, 61, 0.95); }
+.btn-primaer:hover { background: var(--glut-hell); color: var(--glut-tief); }
 .btn-dunkel { background: var(--text); color: var(--nacht); }
 .btn-dunkel:hover { background: #ffffff; color: var(--nacht); }
 .btn-linie { background: var(--glas-hell); color: var(--text); box-shadow: inset 0 0 0 1px var(--rand-2); }
@@ -127,7 +116,7 @@ html:not(.mit-3d) .hero .demo::before {
 .marke-name { font-family: var(--font-geist), "Geist", sans-serif; font-size: 22px; font-weight: 700; letter-spacing: -0.035em; }
 .marke-zusatz { font-family: var(--font-geist), "Geist", sans-serif; margin-top: 4px; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); }
 .nav { display: flex; align-items: center; gap: 28px; }
-.nav > a:not(.btn), .nav-branchen-link { position: relative; color: var(--text-2); font-size: 15.5px; font-weight: 500; }
+.nav > a:not(.btn), .nav-branchen-link { position: relative; color: var(--text-2); font-size: 15.5px; font-weight: 500; white-space: nowrap; }
 .nav > a:not(.btn)::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; border-radius: 2px; background: var(--glut); transform: scaleX(0); transition: transform 0.35s var(--weich); }
 .nav > a:not(.btn):hover::after { transform: scaleX(1); }
 .nav > a:not(.btn):hover, .nav-branchen-link:hover { color: var(--text); }
@@ -146,16 +135,16 @@ html:not(.mit-3d) .hero .demo::before {
 .nav-dropdown::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
 .nav-dropdown ul { list-style: none; margin: 0; padding: 0; }
 .nav-dropdown li a { display: flex; align-items: center; gap: 12px; padding: 9px 10px; border-radius: 10px; font-size: 15px; font-weight: 500; color: var(--text); }
-.nav-dropdown li a:hover, .nav-dropdown li a:focus-visible { background: rgba(255, 107, 61, 0.14); color: var(--text); outline: none; }
-.nav-dropdown-ico { width: 34px; height: 34px; flex: 0 0 auto; border-radius: 10px; display: grid; place-items: center; background: rgba(255, 107, 61, 0.14); }
-.nav-dropdown-ico svg { width: 18px; height: 18px; stroke: var(--glut-hell); }
-.nav .nav-dropdown-alle { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; padding: 11px 10px 6px; border-top: 1px solid var(--rand); font-size: 14px; font-weight: 600; color: var(--glut-hell); }
+.nav-dropdown li a:hover, .nav-dropdown li a:focus-visible { background: rgba(142, 125, 255, 0.16); color: var(--text); outline: none; }
+.nav-dropdown-ico { width: 34px; height: 34px; flex: 0 0 auto; border-radius: 10px; display: grid; place-items: center; background: rgba(142, 125, 255, 0.16); }
+.nav-dropdown-ico svg { width: 18px; height: 18px; stroke: var(--violett-hell); }
+.nav .nav-dropdown-alle { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; padding: 11px 10px 6px; border-top: 1px solid var(--rand); font-size: 14px; font-weight: 600; color: var(--violett-hell); }
 .nav .nav-dropdown-alle svg { width: 16px; height: 16px; }
 .demo-menue { position: relative; }
 .demo-menue-knopf { gap: 4px; }
 .demo-dropdown { left: auto; right: 0; margin-left: 0; width: 310px; top: calc(100% + 10px); display: flex; flex-direction: column; gap: 2px; }
 .demo-option { display: flex; align-items: center; gap: 12px; width: 100%; padding: 10px; border: 0; border-radius: 10px; cursor: pointer; background: transparent; font: inherit; text-align: left; color: var(--text); }
-.demo-option:hover, .demo-option:focus-visible { background: rgba(255, 107, 61, 0.14); outline: none; }
+.demo-option:hover, .demo-option:focus-visible { background: rgba(142, 125, 255, 0.16); outline: none; }
 .demo-option b { display: block; font-size: 15px; font-weight: 600; }
 .demo-option small { display: block; font-size: 13px; color: var(--text-3); margin-top: 1px; }
 .menue-knopf {
@@ -173,7 +162,7 @@ html:not(.mit-3d) .hero .demo::before {
 .menue-branchen { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .menue-branchen a { display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 12px; border-radius: var(--radius-klein); background: var(--glas-hell); box-shadow: inset 0 0 0 1px var(--rand); font-size: 15px; font-weight: 500; color: var(--text); }
 .menue-branchen a.aktiv { box-shadow: inset 0 0 0 1.5px var(--glut); color: var(--glut-hell); font-weight: 600; }
-.menue-branchen svg { width: 18px; height: 18px; flex: 0 0 auto; stroke: var(--glut-hell); }
+.menue-branchen svg { width: 18px; height: 18px; flex: 0 0 auto; stroke: var(--violett-hell); }
 .menue-panel .menue-alle { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; margin: 6px 2px 0; font-size: 15px; font-weight: 600; }
 .menue-panel .menue-alle svg { width: 15px; height: 15px; }
 .menue-liste { list-style: none; margin: 8px 0 0; padding: 0; }
@@ -196,8 +185,10 @@ body.menue-offen { overflow: hidden; }
 
 /* Demo-Feld */
 .live-demo { margin-top: 34px; max-width: 600px; }
+.live-demo-label { display: block; max-width: 34em; margin: 0 0 12px 4px; font-size: 16px; line-height: 1.5; color: var(--text-2); }
+.live-demo-label b { color: var(--text); font-weight: 600; }
 .live-demo-feld { display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 18px; background: var(--glas); backdrop-filter: blur(16px); border: 1px solid var(--rand-2); border-radius: 999px; transition: box-shadow 0.25s, border-color 0.25s; }
-.live-demo-feld:focus-within { border-color: var(--glut); box-shadow: 0 0 0 5px rgba(255, 107, 61, 0.18), var(--glow); }
+.live-demo-feld:focus-within { border-color: var(--glut); box-shadow: 0 0 0 4px rgba(255, 107, 61, 0.16); }
 .live-demo-feld:has(input[aria-invalid="true"]) { border-color: #ff5f7a; }
 .live-demo-ico { display: flex; color: var(--text-3); }
 .live-demo-ico svg { width: 20px; height: 20px; }
@@ -207,12 +198,13 @@ body.menue-offen { overflow: hidden; }
 .live-demo-fehler { margin-top: 10px; font-size: 14.5px; font-weight: 500; color: #ff8fa3; }
 .live-demo-fakten { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 14px; color: var(--text-2); }
 .live-demo-fakten li { display: inline-flex; align-items: center; gap: 8px; }
-.live-demo-fakten li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 10px var(--mint); flex: 0 0 auto; }
+.live-demo-fakten li::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--mint); flex: 0 0 auto; }
 .live-demo-wege { display: flex; flex-wrap: wrap; align-items: center; gap: 0 26px; margin-top: 8px; }
 .live-demo-ohne, .hero-chat {
   display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0; border: 0; background: none; cursor: pointer;
-  font: inherit; font-size: 15px; font-weight: 600; color: var(--text); text-decoration: underline; text-underline-offset: 5px; text-decoration-color: rgba(255, 107, 61, 0.6); text-decoration-thickness: 2px;
+  font: inherit; font-size: 15px; font-weight: 500; color: var(--text-2); text-decoration: underline; text-underline-offset: 5px; text-decoration-color: rgba(255, 255, 255, 0.3); text-decoration-thickness: 1px;
 }
+.live-demo-oder { margin-right: -12px; font-size: 15px; color: var(--text-3); }
 .live-demo-ohne:hover, .hero-chat:hover { color: var(--glut-hell); text-decoration-color: currentColor; }
 .live-demo-ohne svg, .hero-chat svg { width: 17px; height: 17px; flex: 0 0 auto; }
 .hero-chat svg { stroke: var(--violett-hell); }
@@ -220,6 +212,8 @@ body.menue-offen { overflow: hidden; }
 /* Die Szene neben dem Klangkörper: Branchen oben, Untertitel und Meldung unten */
 .stimme-buehne { position: relative; height: 100%; margin: 0; display: flex; flex-direction: column; justify-content: space-between; gap: 18px; animation: titel-ein 1.4s var(--weich) 0.5s both; }
 .stimme-wahl { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+/* Desktop: sechs Branchen als ruhige 3 + 3 statt 4 + 2 */
+@media (min-width: 961px) { .stimme-wahl { display: grid; grid-template-columns: repeat(3, auto); justify-content: end; } }
 .stimme-chip {
   display: inline-flex; align-items: center; gap: 7px; height: 38px; padding: 0 14px; border: 0; border-radius: 999px; cursor: pointer;
   background: rgba(255, 255, 255, 0.06); box-shadow: inset 0 0 0 1px var(--rand); backdrop-filter: blur(10px);
@@ -246,16 +240,15 @@ body.menue-offen { overflow: hidden; }
 @keyframes zeile-ein { from { opacity: 0; transform: translateY(14px) scale(0.96); } to { opacity: 1; transform: none; } }
 
 .auftrag-karte {
-  align-self: flex-end; width: min(390px, 100%); padding: 18px 20px 14px; border-radius: 22px;
+  align-self: flex-end; width: min(410px, 100%); padding: 18px 20px 14px; border-radius: 22px;
   background: var(--glas); backdrop-filter: blur(22px) saturate(140%);
   border: 1px solid var(--rand-2); box-shadow: var(--schatten); transition: border-color 0.5s, box-shadow 0.5s;
 }
-.auftrag-karte.fertig { border-color: rgba(77, 227, 166, 0.6); box-shadow: 0 0 0 4px rgba(77, 227, 166, 0.12), 0 20px 60px -20px rgba(77, 227, 166, 0.45); }
+.auftrag-karte.fertig { border-color: rgba(77, 227, 166, 0.6); }
 .auftrag-kopf { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-.auftrag-kopf .titel { font-family: var(--anzeige); font-size: 17px; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; }
+.auftrag-kopf .titel { font-family: var(--anzeige); font-size: 16.5px; font-weight: 700; line-height: 1.25; letter-spacing: -0.01em; }
 .auftrag-kopf .status { display: flex; align-items: center; gap: 7px; margin-top: 4px; font-size: 13px; font-weight: 600; color: var(--glut-hell); }
-.auftrag-kopf .status i { width: 8px; height: 8px; border-radius: 50%; background: var(--glut); box-shadow: 0 0 0 0 rgba(255, 107, 61, 0.6); animation: funk 1.6s ease-out infinite; }
-@keyframes funk { 0% { box-shadow: 0 0 0 0 rgba(255, 107, 61, 0.7); } 100% { box-shadow: 0 0 0 10px rgba(255, 107, 61, 0); } }
+.auftrag-kopf .status i { width: 8px; height: 8px; border-radius: 50%; background: var(--glut); }
 .auftrag-kopf .status svg { width: 14px; height: 14px; stroke: var(--mint); }
 .auftrag-karte.fertig .auftrag-kopf .status { color: var(--mint); }
 .auftrag-kopf .knopf { width: 44px; height: 44px; margin: -6px -8px 0 0; flex: 0 0 auto; border: 0; border-radius: 50%; background: transparent; color: var(--text-2); display: grid; place-items: center; cursor: pointer; }
@@ -277,7 +270,7 @@ body.menue-offen { overflow: hidden; }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 .auftrag-fuss { margin-top: 8px; font-size: 12.5px; color: var(--text-3); }
 .auftrag-karte.fertig .auftrag-fuss { color: var(--mint); font-weight: 600; }
-.beispiel-marke { display: inline-block; margin-right: 7px; padding: 0 7px; border-radius: 999px; background: rgba(255, 255, 255, 0.12); font-family: var(--font-geist), sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; line-height: 19px; vertical-align: 2px; color: var(--text-2); }
+.beispiel-marke { display: inline-block; margin-right: 3px; padding: 0 7px; border-radius: 999px; background: rgba(255, 255, 255, 0.12); font-family: var(--font-geist), sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; line-height: 19px; vertical-align: 2px; color: var(--text-2); }
 
 
 /* ---------- Abschnitte ---------- */
@@ -301,8 +294,8 @@ body.menue-offen { overflow: hidden; }
 .nutz:nth-child(2) .zeichen { background: radial-gradient(circle at 30% 25%, var(--violett-hell), var(--violett) 65%); box-shadow: 0 12px 40px -12px rgba(142, 125, 255, 0.8); }
 .nutz:nth-child(4) .zeichen { background: radial-gradient(circle at 30% 25%, #a8f5d4, var(--mint) 65%); box-shadow: 0 12px 40px -12px rgba(77, 227, 166, 0.7); }
 .zeichen svg { width: 26px; height: 26px; stroke: var(--glut-tief); }
-.ico24 { width: 44px; height: 44px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 14px; background: rgba(255, 107, 61, 0.14); }
-.ico24 svg { width: 21px; height: 21px; stroke: var(--glut-hell); }
+.ico24 { width: 44px; height: 44px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 14px; background: rgba(142, 125, 255, 0.16); }
+.ico24 svg { width: 21px; height: 21px; stroke: var(--violett-hell); }
 
 /* ---------- Branchen ---------- */
 .tabs-zeile { display: flex; align-items: flex-start; gap: 8px; margin-top: 44px; }
@@ -379,6 +372,19 @@ body.menue-offen { overflow: hidden; }
 .preis-aktionen .btn { width: 100%; }
 .preis-details { min-height: 44px; border: 0; background: none; cursor: pointer; font: inherit; font-size: 15px; font-weight: 600; color: var(--text-2); }
 .preis-details:hover { color: var(--glut-hell); text-decoration: underline; text-underline-offset: 4px; }
+/* Kostenübersicht unter den Preiskarten: drei Teile nebeneinander, ohne Beträge für die eigene Leistung */
+.kosten { max-width: 960px; margin-top: 36px; }
+.kosten h3 { font-size: 20px; letter-spacing: -0.01em; }
+.kosten ol { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--rand); border-radius: 20px; background: var(--glas); backdrop-filter: blur(18px); counter-reset: kosten; }
+.kosten li { display: flex; flex-direction: column; gap: 4px; padding: 18px 20px 20px; counter-increment: kosten; }
+.kosten li + li { border-left: 1px solid var(--rand); }
+.kosten b { font-size: 16.5px; }
+.kosten b::before { content: counter(kosten) " · "; color: var(--violett-hell); }
+.kosten span { font-size: 14.5px; line-height: 1.5; color: var(--text-2); }
+@media (max-width: 860px) {
+  .kosten ol { grid-template-columns: minmax(0, 1fr); }
+  .kosten li + li { border-left: 0; border-top: 1px solid var(--rand); }
+}
 .gut-zu-wissen { list-style: none; max-width: 960px; margin: 24px 0 0; padding: 0; display: grid; gap: 6px; }
 .gut-zu-wissen li { position: relative; max-width: 78ch; padding-left: 16px; font-size: 14px; line-height: 1.55; color: var(--text-3); }
 .gut-zu-wissen li::before { content: ""; position: absolute; left: 1px; top: 0.6em; width: 6px; height: 6px; border-radius: 50%; background: var(--text-3); }
@@ -394,7 +400,7 @@ body.menue-offen { overflow: hidden; }
 .plan-zu svg { width: 18px; height: 18px; }
 .plan-kopf {
   position: relative; padding: 28px 30px 26px; color: #ffffff;
-  background: radial-gradient(circle at 10% 0%, rgba(255, 107, 61, 0.7), transparent 55%), radial-gradient(circle at 100% 100%, rgba(142, 125, 255, 0.65), transparent 60%), #1f1838;
+  background: radial-gradient(circle at 100% 100%, rgba(142, 125, 255, 0.4), transparent 60%), #1f1838;
 }
 .plan-marken { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding-right: 52px; }
 .plan-produkt { display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.16); font-size: 13.5px; font-weight: 600; color: #ffffff; }
@@ -420,8 +426,8 @@ body.menue-offen { overflow: hidden; }
 .plan-kachel { break-inside: avoid; margin-bottom: 14px; padding: 18px 18px 16px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--rand); border-radius: 18px; animation: zeile-ein 0.5s var(--weich) both; }
 .plan-kacheln .plan-kachel:last-child { margin-bottom: 0; }
 .plan-kachel h4 { display: flex; align-items: center; gap: 10px; font-size: 17px; }
-.plan-kachel-ico { width: 34px; height: 34px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 10px; background: rgba(255, 107, 61, 0.16); }
-.plan-kachel-ico svg { width: 18px; height: 18px; stroke: var(--glut-hell); }
+.plan-kachel-ico { width: 34px; height: 34px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 10px; background: rgba(142, 125, 255, 0.16); }
+.plan-kachel-ico svg { width: 18px; height: 18px; stroke: var(--violett-hell); }
 .plan-kachel ul { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .plan-kachel li { display: flex; gap: 10px; font-size: 15px; line-height: 1.45; color: var(--text-2); }
 .plan-kachel li svg { width: 16px; height: 16px; flex: 0 0 auto; margin-top: 3px; stroke: var(--mint); }
@@ -459,8 +465,8 @@ body.menue-offen { overflow: hidden; }
 .demo-wahl { display: grid; gap: 8px; }
 .demo-wahl button { display: flex; align-items: center; gap: 14px; width: 100%; padding: 12px 14px 12px 12px; cursor: pointer; text-align: left; font: inherit; color: var(--text); background: rgba(255, 255, 255, 0.04); border: 1px solid var(--rand); border-radius: 16px; transition: border-color 0.2s, background 0.2s, transform 0.3s var(--feder); }
 .demo-wahl button:hover { border-color: var(--glut); background: rgba(255, 107, 61, 0.08); transform: translateX(4px); }
-.demo-wahl-ico { width: 42px; height: 42px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 12px; background: rgba(255, 107, 61, 0.16); }
-.demo-wahl-ico svg { width: 20px; height: 20px; stroke: var(--glut-hell); }
+.demo-wahl-ico { width: 42px; height: 42px; flex: 0 0 auto; display: grid; place-items: center; border-radius: 12px; background: rgba(142, 125, 255, 0.16); }
+.demo-wahl-ico svg { width: 20px; height: 20px; stroke: var(--violett-hell); }
 .demo-wahl-text { display: flex; flex-direction: column; flex: 1 1 auto; }
 .demo-wahl-text b { font-size: 16px; }
 .demo-wahl-text span { font-size: 14px; color: var(--text-3); }
@@ -537,6 +543,12 @@ body.menue-offen { overflow: hidden; }
 .weg .pfeil { margin-left: auto; width: 22px; height: 22px; flex: 0 0 auto; display: flex; color: var(--glut-hell); transition: transform 0.3s var(--feder); }
 .weg:hover .pfeil { transform: translateX(4px); }
 .weg .pfeil svg { width: 100%; height: 100%; }
+/* Der Hauptweg im Kontakt: einziger oranger Knopf am Schluss der Seite */
+.weg.weg-haupt { background: var(--glut); border-color: transparent; color: var(--glut-tief); box-shadow: var(--glow); }
+.weg.weg-haupt:hover { background: var(--glut-hell); color: var(--glut-tief); }
+.weg.weg-haupt span, .weg.weg-haupt .pfeil { color: rgba(43, 16, 4, 0.82); }
+.weg.weg-haupt .ico24 { background: rgba(43, 16, 4, 0.12); }
+.weg.weg-haupt .ico24 svg { stroke: var(--glut-tief); }
 
 /* ---------- Fusszeile ---------- */
 .fuss { background: rgba(10, 8, 18, 0.72); backdrop-filter: blur(16px); border-top: 1px solid var(--rand); color: var(--text-3); }
@@ -612,6 +624,12 @@ body.fenster-offen .nachfassen { display: none; }
 .bs-schritte p { margin-top: 4px; font-size: 16px; line-height: 1.6; color: var(--text-2); }
 .bs-preis { justify-self: end; width: 100%; max-width: 460px; }
 .bs-preis .btn { margin-top: 0; }
+.bs-plaene { display: flex; flex-direction: column; margin-top: 14px; border-top: 1px solid var(--rand); }
+.bs-plan { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--rand); font-size: 15px; color: var(--text-2); }
+.bs-plan b { color: var(--text); font-size: 16px; }
+.bs-plan-preis { color: var(--text); font-weight: 600; font-variant-numeric: tabular-nums; }
+.bs-plan-hinweis { margin-top: 12px; font-size: 14.5px; line-height: 1.5; color: var(--text-2); }
+.bs-preis .setup { margin-bottom: 18px; }
 .bs-alle-preise { display: flex; align-items: center; justify-content: center; min-height: 44px; margin-top: 6px; font-size: 15px; font-weight: 600; }
 .bs-steuer { margin-top: 4px; text-align: center; font-size: 13px; color: var(--text-3); }
 .bs-andere { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; margin-top: 44px; }
@@ -698,7 +716,12 @@ body.fenster-offen .nachfassen { display: none; }
   .live-demo-feld input { flex: 1 1 calc(100% - 44px); }
   .live-demo-feld .btn { width: 100%; }
   .live-demo-fakten { font-size: 13.5px; gap: 4px 14px; }
+  /* Beide Nebenwege auf einer Zeile; «Oder» braucht es hier nicht, sie sind schon kleiner und heller */
   .live-demo-wege { gap: 0 18px; }
+  .live-demo-oder { display: none; }
+  .live-demo-label { margin-bottom: 10px; font-size: 15.5px; }
+  .kosten { margin-top: 28px; }
+  .kosten li { padding: 14px 16px 16px; }
   .stimme-buehne { padding-top: 300px; }
   .stimme-wahl { flex-wrap: nowrap; overflow-x: auto; margin: 0 -20px; padding: 2px 20px; scrollbar-width: none; }
   .stimme-wahl::-webkit-scrollbar { display: none; }
@@ -789,7 +812,6 @@ body.fenster-offen .nachfassen { display: none; }
    Farbausgleich (30.09.2026): Orange nur noch für die wichtigsten Handlungen (Demo starten, anfragen)
    und für die anrufende Person. Auszeichnungen in Violett und Creme, Flächen ruhig.
    ===================================================================== */
-:root { --glow: 0 12px 36px -14px rgba(255, 107, 61, 0.5); }
 body {
   background:
     radial-gradient(1100px 700px at 85% -10%, rgba(142, 125, 255, 0.12), transparent 60%),
@@ -801,18 +823,13 @@ a { color: var(--violett-hell); }
 a:hover { color: #ffffff; }
 .hero h1 .glanz, .bs-hero h1 .glanz { color: var(--violett-hell); }
 .nav > a:not(.btn)::after { background: var(--text); }
-.live-demo-ohne, .hero-chat { text-decoration-color: rgba(255, 255, 255, 0.35); }
 .live-demo-ohne:hover, .hero-chat:hover { color: var(--violett-hell); }
 .stimme-chip.aktiv, .beispiel-chip.aktiv { background: var(--text); color: var(--nacht); box-shadow: 0 10px 30px -12px rgba(255, 255, 255, 0.35); }
 .beliebt { background: var(--text); color: var(--nacht); }
 .preis.mitte {
   background: linear-gradient(rgba(29, 23, 52, 0.92), rgba(29, 23, 52, 0.92)) padding-box, linear-gradient(135deg, var(--violett), var(--violett-hell) 50%, var(--mint)) border-box;
-  box-shadow: 0 30px 80px -30px rgba(142, 125, 255, 0.55);
+  box-shadow: var(--schatten);
 }
-.ico24, .nav-dropdown-ico, .plan-kachel-ico, .demo-wahl-ico { background: rgba(142, 125, 255, 0.16); }
-.ico24 svg, .nav-dropdown-ico svg, .plan-kachel-ico svg, .demo-wahl-ico svg, .menue-branchen svg { stroke: var(--violett-hell); }
-.nav-dropdown li a:hover, .nav-dropdown li a:focus-visible, .demo-option:hover, .demo-option:focus-visible { background: rgba(142, 125, 255, 0.16); }
-.nav .nav-dropdown-alle { color: var(--violett-hell); }
 .menue-branchen a.aktiv { box-shadow: inset 0 0 0 1.5px var(--violett); color: var(--violett-hell); }
 .menue-liste a::after { color: var(--violett-hell); }
 
@@ -907,8 +924,7 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
 .auftrag-fuss, .gut-zu-wissen li { font-size: 13.5px; }
 .live-demo-fakten { font-size: 14.5px; color: var(--text-2); }
 .dialog .wer, .stimme-wer { letter-spacing: 0.04em; }
-/* Keine 3D-Neigung und kein Weichzeichnen, das Text unscharf rendert */
-.kipp { transform: none !important; transform-style: flat; will-change: auto; }
+/* Kein Weichzeichnen, das Text unscharf rendert */
 .reveal { filter: none; }
 .hero h1, .hero .lead, .hero .live-demo, .stimme-buehne { animation-name: ein-klar; }
 @keyframes ein-klar { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
@@ -1021,9 +1037,8 @@ h1, h2, h3, h4 { font-weight: 700; letter-spacing: -0.02em; }
 .gut-zu-wissen li { max-width: 70ch; }
 
 @media (max-width: 720px) {
-  /* Einleitung kürzer, Beweis (Auftragskarte) früher: kleinere Kugel über dem Untertitel */
-  .lead-lang { display: none; }
-  .stimme-buehne { padding-top: 196px; }
+  /* Beweis (Auftragskarte) früher: kleinere Kugel über dem Untertitel */
+  .stimme-buehne { padding-top: 164px; }
   /* Tippflächen mindestens 44 px */
   .stimme-chip { height: 44px; }
   .tab { min-height: 44px; }

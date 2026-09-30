@@ -2,7 +2,7 @@ import Kopf from "@/components/Kopf";
 import Hero from "@/components/Hero";
 import Branchen from "@/components/Branchen";
 import Preise from "@/components/Preise";
-import { Ablauf, Fragen, Fuss, Kontakt, Nutzen } from "@/components/Abschnitte";
+import { Ablauf, Fragen, Fuss, Kontakt } from "@/components/Abschnitte";
 import ChatStarter from "@/components/ChatStarter";
 import Reveal from "@/components/Reveal";
 import AnkerSprung from "@/components/AnkerSprung";
@@ -16,7 +16,6 @@ export default function Startseite() {
       <Kopf />
       <main>
         <Hero />
-        <Nutzen />
         <Branchen />
         <Preise />
         <Ablauf />

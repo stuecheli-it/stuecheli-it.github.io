@@ -32,7 +32,7 @@ export default function RechtsSeite({
             {stand && <p className="recht-stand">Stand {stand}</p>}
           </div>
         </section>
-        <section className="abschnitt weiss recht-abschnitt">
+        <section className="abschnitt recht-abschnitt">
           <div className="wrap">
             <article className="recht">{children}</article>
           </div>

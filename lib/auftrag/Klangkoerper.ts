@@ -1,8 +1,9 @@
 // Der Klangkörper und der Sternenhimmel hinter der Seite (Three.js, ein Canvas fest im Bildschirm).
 // - Die Kugel aus Lichtpunkten gehört zum Hero: Sie sitzt dort, wo der Hero sie hinsetzt, und scrollt mit ihm weg.
-//   Sie spricht mit (bewegt sich mit der Stimme) und trägt die Farben der laufenden Branche.
-// - Der Sternenhimmel liegt hinter der ganzen Seite: funkelnde Punkte, die langsam treiben, beim Scrollen in
-//   mehreren Ebenen mitwandern, der Maus ausweichen und nach einem Klick als Welle auseinanderstieben.
+//   Sie spricht ruhig mit (atmet mit der Stimme) und trägt die Farben der laufenden Branche.
+// - Der Sternenhimmel liegt hinter der ganzen Seite: gedämpfte Punkte, die langsam treiben, beim Scrollen in
+//   mehreren Ebenen mitwandern und der Maus leicht ausweichen. Seit dem 30.09.2026 ruhiger (Wunsch des Inhabers):
+//   keine Druckwelle beim Klick, weniger Sterne, auf dem Handy ohne Dauerschleife nach dem Hero.
 
 import * as THREE from "three";
 import type { BrancheId } from "../branchen";
@@ -26,9 +27,6 @@ const KUGEL_VERTEX = /* glsl */ `
   attribute float aZufall;
   uniform float uZeit;
   uniform float uPegel;
-  uniform float uKnall;
-  uniform vec3 uMaus;
-  uniform float uMausKraft;
   uniform float uPunkt;
   uniform vec3 uFarbeA;
   uniform vec3 uFarbeB;
@@ -46,32 +44,19 @@ const KUGEL_VERTEX = /* glsl */ `
 
   void main() {
     vec3 p = position;
-    // Die Kugel atmet und spricht: Rauschen entlang der Normalen, stärker mit dem Pegel
-    float n = rauschen(p * 1.6 + vec3(uZeit * 0.35, uZeit * 0.2, 0.0));
-    float n2 = rauschen(p * 4.0 - vec3(0.0, uZeit * 1.4, uZeit * 0.9));
-    p *= 1.0 + n * (0.06 + uPegel * 0.16) + n2 * uPegel * 0.07;
+    // Die Kugel atmet und spricht, ruhig: leichtes Rauschen entlang der Normalen, etwas stärker mit dem Pegel
+    float n = rauschen(p * 1.6 + vec3(uZeit * 0.25, uZeit * 0.15, 0.0));
+    float n2 = rauschen(p * 4.0 - vec3(0.0, uZeit * 0.9, uZeit * 0.6));
+    p *= 1.0 + n * (0.04 + uPegel * 0.08) + n2 * uPegel * 0.03;
 
-    vec4 welt = modelMatrix * vec4(p, 1.0);
-    vec3 mitte = (modelMatrix * vec4(0.0, 0.0, 0.0, 1.0)).xyz;
-
-    // Druckwelle nach einem Klick
-    float d = length(welt.xyz - mitte);
-    float stoss = exp(-pow(d - uKnall * 9.0, 2.0) * 1.5) * (1.0 - smoothstep(0.0, 1.2, uKnall)) * step(0.0001, uKnall);
-    welt.xyz += normalize(welt.xyz - mitte + 0.0001) * stoss * 0.9;
-
-    // Maus schiebt Punkte weg
-    vec3 weg = welt.xyz - uMaus;
-    float nah = exp(-dot(weg, weg) * 0.9) * uMausKraft;
-    welt.xyz += normalize(weg + 0.0001) * nah * 0.8;
-
-    vec4 mv = viewMatrix * welt;
+    vec4 mv = viewMatrix * modelMatrix * vec4(p, 1.0);
     gl_Position = projectionMatrix * mv;
-    gl_PointSize = uPunkt * (0.6 + aZufall * 0.9) * (1.0 + uPegel * 0.6 + nah * 1.5 + stoss * 2.0) * (15.0 / -mv.z);
+    gl_PointSize = uPunkt * (0.6 + aZufall * 0.9) * (1.0 + uPegel * 0.3) * (15.0 / -mv.z);
 
     // Zwei Töne der laufenden Branche, verteilt nach Höhe
     float h = clamp(p.y * 0.25 + 0.5, 0.0, 1.0);
     vec3 farbe = mix(uFarbeA, uFarbeB, clamp(h * 0.8 + n * 0.2, 0.0, 1.0));
-    farbe += vec3(1.0, 0.85, 0.7) * (nah * 0.6 + stoss * 0.8 + uPegel * 0.15 * aZufall);
+    farbe += vec3(1.0, 0.85, 0.7) * uPegel * 0.1 * aZufall;
     vFarbe = farbe;
     vAlpha = 0.55 + aZufall * 0.45;
   }
@@ -87,7 +72,7 @@ const PUNKT_FRAGMENT = /* glsl */ `
     if (r > 0.5) discard;
     float kern = smoothstep(0.5, 0.0, r);
     float hof = kern * kern;
-    gl_FragColor = vec4(vFarbe * (0.55 + hof * 0.9), hof * vAlpha * uDeckkraft * 0.8);
+    gl_FragColor = vec4(vFarbe * (0.55 + hof * 0.8), hof * vAlpha * uDeckkraft * 0.65);
   }
 `;
 
@@ -102,8 +87,6 @@ const STERNE_VERTEX = /* glsl */ `
   uniform float uPunkt;
   uniform vec2 uMaus;
   uniform float uMausKraft;
-  uniform vec2 uKnallOrt;
-  uniform float uKnall;
   varying vec3 vFarbe;
   varying float vAlpha;
 
@@ -119,19 +102,13 @@ const STERNE_VERTEX = /* glsl */ `
     vec2 q = p * vec2(uSeite, 1.0);
     vec2 zurMaus = q - uMaus * vec2(uSeite, 1.0);
     float nah = exp(-dot(zurMaus, zurMaus) * 18.0) * uMausKraft;
-    q += normalize(zurMaus + 0.0001) * nah * 0.12 * (0.4 + tiefe);
-
-    vec2 zumKnall = q - uKnallOrt * vec2(uSeite, 1.0);
-    float d = length(zumKnall);
-    float front = uKnall * 2.2;
-    float stoss = exp(-pow(d - front, 2.0) * 40.0) * (1.0 - smoothstep(0.0, 1.4, uKnall)) * step(0.0001, uKnall);
-    q += normalize(zumKnall + 0.0001) * stoss * 0.08;
+    q += normalize(zurMaus + 0.0001) * nah * 0.05 * (0.4 + tiefe);
 
     gl_Position = vec4(q / vec2(uSeite, 1.0), 0.0, 1.0);
 
-    float funkeln = 0.55 + 0.45 * sin(uZeit * (0.8 + aPhase * 2.2) + aPhase * 40.0);
-    gl_PointSize = uPunkt * (0.8 + tiefe * 2.6) * (1.0 + nah * 1.2 + stoss * 1.5);
-    vFarbe = aFarbe + vec3(1.0, 0.8, 0.6) * (nah * 0.5 + stoss);
+    float funkeln = 0.75 + 0.25 * sin(uZeit * (0.5 + aPhase * 1.4) + aPhase * 40.0);
+    gl_PointSize = uPunkt * (0.8 + tiefe * 2.2) * (1.0 + nah * 0.5);
+    vFarbe = aFarbe + vec3(1.0, 0.8, 0.6) * nah * 0.3;
     vAlpha = (0.25 + tiefe * 0.75) * funkeln;
   }
 `;
@@ -174,13 +151,14 @@ export class Klangkoerper {
   private zielB = new THREE.Color(...FARBEN.garage[1]);
   private sprecher: Sprecher = null;
   private silbe = 0;
-  private knallStart = -10;
   private maus = new THREE.Vector2(0, 0);
   private mausKraft = 0;
   private scroll = 0;
   private kugelSichtbar = true;
-  private sterneDeck = 0.5;
-  private zielSterneDeck = 0.5;
+  private sterneDeck = 0.4;
+  private zielSterneDeck = 0.4;
+  /** Auf dem Handy ruht die Schleife, sobald die Kugel aus dem Bild ist; gezeichnet wird dann nur beim Scrollen */
+  private schlaeft = false;
 
   constructor(canvas: HTMLCanvasElement, opts: Optionen) {
     this.opts = opts;
@@ -189,7 +167,7 @@ export class Klangkoerper {
     this.renderer.setClearColor(0x000000, 0);
 
     // ---------- Sternenhimmel ----------
-    const anzahl = opts.lowPower ? 900 : 1800;
+    const anzahl = opts.lowPower ? 500 : 1200;
     const sterne = new Float32Array(anzahl * 3);
     const farben = new Float32Array(anzahl * 3);
     const phasen = new Float32Array(anzahl);
@@ -225,9 +203,7 @@ export class Klangkoerper {
         uPunkt: { value: 2 * this.renderer.getPixelRatio() },
         uMaus: { value: new THREE.Vector2(9, 9) },
         uMausKraft: { value: 0 },
-        uKnallOrt: { value: new THREE.Vector2(0, 0) },
-        uKnall: { value: 0 },
-        uDeckkraft: { value: 0.5 },
+        uDeckkraft: { value: 0.4 },
       },
     });
     this.sterne = new THREE.Points(sterneGeo, this.sterneMat);
@@ -264,9 +240,6 @@ export class Klangkoerper {
       uniforms: {
         uZeit: { value: 0 },
         uPegel: { value: 0 },
-        uKnall: { value: 0 },
-        uMaus: { value: new THREE.Vector3(99, 99, 99) },
-        uMausKraft: { value: 0 },
         uPunkt: { value: opts.lowPower ? 3.2 : 2.6 },
         uFarbeA: { value: this.farbeA },
         uFarbeB: { value: this.farbeB },
@@ -289,13 +262,6 @@ export class Klangkoerper {
 
   mausWeg() {
     this.mausKraft = 0;
-  }
-
-  /** Klick: Druckwelle durch Kugel und Sterne, ausgehend vom Klickpunkt (-1…1) */
-  knall(x: number, y: number) {
-    this.knallStart = this.zeit;
-    (this.sterneMat.uniforms.uKnallOrt.value as THREE.Vector2).set(x, y);
-    this.anstossen();
   }
 
   /** Neue Branche: die Kugel wechselt langsam in deren Farben */
@@ -333,7 +299,7 @@ export class Klangkoerper {
   /** Scrollposition in Pixeln; die Sterne wandern in Ebenen mit, im Hero leiser als auf der restlichen Seite */
   setScroll(y: number, imHero: boolean) {
     this.scroll = y;
-    this.zielSterneDeck = imHero ? 0.5 : 1;
+    this.zielSterneDeck = imHero ? 0.4 : 0.7;
     if (!this.opts.motion) this.sterneDeck = this.zielSterneDeck;
     this.anstossen();
   }
@@ -357,11 +323,23 @@ export class Klangkoerper {
 
   stop() {
     this.laeuft = false;
+    this.schlaeft = false;
     cancelAnimationFrame(this.bild);
   }
 
+  /** Handy ohne sichtbare Kugel: keine Dauerschleife, das spart Akku */
+  private darfRuhen() {
+    return this.opts.lowPower && !this.kugelSichtbar;
+  }
+
   private anstossen() {
-    if (!this.opts.motion && !this.laeuft) requestAnimationFrame(() => this.zeichnen(performance.now(), true));
+    if (this.schlaeft && !this.darfRuhen()) {
+      this.schlaeft = false;
+      this.zuletzt = performance.now();
+      this.bild = requestAnimationFrame(this.zeichnen);
+    } else if (this.schlaeft || (!this.opts.motion && !this.laeuft)) {
+      requestAnimationFrame(() => this.zeichnen(performance.now(), true));
+    }
   }
 
   /** Sichtbare Breite und Höhe der Szene in der Ebene z = 0 */
@@ -393,23 +371,19 @@ export class Klangkoerper {
     this.farbeB.lerp(this.zielB, farbTempo);
     this.sterneDeck += (this.zielSterneDeck - this.sterneDeck) * weich;
 
-    const { breite, hoehe } = this.sichtfeld();
     const kraft = this.opts.motion ? this.mausKraft : 0;
-    const k = this.zeit - this.knallStart;
 
     // ---------- Kugel ----------
     this.kugel.visible = this.hof.visible = this.kugelSichtbar;
     if (this.kugelSichtbar) {
       // Die Kugel dreht sich nur langsam um sich selbst; die Maus bewegt sie nicht (Wunsch des Inhabers)
       this.kugel.rotation.x = 0.15;
-      this.kugel.rotation.y = this.zeit * 0.08;
+      this.kugel.rotation.y = this.zeit * 0.05;
       const u = this.kugelMat.uniforms;
       u.uZeit.value = this.zeit;
       u.uPegel.value = this.pegel;
-      u.uMausKraft.value = 0;
-      u.uKnall.value = k >= 0 && k < 1.2 && this.opts.motion ? k : 0;
 
-      this.hofMat.uniforms.uStaerke.value = 0.28 + this.pegel * 0.3;
+      this.hofMat.uniforms.uStaerke.value = 0.16 + this.pegel * 0.1;
       (this.hofMat.uniforms.uFarbe.value as THREE.Color).copy(this.farbeA);
     }
 
@@ -419,11 +393,12 @@ export class Klangkoerper {
     s.uScroll.value = this.scroll / Math.max(1, window.innerHeight) * 0.35;
     (s.uMaus.value as THREE.Vector2).copy(this.maus);
     s.uMausKraft.value += (kraft - s.uMausKraft.value) * weich;
-    s.uKnall.value = k >= 0 && k < 1.4 && this.opts.motion ? k : 0;
     s.uDeckkraft.value = this.sterneDeck;
 
     this.renderer.render(this.scene, this.camera);
-    if (this.laeuft && !einmal) this.bild = requestAnimationFrame(this.zeichnen);
+    if (!this.laeuft || einmal) return;
+    if (this.darfRuhen()) this.schlaeft = true;
+    else this.bild = requestAnimationFrame(this.zeichnen);
   };
 
   dispose() {

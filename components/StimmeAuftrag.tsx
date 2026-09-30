@@ -131,11 +131,10 @@ export default function StimmeAuftrag({ branche }: { branche?: BrancheId } = {})
       <div key={szenario.id + runde} className={"auftrag-karte" + (fertig ? " fertig" : "")} style={{ "--anteil": anteil } as React.CSSProperties}>
         <div className="auftrag-kopf">
           <div>
-            <div className="titel">
-              <span className="beispiel-marke">Beispiel</span>
-              {szenario.titel}
-            </div>
+            {/* Titel allein auf der Zeile, damit er nicht umbricht; «Beispiel» steht bei der Statuszeile */}
+            <div className="titel">{szenario.titel}</div>
             <div className="status">
+              <span className="beispiel-marke">Beispiel</span>
               {fertig ? (
                 <>
                   <Haken strich={2.4} />

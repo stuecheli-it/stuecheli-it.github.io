@@ -2,9 +2,7 @@
 // Nur belegte Aussagen (PRODUCT.md, Preisliste); Vertragsdauer, Kündigung und Datenstandort erst mit Beleg ergänzen.
 
 import type { Frage } from "./branchenseiten";
-import { PRODUKTE, chf } from "./preise";
-
-const SOLO = PRODUKTE.find((p) => p.id === "telefon")!.plaene.find((p) => p.name === "Solo")!;
+import { abPreis, chf } from "./preise";
 
 export const FRAGE_NUMMER: Frage = {
   frage: "Bleibt meine Telefonnummer?",
@@ -22,7 +20,7 @@ export const FRAGE_KI: Frage = {
 export function frageKosten(fuer = "meinen Betrieb"): Frage {
   return {
     frage: `Was kostet das für ${fuer}?`,
-    antwort: `Das Abo Telefon KI Solo kostet ${chf(SOLO.monat)} pro Monat (fonio-Listenpreis, exkl. MWST). Dazu kommt die einmalige Einrichtung durch uns. Diese offerieren wir auf Anfrage, passend zu Ihrem Betrieb; für die ersten zehn Betriebe gibt es ein Pilotangebot.`,
+    antwort: `Das Abo Telefon KI kostet ab ${chf(abPreis("telefon"))} pro Monat (fonio-Listenpreis, exkl. MWST); welches Paket passt, hängt davon ab, wie viele Anrufe Sie haben. Dazu kommt die einmalige Einrichtung durch uns. Diese offerieren wir auf Anfrage, passend zu Ihrem Betrieb; für die ersten zehn Betriebe gibt es ein Pilotangebot.`,
   };
 }
 

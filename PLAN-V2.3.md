@@ -8,6 +8,34 @@ Zusatzkosten in CHF, Jahresabo wie auf fonio.ai), Einrichtung «offeriert auf An
 Gearbeitet wird im Zweig `v2.3`. Die Live-Seite ändert sich erst, wenn `v2.3` in `main` übernommen wird,
 denn nur ein Push auf `main` veröffentlicht (Workflow «Website veröffentlichen»).
 
+## Erledigt: Gesamtbeurteilung umgesetzt (30.09.2026 abends, noch nicht veröffentlicht)
+
+Fünfte Kritik: 25/36 (69 %, Bericht in `.impeccable/critique/2026-09-30T21-14-22Z__app-page-tsx.md`). Wunsch des
+Inhabers: alles umsetzen, mit dem Hero beginnen, Kugel ruhiger. Kein Foto und keine Telefonnummer auf der Seite.
+
+- [x] **Hero verständlicher:** Titel «Sie arbeiten. Ihr Telefon nimmt ab.» (wie die Branchenseiten), Einleitung
+      auch auf dem Handy vollständig, sichtbare Zeile über dem Website-Feld («Hören Sie Ihren eigenen Assistenten …»,
+      auch auf den Branchenseiten), fonio erklärt («über unseren Partner fonio.ai»), Nebenwege kleiner und heller
+      mit «Oder». Branchen-Knöpfe am Desktop 3 + 3 statt 4 + 2, Titel der Auftragskarte ohne Umbruch.
+- [x] **Ruhiger:** keine farbigen Leuchtschatten (`--glow` neutral), kein pulsierender Punkt, Lichtkegel,
+      Magnet-Knopf und 3D-Neigung entfernt (`Effekte.tsx` nur noch Lesefortschritt). Kugel atmet schwächer, dreht
+      langsamer, schwächerer Hof, keine Druckwelle beim Klick; Sternenhimmel mit weniger Sternen, gedämpft, kaum
+      Funkeln; auf dem Handy ruht die WebGL-Schleife, sobald die Kugel aus dem Bild ist (Akku).
+- [x] **Preise und Kontakt:** «Sie sparen CHF …» statt «Spare», Marke «Empfohlen» statt «Beliebt», neuer Block
+      «So setzen sich Ihre Kosten zusammen» (Abo, Einrichtung ohne Betrag, Anpassungen). Kontakt: «Unverbindlich
+      anfragen» als einziger oranger Hauptweg. Fragen-Titel «Häufige Fragen vor dem Start» / «… für Handwerksbetriebe».
+- [x] **Kürzer:** Nutzen-Leiste in den Branchen-Abschnitt verschoben (ein Titel weniger), Branchenseiten ohne
+      «So klingt das» (Handwerk 11,1 → 9,9 Bildschirme). Startseite Handy 10,2 Bildschirme (Hero-Beschriftung und
+      Kostenblock sind neu dazugekommen).
+- [x] **Aufgeräumt:** tote Klasse `weiss`, doppelte Hover- und Symbolfarben in `globals.css` zusammengeführt,
+      Kopfzeilen-Links ohne Umbruch bei 1100 px.
+- [x] **Dokumentation:** `DESIGN.md`, Sidecar und Seitenbeschreibung aus dem gebauten Stand neu abgeleitet.
+- [x] **Branchenseiten ohne pauschale Empfehlung:** statt «Telefon KI Solo · Empfohlen» jetzt «Telefon KI ab CHF 119»
+      mit Solo und Team nach Anrufmenge und Hinweis auf WhatsApp/Web-Chat ab CHF 49 (Beträge aus `lib/preise.ts`,
+      `abPreis`). Die Kostenfrage nennt ebenfalls «ab» (Wunsch des Inhabers).
+- [ ] Offen: Seitentitel (Browser-Tab, Suchmaschinen) lautet noch «Ihr Telefon nimmt jetzt immer ab».
+- [ ] Offen: Kurz-Knopf «Anfragen» in der Handy-Kopfzeile (für «Unverbindlich anfragen» ist dort kein Platz).
+
 ## Erledigt: Kritik «Klangkörper» umgesetzt (30.09.2026, noch nicht veröffentlicht)
 
 Vierte Kritik (neues Layout): 23/36 (64 %, Bericht in `../.impeccable/critique/2026-09-30T19-22-30Z…`). Wunsch des Inhabers:

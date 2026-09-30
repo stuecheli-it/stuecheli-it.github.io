@@ -5,6 +5,7 @@ import { BRANCHEN, type BrancheId } from "@/lib/branchen";
 import { pfadFuer, BRANCHENSEITEN } from "@/lib/branchenseiten";
 import { brancheBeobachten, brancheWaehlen } from "@/lib/gewaehlteBranche";
 import { BrancheIcon, Illustration } from "./BranchenGrafik";
+import { NutzenRaster } from "./Abschnitte";
 import { Haken, Pfeil } from "./Icons";
 
 /**
@@ -12,6 +13,7 @@ import { Haken, Pfeil } from "./Icons";
  * Kein automatischer Wechsel: Der Besucher wählt selbst, Bewegung gehört dem Hero.
  * Wählt der Besucher im Hero einen Ort, zeigt dieser Abschnitt dieselbe Branche.
  * Zur Branchenseite führt der Link «Mehr für …» unter dem Beispiel.
+ * Die vier Leistungen stehen hier oben als Leiste (früher ein eigener Abschnitt «Nutzen»; zusammengelegt 30.09.2026).
  */
 export default function Branchen() {
   const tabRefs = useRef<Partial<Record<BrancheId, HTMLButtonElement | null>>>({});
@@ -45,12 +47,13 @@ export default function Branchen() {
     <section className="abschnitt" id="branchen">
       <div className="wrap">
         <div className="reveal">
-          <h2>Das übernimmt er in Ihrer Branche.</h2>
+          <h2>Das übernimmt der Assistent.</h2>
           <p className="sub">
-            Der Assistent kennt Ihr Angebot, Ihre Zeiten und Ihre Abläufe. Wählen Sie Ihre Branche und lesen Sie ein
+            Er kennt Ihr Angebot, Ihre Zeiten und Ihre Abläufe. Wählen Sie unten Ihre Branche und lesen Sie ein
             Beispielgespräch.
           </p>
         </div>
+        <NutzenRaster />
 
         <div className="tabs-zeile reveal">
           <div className="tabs" role="tablist" aria-label="Branche wählen" onKeyDown={taste}>
@@ -77,7 +80,7 @@ export default function Branchen() {
         </div>
 
         <div className="branche" key={b.id} id="branchen-panel" role="tabpanel" aria-labelledby={`tab-${b.id}`}>
-          <div className="dialog spot">
+          <div className="dialog">
             <div className="wer">Beispielgespräch · {b.titel} · erfundene Firma</div>
             {b.gespraech.map((z, i) => (
               <div key={i} className={"blase " + z.wer} style={{ "--i": i } as React.CSSProperties}>{z.text}</div>

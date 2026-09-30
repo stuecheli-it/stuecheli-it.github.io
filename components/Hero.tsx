@@ -9,15 +9,19 @@ export default function Hero() {
     <section className="hero" data-ohne-chatknopf>
       <div className="wrap">
         <div>
+          {/* Situativ wie auf den Branchenseiten («Sie sind auf der Baustelle. Ihr Telefon nimmt ab.») */}
           <h1>
-            Ihr Telefon nimmt <span className="glanz">jetzt immer ab.</span>
+            Sie arbeiten.
+            <br />
+            <span className="glanz">Ihr Telefon nimmt&nbsp;ab.</span>
           </h1>
           <p className="lead">
-            Der KI-Telefonassistent für Betriebe in der Ostschweiz<span className="lead-lang">: nimmt jeden Anruf entgegen, gibt Auskunft und meldet Ihnen, was wirklich zu Ihnen muss</span>. Persönlich
-            eingerichtet und betreut aus St.&nbsp;Gallen, ohne neue Telefonanlage.
+            Ein KI-Assistent nimmt Ihre Anrufe entgegen, gibt Auskunft und meldet Ihnen, was wirklich zu Ihnen muss.
+            Persönlich eingerichtet aus St.&nbsp;Gallen, ohne neue Telefonanlage.
           </p>
           {/* Anruf-Demo mit der eigenen Website (fonio-Partner-Link); in derselben Zeile der Beispiel-Chat */}
           <LiveDemoFormular
+            beschriftung
             zusatz={
               <ChatKnopf className="hero-chat">
                 <Chat />

@@ -161,6 +161,11 @@ export const PRODUKTE: Produkt[] = [
 
 // ---------- Hilfsfunktionen ----------
 
+/** Günstigster Monatspreis über die genannten Produkte, z.B. für «ab CHF 49» */
+export function abPreis(...ids: ProduktId[]): number {
+  return Math.min(...PRODUKTE.filter((p) => ids.includes(p.id)).flatMap((p) => p.plaene.map((x) => x.monat)));
+}
+
 /** Schweizer Schreibweise mit Hochkomma: 1'188, auf Wunsch mit zwei Rappen-Stellen. */
 export function chf(betrag: number, mitRappen = false): string {
   const fest = mitRappen ? (Math.round(betrag * 20) / 20).toFixed(2) : String(Math.round(betrag));

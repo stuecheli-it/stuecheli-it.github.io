@@ -13,7 +13,7 @@ import {
 import { Globus, Pfeil } from "./Icons";
 
 /** Was man vor dem Klick wissen muss, als eine ruhige Zeile unter dem Feld */
-const FAKTEN = ["Kostenlos bei fonio.ai", "In rund 30 Sekunden bereit", "Neuer Tab, fragt nach Ihrer Nummer"];
+const FAKTEN = ["Kostenlos, über unseren Partner fonio.ai", "In rund 30 Sekunden bereit", "Neuer Tab, fragt nach Ihrer Nummer"];
 
 /**
  * Feld «Ihre Website» plus «Eigene Demo erstellen»: leitet die Adresse an unseren fonio-Partner-Link weiter.
@@ -26,6 +26,7 @@ export default function LiveDemoFormular({
   branche,
   gesendet,
   zusatz,
+  beschriftung = false,
 }: {
   /** Auf hellem Grund (im Fenster) statt im dunklen Hero */
   hell?: boolean;
@@ -34,6 +35,8 @@ export default function LiveDemoFormular({
   gesendet?: () => void;
   /** Weiterer Weg in derselben Zeile wie «Demo ohne Website», z.B. der Beispiel-Chat im Hero */
   zusatz?: React.ReactNode;
+  /** Sichtbare Zeile über dem Feld: was mit der Adresse passiert (im Hero; das Fenster hat einen eigenen Titel) */
+  beschriftung?: boolean;
 }) {
   const id = useId();
   const eingabeRef = useRef<HTMLInputElement>(null);
@@ -69,9 +72,15 @@ export default function LiveDemoFormular({
         {Object.entries(LIVE_DEMO_PARAMETER).map(([name, wert]) => (
           <input key={name} type="hidden" name={name} value={wert} />
         ))}
-        <label className="sr-only" htmlFor={id}>
-          Ihre Website
-        </label>
+        {beschriftung ? (
+          <label className="live-demo-label" htmlFor={id}>
+            <b>Hören Sie Ihren eigenen Assistenten:</b> Website eingeben, er lernt Ihren Betrieb und ruft Sie an.
+          </label>
+        ) : (
+          <label className="sr-only" htmlFor={id}>
+            Ihre Website
+          </label>
+        )}
         <div className="live-demo-feld">
           <span className="live-demo-ico">
             <Globus />
@@ -91,7 +100,7 @@ export default function LiveDemoFormular({
             aria-describedby={fehler ? `${id}-fehler` : `${id}-hinweis`}
             onChange={() => fehler && setFehler(null)}
           />
-          <button type="submit" className="btn btn-primaer magnet">
+          <button type="submit" className="btn btn-primaer">
             Anruf-Demo starten <Pfeil strich={2} />
           </button>
         </div>
@@ -109,8 +118,9 @@ export default function LiveDemoFormular({
           <li key={f}>{f}</li>
         ))}
       </ul>
-      {/* Die anderen Wege in einer Zeile, jeder mit genug Fläche zum Tippen */}
+      {/* Die anderen Wege in einer Zeile, sichtbar zweitrangig, jeder mit genug Fläche zum Tippen */}
       <div className="live-demo-wege">
+        <span className="live-demo-oder">Oder</span>
         <a
           className="live-demo-ohne"
           href={liveDemoLink()}

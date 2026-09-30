@@ -16,7 +16,7 @@ import { Chat, Haken, Pfeil } from "@/components/Icons";
 import { BRANCHEN } from "@/lib/branchen";
 import { BRANCHENSEITEN, seiteFuer, type BranchenSeite, type Frage } from "@/lib/branchenseiten";
 import { FRAGE_KI, FRAGE_NUMMER, frageKosten } from "@/lib/fragen";
-import { PREISSTAND, PRODUKTE, chf } from "@/lib/preise";
+import { PREISSTAND, PRODUKTE, abPreis, chf } from "@/lib/preise";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -39,7 +39,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-const SOLO = PRODUKTE.find((p) => p.id === "telefon")!.plaene.find((p) => p.name === "Solo")!;
+/** Telefon KI mit beiden Paketen: welches passt, hängt von der Anrufmenge ab, nicht von der Branche */
+const TELEFON = PRODUKTE.find((p) => p.id === "telefon")!;
 
 /** Fragen, die in jeder Branche gleich beantwortet werden (gemeinsam mit der Startseite, lib/fragen.ts) */
 function allgemeineFragen(s: BranchenSeite): Frage[] {
@@ -49,7 +50,6 @@ function allgemeineFragen(s: BranchenSeite): Frage[] {
 export default async function Branchenseite({ params }: Props) {
   const s = seiteFuer((await params).slug);
   if (!s) notFound();
-  const b = BRANCHEN.find((x) => x.id === s.id)!;
   const fragen = [...s.fragen, ...allgemeineFragen(s)];
   const andere = BRANCHENSEITEN.filter((x) => x.id !== s.id);
   const pfad = `/branchen/${s.slug}/`;
@@ -117,6 +117,7 @@ export default async function Branchenseite({ params }: Props) {
               {/* Live-Demo mit der eigenen Website, daneben der Demo-Chat der Beispiel-Firma dieser Branche */}
               <LiveDemoFormular
                 branche={s.id}
+                beschriftung
                 zusatz={
                   <ChatKnopf className="hero-chat" branche={s.id}>
                     <Chat />
@@ -141,7 +142,7 @@ export default async function Branchenseite({ params }: Props) {
             </div>
             <div className="karten">
               {s.situationen.map((x, i) => (
-                <div key={x.titel} className={"karte bs-situation spot reveal" + (i ? ` verzoegert-${i}` : "")}>
+                <div key={x.titel} className={"karte bs-situation reveal" + (i ? ` verzoegert-${i}` : "")}>
                   <h3>{x.titel}</h3>
                   <p>{x.text}</p>
                 </div>
@@ -151,7 +152,7 @@ export default async function Branchenseite({ params }: Props) {
         </section>
 
         {/* ---------- Typische Anrufe ---------- */}
-        <section className="abschnitt weiss">
+        <section className="abschnitt">
           <div className="wrap">
             <div className="reveal">
               <h2>Typische Anrufe {s.beiEiner}.</h2>
@@ -175,34 +176,8 @@ export default async function Branchenseite({ params }: Props) {
           </div>
         </section>
 
-        {/* ---------- Beispielgespräch ---------- */}
-        <section className="abschnitt">
-          <div className="wrap">
-            <div className="reveal">
-              <h2>So klingt das {s.beiEiner}.</h2>
-            </div>
-            <div className="branche reveal">
-              <div className="dialog spot">
-                <div className="wer">Beispielgespräch · {b.titel}</div>
-                {b.gespraech.map((z, i) => (
-                  <div key={i} className={"blase " + z.wer}>{z.text}</div>
-                ))}
-              </div>
-              <div className="vorteile">
-                <Illustration b={b} />
-                {b.vorteile.map((v) => (
-                  <div key={v.fett} className="vorteil">
-                    <div className="hak"><Haken strich={3} farbe="#ffffff" /></div>
-                    <p><b>{v.fett}</b>{v.rest}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* ---------- Einstieg und Preis ---------- */}
-        <section className="abschnitt weiss">
+        <section className="abschnitt">
           <div className="wrap bs-start">
             <div className="reveal">
               <h2>In drei Schritten startklar.</h2>
@@ -218,28 +193,35 @@ export default async function Branchenseite({ params }: Props) {
                 ))}
               </ol>
             </div>
-            <div className="preis mitte bs-preis spot reveal verzoegert-1">
-              <span className="beliebt">Beliebt</span>
-              <h3>Telefon KI {SOLO.name}</h3>
-              <p className="fuer">{SOLO.fuer}</p>
+            {/* Keine pauschale Empfehlung: beide Pakete nach Anrufmenge, dazu der Hinweis auf die Chat-Assistenten */}
+            <div className="preis mitte bs-preis reveal verzoegert-1">
+              <h3>Telefon KI</h3>
               <div className="betrag">
-                {chf(SOLO.monat)} <small>/ Monat</small>
+                <small>ab</small> {chf(abPreis("telefon"))} <small>/ Monat</small>
               </div>
+              <div className="bs-plaene">
+                {TELEFON.plaene.map((p) => (
+                  <div key={p.name} className="bs-plan">
+                    <b>{p.name}</b>
+                    <span>{p.fuer}</span>
+                    <span className="bs-plan-preis">{chf(p.monat)}</span>
+                  </div>
+                ))}
+              </div>
+              <p className="bs-plan-hinweis">
+                Welches Paket passt, klären wir im Gespräch. Auch als WhatsApp- oder Web-Chat-Assistent, ab{" "}
+                {chf(abPreis("whatsapp", "webchat"))} pro Monat.
+              </p>
               <p className="setup">
                 Einrichtung durch uns: offeriert auf Anfrage, passend zu Ihrem Betrieb. Pilotangebot für die ersten zehn Betriebe.
               </p>
-              <ul>
-                {SOLO.punkte.map((p) => (
-                  <li key={p}><Haken />{p}</li>
-                ))}
-              </ul>
               <AnfrageKnopf
                 className="btn btn-primaer"
                 kontext={{
                   thema: `Telefon KI für ${s.mehrzahl}`,
                   produkt: "Telefon KI",
-                  plan: SOLO.name,
-                  preis: `${chf(SOLO.monat)} pro Monat`,
+                  plan: TELEFON.plaene.map((p) => p.name).join(" oder "),
+                  preis: `ab ${chf(abPreis("telefon"))} pro Monat`,
                   branche: s.mehrzahl,
                   quelle: `Branchenseite ${s.kurz}`,
                 }}
@@ -249,7 +231,7 @@ export default async function Branchenseite({ params }: Props) {
               <a className="bs-alle-preise" href="/#preise">
                 Alle Preise und Pakete
               </a>
-              <p className="bs-steuer">fonio-Listenpreis in CHF, exkl. MWST, Stand {PREISSTAND}.</p>
+              <p className="bs-steuer">fonio-Listenpreise in CHF pro Monat, exkl. MWST, Stand {PREISSTAND}.</p>
             </div>
           </div>
         </section>
@@ -258,7 +240,7 @@ export default async function Branchenseite({ params }: Props) {
         <section className="abschnitt">
           <div className="wrap bs-fragen-wrap">
             <div className="reveal">
-              <h2>Was {s.mehrzahl} uns fragen.</h2>
+              <h2>Häufige Fragen für {s.mehrzahl}.</h2>
             </div>
             <div className="bs-fragen reveal verzoegert-1">
               {fragen.map((f) => (
@@ -275,7 +257,7 @@ export default async function Branchenseite({ params }: Props) {
         </section>
 
         {/* ---------- Weitere Branchen ---------- */}
-        <section className="abschnitt weiss bs-weitere">
+        <section className="abschnitt bs-weitere">
           <div className="wrap">
             <div className="reveal">
               <h2>Auch für diese Betriebe.</h2>

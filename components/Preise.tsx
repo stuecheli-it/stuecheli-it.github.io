@@ -37,7 +37,7 @@ import { useFenster } from "./useFenster";
 
 type Abrechnung = "monat" | "jahr";
 
-/** Wie auf fonio.ai: im Jahresabo gross der Monatsbetrag mit «Spare CHF …» daneben */
+/** Wie auf fonio.ai: im Jahresabo gross der Monatsbetrag, daneben «Sie sparen CHF …» (formelle Anrede) */
 /** «CHF 119» mit kleiner Währung, damit die Zahl trägt und nicht das Kürzel */
 function Zahl({ text }: { text: string }) {
   const [waehrung, ...rest] = text.split(" ");
@@ -56,7 +56,7 @@ function Betrag({ plan, abrechnung }: { plan: Plan; abrechnung: Abrechnung }) {
     </>
   ) : (
     <>
-      <Zahl text={proMonatImJahresabo(plan)} /> <span className="spare-marke">Spare {ersparnisProMonat(plan)}</span>
+      <Zahl text={proMonatImJahresabo(plan)} /> <span className="spare-marke">Sie sparen {ersparnisProMonat(plan)}</span>
     </>
   );
 }
@@ -165,7 +165,7 @@ function DetailFenster({
           <header className="plan-kopf">
             <div className="plan-marken">
               <span className="plan-produkt">{PRODUKT_ICON[produkt.id]()}{produkt.label}</span>
-              {plan.beliebt && <span className="plan-beliebt">Beliebt</span>}
+              {plan.beliebt && <span className="plan-beliebt">Empfohlen</span>}
             </div>
             <h3 id="planTitel">{plan.name}</h3>
             <p className="plan-fuer">{plan.fuer}</p>
@@ -237,7 +237,7 @@ export default function Preise() {
   const anfrageSchliessen = useRef(() => setAnfrage(null)).current;
 
   return (
-    <section className="abschnitt weiss" id="preise">
+    <section className="abschnitt" id="preise">
       <div className="wrap">
         <div className="reveal">
           <h2>Klare Preise, Abo und Einrichtung getrennt.</h2>
@@ -278,8 +278,8 @@ export default function Preise() {
         {/* Hier blendet sich der Chat-Knopf unten rechts aus, damit er die Anfrage-Knöpfe nicht verdeckt */}
         <div className="preise" key={produkt.id}>
           {produkt.plaene.map((plan) => (
-            <div key={plan.name} className={"preis spot" + (plan.beliebt ? " mitte" : "")}>
-              {plan.beliebt && <span className="beliebt">Beliebt</span>}
+            <div key={plan.name} className={"preis" + (plan.beliebt ? " mitte" : "")}>
+              {plan.beliebt && <span className="beliebt">Empfohlen</span>}
               <h3>{plan.name}</h3>
               <p className="fuer">{plan.fuer}</p>
               {/* Nur der Betrag wechselt sichtbar, wenn Monat/Jahr umgeschaltet wird; die Karte bleibt stehen */}
@@ -306,9 +306,26 @@ export default function Preise() {
             </div>
           ))}
         </div>
+        {/* Beantwortet «Was kostet mich das alles?» ohne Beträge für die eigene Leistung (Inhaltsregel) */}
+        <div className="kosten">
+          <h3>So setzen sich Ihre Kosten zusammen</h3>
+          <ol>
+            <li>
+              <b>Abo bei fonio.ai</b>
+              <span>Der Betrag auf der gewählten Karte, monatlich oder jährlich. Das Abo rechnet fonio.ai direkt mit Ihnen ab.</span>
+            </li>
+            <li>
+              <b>Einrichtung durch uns</b>
+              <span>Einmalig: offeriert auf Anfrage, passend zu Ihrem Betrieb. Sie wissen den Betrag, bevor es losgeht.</span>
+            </li>
+            <li>
+              <b>Anpassungen später</b>
+              <span>Nur wenn Sie etwas ändern möchten: nach Aufwand und transparent offeriert.</span>
+            </li>
+          </ol>
+        </div>
         <ul className="gut-zu-wissen" aria-label="Gut zu wissen">
-          <li>fonio-Listenpreise in CHF, exkl. MWST, Stand {PREISSTAND}. Das Abo rechnet fonio.ai direkt mit Ihnen ab.</li>
-          <li>Anpassungen nach dem Livegang übernehmen wir laufend, nach Aufwand und transparent offeriert.</li>
+          <li>fonio-Listenpreise in CHF, exkl. MWST, Stand {PREISSTAND}.</li>
           <li>Technischer Support für das Produkt: fonio.ai. Für grössere Volumen stellen wir ein passendes Paket zusammen.</li>
         </ul>
       </div>

@@ -72,12 +72,6 @@ export default function Klangbuehne() {
           k.setMaus((e.clientX / window.innerWidth) * 2 - 1, -((e.clientY / window.innerHeight) * 2 - 1));
         };
         const raus = () => k.mausWeg();
-        // Klick auf freie Fläche: Druckwelle (nicht bei Knöpfen, Links und Feldern)
-        const klick = (e: MouseEvent) => {
-          const t = e.target as Element | null;
-          if (t?.closest("a, button, input, textarea, select, summary, label, iframe, [role=dialog]")) return;
-          k.knall((e.clientX / window.innerWidth) * 2 - 1, -((e.clientY / window.innerHeight) * 2 - 1));
-        };
         const groesse = () => {
           k.resize();
           platzieren();
@@ -90,7 +84,6 @@ export default function Klangbuehne() {
         window.addEventListener("scroll", scroll, { passive: true });
         window.addEventListener("pointermove", zeiger, { passive: true });
         document.documentElement.addEventListener("pointerleave", raus);
-        window.addEventListener("click", klick);
         window.addEventListener("resize", groesse);
         document.addEventListener("visibilitychange", steuern);
         const abmelden = stimmeHoeren(({ wer, branche }) => {
@@ -104,7 +97,6 @@ export default function Klangbuehne() {
           window.removeEventListener("scroll", scroll);
           window.removeEventListener("pointermove", zeiger);
           document.documentElement.removeEventListener("pointerleave", raus);
-          window.removeEventListener("click", klick);
           window.removeEventListener("resize", groesse);
           document.removeEventListener("visibilitychange", steuern);
           abmelden();
