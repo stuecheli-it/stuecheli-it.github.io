@@ -4,7 +4,6 @@ import Kopf from "./Kopf";
 import ChatStarter from "./ChatStarter";
 import { Fuss } from "./Abschnitte";
 import { Pfeil } from "./Icons";
-import Klangbuehne from "./Klangbuehne";
 
 export default function RechtsSeite({
   titel,
@@ -19,7 +18,6 @@ export default function RechtsSeite({
 }) {
   return (
     <>
-      <Klangbuehne />
       <Kopf />
       <main>
         <section className="recht-kopf">

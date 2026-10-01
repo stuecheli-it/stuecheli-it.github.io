@@ -1,4 +1,5 @@
 import ChatKnopf from "./ChatKnopf";
+import Klangbuehne from "./Klangbuehne";
 import { Chat } from "./Icons";
 import LiveDemoFormular from "./LiveDemoFormular";
 import StimmeAuftrag from "./StimmeAuftrag";
@@ -7,6 +8,8 @@ export default function Hero() {
   return (
     // Im Hero steht der Beispiel-Chat schon als Link, darum tritt der Chat-Knopf hier zurück
     <section className="hero" data-ohne-chatknopf>
+      {/* Dunkle Bühne mit Sternen und Kugel (Handy: Schallwelle) hinter dem Inhalt; die übrige Seite ist hell */}
+      <Klangbuehne />
       <div className="wrap">
         <div>
           {/* Situativ wie auf den Branchenseiten («Sie sind auf der Baustelle. Ihr Telefon nimmt ab.») */}

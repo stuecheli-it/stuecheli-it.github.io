@@ -79,11 +79,11 @@ export default async function Branchenseite({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <Klangbuehne />
       <Kopf branche={s.id} />
       <main>
         {/* ---------- Hero ---------- */}
         <section className="hero bs-hero" data-ohne-chatknopf>
+          <Klangbuehne />
           <div className="wrap">
             {/* Übersicht wie im Hero der Startseite: zurück zur Startseite oder direkt zu einer anderen Branche */}
             <nav className="bs-leiste" aria-label="Branchen">

@@ -1,4 +1,5 @@
-// Der Klangkörper und der Sternenhimmel hinter der Seite (Three.js, ein Canvas fest im Bildschirm).
+// Der Klangkörper und der Sternenhimmel im Hero (Three.js, ein Canvas so gross wie der Hero, seit 01.10.2026;
+// vorher fest hinter der ganzen Seite). Alle Lagen in CSS-Pixeln relativ zum Canvas.
 // - Die Kugel aus Lichtpunkten gehört zum Hero: Sie sitzt dort, wo der Hero sie hinsetzt, und scrollt mit ihm weg.
 //   Sie spricht ruhig mit (atmet mit der Stimme) und trägt die Farben der laufenden Branche.
 // - Der Sternenhimmel liegt hinter der ganzen Seite: gedämpfte Punkte, die langsam treiben, beim Scrollen in
@@ -212,6 +213,9 @@ export class Klangkoerper {
   private kugelSichtbar = true;
   private sterneDeck = 0.4;
   private zielSterneDeck = 0.4;
+  /** Grösse des Canvas in CSS-Pixeln */
+  private w = 1;
+  private h = 1;
   /** Auf dem Handy ruht die Schleife, sobald die Kugel aus dem Bild ist; gezeichnet wird dann nur beim Scrollen */
   private schlaeft = false;
 
@@ -375,14 +379,11 @@ export class Klangkoerper {
     this.anstossen();
   }
 
-  /**
-   * Lage der Kugel in CSS-Pixeln (Mittelpunkt im Fenster) und Grösse als Anteil der Fensterhöhe.
-   * Die Kugel folgt der Seite ohne Verzögerung, damit sie wie ein Teil des Heros wirkt.
-   */
+  /** Lage der Kugel in CSS-Pixeln (Mittelpunkt im Canvas) und Grösse als Anteil der Canvas-Höhe. */
   setKugel(x: number, y: number, hoeheAnteil: number) {
     const { breite, hoehe } = this.sichtfeld();
-    const w = window.innerWidth;
-    const h = window.innerHeight;
+    const w = this.w;
+    const h = this.h;
     this.kugel.position.set((x / w - 0.5) * breite, -(y / h - 0.5) * hoehe, 0);
     // Durchmesser der Kugel (5.2 Einheiten) auf den gewünschten Anteil der Höhe bringen
     this.kugel.scale.setScalar(Math.max(0.2, (hoeheAnteil * hoehe) / 5.2));
@@ -395,29 +396,30 @@ export class Klangkoerper {
   }
 
   /**
-   * Fläche der Schallwelle in CSS-Pixeln des Fensters; `null` blendet sie aus (Desktop zeigt die Kugel).
+   * Fläche der Schallwelle in CSS-Pixeln des Canvas; `null` blendet sie aus (Desktop zeigt die Kugel).
    */
   setWelle(f: { links: number; oben: number; breite: number; hoehe: number } | null) {
     if (!f) {
       this.welleSichtbar = false;
     } else {
       (this.welleMat.uniforms.uFlaeche.value as THREE.Vector4).set(f.links, f.oben, f.breite, f.hoehe);
-      this.welleSichtbar = f.oben + f.hoehe > 0 && f.oben < window.innerHeight;
+      this.welleSichtbar = f.oben + f.hoehe > 0 && f.oben < this.h;
     }
     this.anstossen();
   }
 
-  /** Scrollposition in Pixeln; die Sterne wandern in Ebenen mit, im Hero leiser als auf der restlichen Seite */
-  setScroll(y: number, imHero: boolean) {
+  /** Scrollposition in Pixeln; die Sterne wandern beim Scrollen leicht in Ebenen mit */
+  setScroll(y: number) {
     this.scroll = y;
-    this.zielSterneDeck = imHero ? 0.4 : 0.7;
-    if (!this.opts.motion) this.sterneDeck = this.zielSterneDeck;
     this.anstossen();
   }
 
   resize() {
-    const w = Math.max(1, window.innerWidth);
-    const h = Math.max(1, window.innerHeight);
+    const c = this.renderer.domElement;
+    const w = Math.max(1, c.clientWidth);
+    const h = Math.max(1, c.clientHeight);
+    this.w = w;
+    this.h = h;
     this.renderer.setSize(w, h, false);
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();

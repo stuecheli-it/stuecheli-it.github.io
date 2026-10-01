@@ -6,13 +6,11 @@ import { Ablauf, Fragen, Fuss, Kontakt } from "@/components/Abschnitte";
 import ChatStarter from "@/components/ChatStarter";
 import Reveal from "@/components/Reveal";
 import AnkerSprung from "@/components/AnkerSprung";
-import Klangbuehne from "@/components/Klangbuehne";
 import Effekte from "@/components/Effekte";
 
 export default function Startseite() {
   return (
     <>
-      <Klangbuehne />
       <Kopf />
       <main>
         <Hero />

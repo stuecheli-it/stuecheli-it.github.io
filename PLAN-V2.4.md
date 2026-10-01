@@ -11,6 +11,11 @@ denn nur ein Push auf `main` veröffentlicht (Workflow «Website veröffentliche
 
 ## In Arbeit: nach 2.4.0 (01.10.2026, noch nicht veröffentlicht)
 
+- [x] **Hell und ruhig statt ganz dunkel** (Rückmeldung: «zu hart, alles dunkel»; gewählt: «hell, Hero bleibt Bühne»,
+      Wirkung «ruhig und seriös»). Heller Grund #f5f4f1, weisse Flächen, dunkle Schrift; nur der Hero bleibt dunkle Bühne
+      mit runden unteren Ecken. Das 3D-Canvas liegt jetzt im Hero (steht still, wenn der Hero aus dem Bild ist), Sterne nur
+      noch dort. Fenster hell mit dunklem Kopf. Dunkle Werte gelten nur in .hero/.plan-kopf (Tokens in globals.css,
+      neue Hilfstokens --tinte, --flaeche, --gegen). Rechtsseiten ohne 3D.
 - [x] **Handy: Schallwelle statt Kugel.** Die kleine Kugel wirkte auf dem Handy fehl am Platz (Rückmeldung des Inhabers).
       Bis 960 px Breite spricht jetzt die Schallwelle aus Punkten von Website 2.2 (im selben WebGL-Bild wie die Sterne,
       Farben der laufenden Branche, heller bei der anrufenden Person, Enden weich auslaufend). Desktop behält die Kugel.
