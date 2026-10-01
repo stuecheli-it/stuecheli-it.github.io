@@ -4,6 +4,8 @@
 // - Der Sternenhimmel liegt hinter der ganzen Seite: gedämpfte Punkte, die langsam treiben, beim Scrollen in
 //   mehreren Ebenen mitwandern und der Maus leicht ausweichen. Seit dem 30.09.2026 ruhiger (Wunsch des Inhabers):
 //   keine Druckwelle beim Klick, weniger Sterne, auf dem Handy ohne Dauerschleife nach dem Hero.
+// - Auf dem Handy (gestapeltes Layout) steht statt der Kugel die Schallwelle aus Punkten von Website 2.2
+//   (Wunsch des Inhabers, 01.10.2026: die kleine Kugel wirkte dort fehl am Platz).
 
 import * as THREE from "three";
 import type { BrancheId } from "../branchen";
@@ -113,6 +115,55 @@ const STERNE_VERTEX = /* glsl */ `
   }
 `;
 
+// Schallwelle aus Punkten (aus Website 2.2): mehrere Stränge, an den Enden weich auslaufend.
+// Lage in CSS-Pixeln des Fensters, umgerechnet direkt in Bildschirmkoordinaten wie die Sterne.
+const WELLE_VERTEX = /* glsl */ `
+  attribute float aX;
+  attribute float aStrang;
+  attribute float aSeed;
+  uniform float uZeit;
+  uniform float uPegel;
+  uniform vec4 uFlaeche;   // links, oben, Breite, Höhe in CSS-Pixeln
+  uniform vec2 uBild;      // Fenstergrösse in CSS-Pixeln
+  uniform float uPixelRatio;
+  uniform vec3 uFarbeA;
+  uniform vec3 uFarbeB;
+  uniform float uSprecher; // 0 Assistent, 1 anrufende Person
+  varying vec3 vFarbe;
+  varying float vAlpha;
+
+  void main() {
+    float x = aX;
+    float t = uZeit;
+    float s = aStrang;
+    float fenster = pow(sin(3.14159265 * x), 1.4);
+    float y = sin(x * 11.0 + t * 3.1 + s * 2.1) * 0.55
+            + sin(x * 23.0 - t * 4.3 + s * 5.3) * 0.28
+            + sin(x * 41.0 + t * 6.7 + s * 1.7) * 0.17;
+    float amp = uFlaeche.w * 0.5 * (0.07 + uPegel * 0.93) * fenster * (0.45 + 0.55 * s);
+    float streuung = (aSeed - 0.5) * (2.0 + uPegel * 7.0) * fenster;
+    vec2 p = vec2(uFlaeche.x + x * uFlaeche.z, uFlaeche.y + uFlaeche.w * 0.5 + y * amp + streuung);
+    gl_Position = vec4(p.x / uBild.x * 2.0 - 1.0, 1.0 - p.y / uBild.y * 2.0, 0.0, 1.0);
+    gl_PointSize = (1.1 + aSeed * 1.7 + uPegel * 1.3) * uPixelRatio;
+    // Farben der laufenden Branche entlang der Welle; spricht die anrufende Person, wird sie heller
+    vFarbe = mix(mix(uFarbeA, uFarbeB, x), vec3(1.0, 0.92, 0.85), uSprecher * 0.55);
+    // An den Enden liegen alle Stränge übereinander: dort fast durchsichtig, sonst wird der Rand grell
+    vAlpha = 0.04 + 0.8 * fenster;
+  }
+`;
+
+const WELLE_FRAGMENT = /* glsl */ `
+  precision highp float;
+  varying vec3 vFarbe;
+  varying float vAlpha;
+  void main() {
+    float r = length(gl_PointCoord - 0.5) * 2.0;
+    float a = smoothstep(1.0, 0.0, r) * vAlpha;
+    if (a <= 0.003) discard;
+    gl_FragColor = vec4(vFarbe, a);
+  }
+`;
+
 /** Gleichmässig verteilte Punkte auf einer Kugel (Fibonacci-Spirale) */
 function kugelPunkte(n: number, radius: number): Float32Array {
   const a = new Float32Array(n * 3);
@@ -137,6 +188,10 @@ export class Klangkoerper {
   private hofMat: THREE.ShaderMaterial;
   private sterne: THREE.Points;
   private sterneMat: THREE.ShaderMaterial;
+  private welle: THREE.Points;
+  private welleMat: THREE.ShaderMaterial;
+  private welleSichtbar = false;
+  private sprecherWert = 0;
   private opts: Optionen;
   private bild = 0;
   private laeuft = false;
@@ -250,6 +305,49 @@ export class Klangkoerper {
     this.kugel.frustumCulled = false;
     this.scene.add(this.kugel);
 
+    // ---------- Schallwelle (Handy) ----------
+    const straenge = 7;
+    const proStrang = opts.lowPower ? 220 : 400;
+    const wn = straenge * proStrang;
+    const aX = new Float32Array(wn);
+    const aStrang = new Float32Array(wn);
+    const aSeed = new Float32Array(wn);
+    for (let st = 0; st < straenge; st++) {
+      for (let i = 0; i < proStrang; i++) {
+        const k = st * proStrang + i;
+        aX[k] = (i + Math.random()) / proStrang;
+        aStrang[k] = st / (straenge - 1);
+        aSeed[k] = Math.random();
+      }
+    }
+    const wGeo = new THREE.BufferGeometry();
+    wGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(wn * 3), 3));
+    wGeo.setAttribute("aX", new THREE.BufferAttribute(aX, 1));
+    wGeo.setAttribute("aStrang", new THREE.BufferAttribute(aStrang, 1));
+    wGeo.setAttribute("aSeed", new THREE.BufferAttribute(aSeed, 1));
+    this.welleMat = new THREE.ShaderMaterial({
+      vertexShader: WELLE_VERTEX,
+      fragmentShader: WELLE_FRAGMENT,
+      transparent: true,
+      depthWrite: false,
+      depthTest: false,
+      blending: THREE.AdditiveBlending,
+      uniforms: {
+        uZeit: { value: 0 },
+        uPegel: { value: 0 },
+        uFlaeche: { value: new THREE.Vector4(0, -9999, 1, 1) },
+        uBild: { value: new THREE.Vector2(1, 1) },
+        uPixelRatio: { value: this.renderer.getPixelRatio() },
+        uFarbeA: { value: this.farbeA },
+        uFarbeB: { value: this.farbeB },
+        uSprecher: { value: 0 },
+      },
+    });
+    this.welle = new THREE.Points(wGeo, this.welleMat);
+    this.welle.frustumCulled = false;
+    this.welle.visible = false;
+    this.scene.add(this.welle);
+
     this.camera.position.set(0, 0, 11);
     this.resize();
   }
@@ -296,6 +394,19 @@ export class Klangkoerper {
     this.anstossen();
   }
 
+  /**
+   * Fläche der Schallwelle in CSS-Pixeln des Fensters; `null` blendet sie aus (Desktop zeigt die Kugel).
+   */
+  setWelle(f: { links: number; oben: number; breite: number; hoehe: number } | null) {
+    if (!f) {
+      this.welleSichtbar = false;
+    } else {
+      (this.welleMat.uniforms.uFlaeche.value as THREE.Vector4).set(f.links, f.oben, f.breite, f.hoehe);
+      this.welleSichtbar = f.oben + f.hoehe > 0 && f.oben < window.innerHeight;
+    }
+    this.anstossen();
+  }
+
   /** Scrollposition in Pixeln; die Sterne wandern in Ebenen mit, im Hero leiser als auf der restlichen Seite */
   setScroll(y: number, imHero: boolean) {
     this.scroll = y;
@@ -311,6 +422,7 @@ export class Klangkoerper {
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
     this.sterneMat.uniforms.uSeite.value = w / h;
+    (this.welleMat.uniforms.uBild.value as THREE.Vector2).set(w, h);
     this.anstossen();
   }
 
@@ -329,7 +441,7 @@ export class Klangkoerper {
 
   /** Handy ohne sichtbare Kugel: keine Dauerschleife, das spart Akku */
   private darfRuhen() {
-    return this.opts.lowPower && !this.kugelSichtbar;
+    return this.opts.lowPower && !this.kugelSichtbar && !this.welleSichtbar;
   }
 
   private anstossen() {
@@ -387,6 +499,16 @@ export class Klangkoerper {
       (this.hofMat.uniforms.uFarbe.value as THREE.Color).copy(this.farbeA);
     }
 
+    // ---------- Schallwelle ----------
+    this.welle.visible = this.welleSichtbar;
+    if (this.welleSichtbar) {
+      this.sprecherWert += ((this.sprecher === "Anrufer" ? 1 : 0) - this.sprecherWert) * weich;
+      const w = this.welleMat.uniforms;
+      w.uZeit.value = this.zeit;
+      w.uPegel.value = this.pegel;
+      w.uSprecher.value = this.sprecherWert;
+    }
+
     // ---------- Sterne ----------
     const s = this.sterneMat.uniforms;
     s.uZeit.value = this.zeit;
@@ -407,6 +529,8 @@ export class Klangkoerper {
     this.kugelMat.dispose();
     this.hof.geometry.dispose();
     this.hofMat.dispose();
+    this.welle.geometry.dispose();
+    this.welleMat.dispose();
     this.sterne.geometry.dispose();
     this.sterneMat.dispose();
     this.renderer.dispose();

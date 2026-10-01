@@ -73,6 +73,8 @@ html:not(.mit-3d) .hero .demo::before {
   filter: blur(40px); opacity: 0.55; animation: atmen 7s ease-in-out infinite;
 }
 @keyframes atmen { 50% { transform: scale(1.08); opacity: 0.7; } }
+/* Handy: dort steht statt der Kugel die Schallwelle; ohne WebGL bleibt der Platz ruhig leer */
+@media (max-width: 960px) { html:not(.mit-3d) .hero .demo::before { display: none; } }
 .lesefortschritt { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 3px; background: linear-gradient(90deg, var(--glut), var(--amber), var(--violett)); transform-origin: left; transform: scaleX(0); pointer-events: none; }
 @supports (animation-timeline: scroll()) {
   .lesefortschritt { animation: fortschritt linear both; animation-timeline: scroll(root); }

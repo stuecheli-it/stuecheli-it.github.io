@@ -7,7 +7,8 @@ import { stimmeHoeren } from "@/lib/stimme";
 /**
  * Feste 3D-Bühne hinter der Seite: der Sternenhimmel über die ganze Seite, die sprechende Kugel nur im Hero.
  * Die Kugel sitzt in der Demo-Spalte des Heros und scrollt mit ihm weg; sie folgt dem Besucher nicht.
- * Ohne WebGL leuchtet eine CSS-Kugel im Hero, mit «Bewegung reduzieren» bleibt ein ruhiges Standbild.
+ * Auf dem Handy (gestapeltes Layout bis 960 px) spricht statt der Kugel die Schallwelle aus Website 2.2.
+ * Ohne WebGL leuchtet am Desktop eine CSS-Kugel im Hero, mit «Bewegung reduzieren» bleibt ein ruhiges Standbild.
  */
 export default function Klangbuehne() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -40,6 +41,7 @@ export default function Klangbuehne() {
           const h = window.innerHeight;
           if (!hero || !demo) {
             k.setKugel(-9999, -9999, 0.1);
+            k.setWelle(null);
             k.setScroll(window.scrollY, false);
             return;
           }
@@ -47,12 +49,14 @@ export default function Klangbuehne() {
           if (window.innerWidth > 960) {
             const groesse = Math.min(h * 0.62, d.height * 0.85, d.width * 1.05);
             k.setKugel(d.left + d.width / 2, d.top + d.height * 0.47, groesse / h);
+            k.setWelle(null);
           } else {
-            // Freier Raum zwischen den Branchen-Knöpfen (oben, rund 48 px) und dem Untertitel
+            // Handy: statt der Kugel die Schallwelle im freien Raum zwischen den Branchen-Knöpfen
+            // (oben, rund 48 px) und dem Untertitel
             const oben = buehne ? parseFloat(getComputedStyle(buehne).paddingTop) || 300 : 300;
             const frei = oben - 48;
-            const groesse = Math.min(frei * 0.92, window.innerWidth * 0.78);
-            k.setKugel(window.innerWidth / 2, d.top + 48 + frei / 2, groesse / h);
+            k.setKugel(-9999, -9999, 0.1);
+            k.setWelle({ links: d.left, oben: d.top + 48 + frei * 0.1, breite: d.width, hoehe: frei * 0.8 });
           }
           k.setScroll(window.scrollY, hero.getBoundingClientRect().bottom > h * 0.5);
         };

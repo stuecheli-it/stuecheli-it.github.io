@@ -9,6 +9,13 @@ Gearbeitet wird seit 01.10.2026 im Zweig `v2.4` (Stand fdb9f94 und neuer). Der Z
 auf dem älteren Stand cc8c894. Die Live-Seite ändert sich erst, wenn `v2.4` in `main` übernommen wird,
 denn nur ein Push auf `main` veröffentlicht (Workflow «Website veröffentlichen»).
 
+## In Arbeit: nach 2.4.0 (01.10.2026, noch nicht veröffentlicht)
+
+- [x] **Handy: Schallwelle statt Kugel.** Die kleine Kugel wirkte auf dem Handy fehl am Platz (Rückmeldung des Inhabers).
+      Bis 960 px Breite spricht jetzt die Schallwelle aus Punkten von Website 2.2 (im selben WebGL-Bild wie die Sterne,
+      Farben der laufenden Branche, heller bei der anrufenden Person, Enden weich auslaufend). Desktop behält die Kugel.
+      Ohne WebGL bleibt der Platz auf dem Handy leer statt einer CSS-Kugel.
+
 ## Erledigt: Gesamtbeurteilung umgesetzt (30.09.2026 abends, noch nicht veröffentlicht)
 
 Fünfte Kritik: 25/36 (69 %, Bericht in `.impeccable/critique/2026-09-30T21-14-22Z__app-page-tsx.md`). Wunsch des
